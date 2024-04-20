@@ -1,0 +1,23 @@
+{
+  "name": "Prices IN Egypt",
+  "short_name": "Prices IN Egypt",
+  "display": "standalone",
+  "background_color": "#a28a00",
+  "icons": [
+    {
+      "src": "/files/imgs/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/files/imgs/logo.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "/files/imgs/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

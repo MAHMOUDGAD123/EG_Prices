@@ -1,0 +1,522 @@
+/* Global rules Start */
+
+/* en */
+@font-face {
+  font-family: "en_font";
+  src: url("../files/fonts/Madimi_One/MadimiOne-Regular.woff2") format("woff2"),
+    url("../files/fonts/Madimi_One/MadimiOne-Regular.woff") format("woff");
+  font-weight: 100 1000;
+  font-display: swap;
+}
+/* ar */
+@font-face {
+  font-family: "ar_font";
+  src: url("../files/fonts/ElMessiri/ElMessiri-VariableFont_wght.woff2")
+      format("woff2"),
+    url("../files/fonts/ElMessiri/ElMessiri-VariableFont_wght.woff")
+      format("woff");
+  font-weight: 100 1000;
+  font-display: swap;
+}
+/* ar cairo */
+@font-face {
+  font-family: "cairo";
+  src: url("../files/fonts/Cairo/Cairo-VariableFont_slnt_wght.woff2")
+      format("woff2"),
+    url("../files/fonts/Cairo/Cairo-VariableFont_slnt_wght.woff") format("woff");
+  font-weight: 100 1000;
+  font-display: swap;
+}
+
+:root {
+  --border-rad: 15px;
+  --padding: 10px;
+  --red1: #f00;
+  --red2: #8e0000;
+  --red3: #ff000070;
+  --red4: #3e0000;
+  --gold1: #ffd700;
+  --gold2: #a28a00;
+  --gold3: #ffd90070;
+  --white1: #ffffff;
+  --white2: #ffffffbd;
+  --black1: #000;
+  --black2: #333;
+
+  --en_font: "en_font";
+  --ar_font: "ar_font";
+  --transition: 500ms;
+}
+
+html {
+  scroll-behavior: smooth;
+  color: var(--white1);
+  background-color: var(--black1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  scrollbar-width: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  /* hide the scrollbar */
+  display: none;
+}
+
+body {
+  height: 100dvh;
+  background-color: #222;
+  font-family: var(--en_font), monospace;
+  gap: 10px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+
+  &.ar {
+    direction: rtl;
+    font-family: var(--ar_font), monospace;
+  }
+}
+
+/* Global rules End */
+
+.switch {
+  --w: 35px;
+  width: var(--w);
+  aspect-ratio: 1 / 0.5;
+  background-color: transparent;
+  border: 3px solid var(--gold1);
+  border-radius: 100px;
+  position: relative;
+  transition-property: background-color;
+  transition-duration: var(--transition);
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -120% -50%;
+    width: calc(var(--w) * 0.3);
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: var(--gold1);
+    transition-property: translate, background-color;
+    transition-duration: inherit;
+  }
+
+  &.on {
+    background-color: var(--gold1);
+
+    &::before {
+      translate: 20% -50%;
+      background-color: var(--red2);
+    }
+  }
+}
+
+.clock {
+  display: flex;
+  align-items: center;
+  font-family: var(--en_font);
+  gap: 7px;
+
+  & > .time {
+    display: flex;
+    align-items: center;
+    direction: ltr;
+    color: var(--white1);
+
+    & > * {
+      width: 18px;
+    }
+  }
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 7px;
+  color: var(--white1);
+
+  & > .info {
+    display: flex;
+    position: relative;
+    top: 2px;
+    gap: 7px;
+  }
+}
+
+i.bad-net {
+  position: absolute;
+  color: var(--green2);
+  animation: blink 0.5s linear 0.5s infinite alternate;
+  display: none;
+}
+
+i.icon {
+  color: var(--white2);
+}
+
+header {
+  & > .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    & > .txt {
+      display: flex;
+      gap: 1px;
+      font-size: 2rem;
+      position: relative;
+      letter-spacing: -0.7px;
+
+      & > span:first-child {
+        color: var(--red1);
+      }
+      & > span:last-child {
+        color: var(--gold1);
+      }
+
+      &.ar {
+        flex-direction: row-reverse;
+        top: 3px;
+
+        & > span:first-child {
+          color: var(--red1);
+        }
+        & > span:last-child {
+          color: var(--gold1);
+        }
+      }
+    }
+  }
+}
+@media (width < 600px) {
+  header > .logo > .txt {
+    font-size: 1.5rem;
+  }
+}
+@media (width < 450px) {
+  header > .logo > .txt {
+    font-size: 1.2rem;
+  }
+}
+
+main {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+  border-radius: var(--border-rad);
+  overflow: hidden;
+  position: relative;
+
+  & > .content {
+    flex: 1;
+    border-radius: var(--border-rad);
+    position: relative;
+    padding: var(--padding);
+    /* background-color: var(--gold3); */
+    /* background-image: linear-gradient(transparent, var(--gold3)); */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & > .clock-settings {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--white1);
+
+      & > #settings_page_btn {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border: none;
+        outline: none;
+
+        & > i {
+          transition: transform var(--transition);
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--white2);
+        }
+
+        &:is(:hover, :focus-visible) > i {
+          color: var(--gold1);
+        }
+
+        &.picked {
+          & > i {
+            transform: rotateZ(180deg);
+            color: var(--gold1);
+          }
+        }
+      }
+    }
+
+    & > .page-wrapper {
+      position: relative;
+      flex: 1;
+
+      & > .page {
+        width: 100%;
+        height: 100%;
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+
+        & [data-val] {
+          font-family: "cairo";
+        }
+
+        & > .top-list {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+
+          & > .item {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 10px;
+            background-image: linear-gradient(var(--red2), var(--red4));
+            padding: var(--padding);
+            border-radius: var(--border-rad);
+            max-width: 170px;
+
+            & > .asset {
+              color: var(--gold1);
+            }
+            & > .value {
+              color: var(--white1);
+            }
+            & > .unit {
+              color: var(--white2);
+            }
+          }
+        }
+
+        & > .t-wrapper {
+          overflow-y: scroll;
+          border-radius: var(--border-rad);
+
+          & > table {
+            width: 100%;
+            border-spacing: 2px;
+            font-family: "cairo";
+
+            & th[scope="col"] {
+              background-color: var(--red2);
+              color: var(--gold1);
+
+              & > .unit {
+                font-size: 12px;
+                color: var(--white2);
+
+                &::before {
+                  content: "( ";
+                }
+                &::after {
+                  content: " )";
+                }
+              }
+            }
+            & th[scope="row"] {
+              background-color: var(--gold2);
+            }
+            & td {
+              background-color: var(--gold3);
+              padding: 6px;
+            }
+
+            & > tbody > tr:hover > * {
+              background-color: var(--gold1);
+              color: var(--black1);
+            }
+
+            & > thead {
+              position: sticky;
+              top: 0;
+            }
+          }
+        }
+      }
+
+      & > #settingsPage {
+        border-radius: var(--border-rad);
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        background-color: var(--red2);
+        width: 75%;
+        height: 30%;
+        display: none;
+
+        & > .option {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          direction: ltr;
+        }
+
+        & > .copy {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          justify-content: center;
+
+          & > span:nth-child(1) {
+            color: var(--gold1);
+          }
+          & > span:nth-child(2) {
+            color: var(--white1);
+          }
+          & > span:nth-child(3) {
+            color: var(--gold1);
+          }
+        }
+      }
+    }
+  }
+
+  & > nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    color: var(--white1);
+    padding-block: 5px;
+    background-color: var(--gold3);
+    padding: 7px;
+    border-radius: var(--border-rad);
+
+    & > * {
+      border-radius: var(--border-rad);
+      width: 80px;
+      height: 75px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      outline: none;
+      border: none;
+
+      &:focus-visible {
+        outline: 2px solid var(--white2);
+      }
+
+      &:hover {
+        background-color: var(--gold3);
+      }
+
+      &.picked {
+        background-color: var(--red2);
+        color: var(--gold1);
+      }
+
+      & > i {
+        font-size: 1.3rem;
+      }
+
+      & > .txt {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+@media (width < 600px) {
+  main {
+    /* vertical mode */
+    flex-direction: column-reverse;
+    gap: 3px;
+
+    & > nav {
+      /* horizontal mode */
+      flex-direction: row;
+      gap: 7px;
+
+      & > * {
+        width: 75px;
+        height: 65px;
+
+        & > i {
+          font-size: 1rem;
+        }
+
+        & > .txt {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+@media (width < 450px) {
+  main > nav {
+    gap: 5px;
+
+    & > * {
+      width: 70px;
+      height: 60px;
+
+      & > i {
+        font-size: 0.8rem;
+      }
+
+      & > .txt {
+        font-size: 0.6rem;
+      }
+    }
+  }
+}
+
+/* animation keyframes */
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: z 360deg;
+  }
+}
+
+@keyframes r-spin {
+  to {
+    rotate: z -360deg;
+  }
+}
