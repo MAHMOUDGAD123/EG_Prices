@@ -240,21 +240,18 @@ settings_switches.forEach((action_fun, switch_id) => {
 {
   const content = document.querySelector(".content");
 
-  const change_page = (e) => {
+  const change_page = (e, curr_pointer_x) => {
     e.preventDefault();
-    const curr_pointer_x = e.pageX;
     const distance = pointer_x - curr_pointer_x;
     const curr_page_num = +curr_page.dataset.num;
     const is_page = curr_page_num !== 0;
 
-    if (Math.abs(distance) >= 100 && e.pointerType === "touch" && is_page) {
+    if (Math.abs(distance) >= 100 && is_page) {
       // distance > 0 -> sliding right
       // distance < 0 -> sliding left
       const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
       const num = curr_page_num + dir;
       const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
-      // console.log("distance:", distance);
-      // console.log("next_page:", page_num);
 
       const page = document.querySelector(`[data-num="${page_num}"]`);
       curr_page.style.display = "none";
@@ -269,15 +266,23 @@ settings_switches.forEach((action_fun, switch_id) => {
   };
 
   content.addEventListener("pointerdown", (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     pointer_x = e.pageX;
-    console.log("pointerdown event fired");
+    // console.log("pointerdown event fired");
   });
 
-  content.addEventListener("pointerup", (e) => {
-    console.log("pointerup event fired");
-    change_page(e);
-  });
+  // if chrome use touchend event
+  if (navigator.userAgent.indexOf("Chrome") > -1) {
+    content.addEventListener("touchend", (e) => {
+      // console.log("touchend event fired");
+      change_page(e, e.changedTouches[0].pageX);
+    });
+  } else {
+    content.addEventListener("pointerup", (e) => {
+      // console.log("pointerup event fired");
+      change_page(e, e.pageX);
+    });
+  }
 }
 
 //========================== Events End ==========================
