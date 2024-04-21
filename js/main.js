@@ -236,44 +236,44 @@ settings_switches.forEach((action_fun, switch_id) => {
   });
 });
 
+// change page by silding effect events
 {
   const content = document.querySelector(".content");
 
-  content.addEventListener("pointerdown", (e) => {
-    // e.preventDefault();
-    pointer_x = e.pageX;
-  });
-
-  const change_page = (page_num) => {
-    const page = document.querySelector(`[data-num="${page_num}"]`);
-    curr_page.style.display = "none";
-    page.style.display = "flex";
-    const btn = document.getElementById(page_btn.get(page.id));
-    document
-      .getElementById(page_btn.get(curr_page.id))
-      .classList.remove("picked");
-    btn.classList.add("picked");
-    curr_page = page;
-  };
-
-  content.addEventListener("pointerup", (e) => {
-    // e.preventDefault();
+  const change_page = (e) => {
+    e.preventDefault();
     const curr_pointer_x = e.pageX;
     const distance = pointer_x - curr_pointer_x;
     const curr_page_num = +curr_page.dataset.num;
     const is_page = curr_page_num !== 0;
 
-    if (Math.abs(distance) >= 100 && is_page) {
+    if (Math.abs(distance) >= 100 && e.pointerType === "touch" && is_page) {
       // distance > 0 -> sliding right
       // distance < 0 -> sliding left
       const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
       const num = curr_page_num + dir;
       const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
-      change_page(page_num);
       console.log("next_page:", page_num);
       console.log("distance:", distance);
+
+      const page = document.querySelector(`[data-num="${page_num}"]`);
+      curr_page.style.display = "none";
+      page.style.display = "flex";
+      const btn = document.getElementById(page_btn.get(page.id));
+      document
+        .getElementById(page_btn.get(curr_page.id))
+        .classList.remove("picked");
+      btn.classList.add("picked");
+      curr_page = page;
     }
+  };
+
+  content.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    pointer_x = e.pageX;
   });
+
+  content.addEventListener("pointerup", change_page);
 }
 
 //========================== Events End ==========================
