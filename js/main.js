@@ -253,8 +253,8 @@ settings_switches.forEach((action_fun, switch_id) => {
       const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
       const num = curr_page_num + dir;
       const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
-      console.log("next_page:", page_num);
-      console.log("distance:", distance);
+      // console.log("distance:", distance);
+      // console.log("next_page:", page_num);
 
       const page = document.querySelector(`[data-num="${page_num}"]`);
       curr_page.style.display = "none";
@@ -269,11 +269,15 @@ settings_switches.forEach((action_fun, switch_id) => {
   };
 
   content.addEventListener("pointerdown", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     pointer_x = e.pageX;
+    console.log("pointerdown event fired");
   });
 
-  content.addEventListener("pointerup", change_page);
+  content.addEventListener("pointerup", (e) => {
+    console.log("pointerup event fired");
+    change_page(e);
+  });
 }
 
 //========================== Events End ==========================
