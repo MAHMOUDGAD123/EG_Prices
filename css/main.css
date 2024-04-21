@@ -233,8 +233,6 @@ main {
     border-radius: var(--border-rad);
     position: relative;
     padding: var(--padding);
-    /* background-color: var(--gold3); */
-    /* background-image: linear-gradient(transparent, var(--gold3)); */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -278,9 +276,9 @@ main {
       flex: 1;
 
       & > .page {
+        display: none;
         width: 100%;
         height: 100%;
-        display: none;
         flex-direction: column;
         gap: 20px;
         position: absolute;

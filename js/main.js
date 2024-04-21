@@ -5,6 +5,8 @@
 let run = true;
 let curr_page = null;
 let ar = true; // en: false | ar: true
+let pointer_x = 0;
+const page_count = 6;
 
 const en_ar = new Map([
   // weekdays
@@ -233,5 +235,45 @@ settings_switches.forEach((action_fun, switch_id) => {
     }
   });
 });
+
+{
+  const content = document.querySelector(".content");
+
+  content.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    pointer_x = e.pageX;
+  });
+
+  const change_page = (page_num) => {
+    const page = document.querySelector(`[data-num="${page_num}"]`);
+    curr_page.style.display = "none";
+    page.style.display = "flex";
+    const btn = document.getElementById(page_btn.get(page.id));
+    document
+      .getElementById(page_btn.get(curr_page.id))
+      .classList.remove("picked");
+    btn.classList.add("picked");
+    curr_page = page;
+  };
+
+  content.addEventListener("pointerup", (e) => {
+    e.preventDefault();
+    const curr_pointer_x = e.pageX;
+    const distance = pointer_x - curr_pointer_x;
+    const curr_page_num = +curr_page.dataset.num;
+    const is_page = curr_page_num !== 0;
+
+    if (Math.abs(distance) >= 100 && is_page) {
+      // distance > 0 -> sliding right
+      // distance < 0 -> sliding left
+      const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
+      const num = curr_page_num + dir;
+      const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
+      change_page(page_num);
+      console.log("next_page:", page_num);
+      console.log("distance:", distance);
+    }
+  });
+}
 
 //========================== Events End ==========================

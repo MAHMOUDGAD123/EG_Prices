@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./files/flaticon-uicons/css/all/all.css" />
     <script src="./js/time.js" defer></script>
-    <script src="./js/main.mjs" type="module" defer></script>
+    <script src="./js/main.js" type="module" defer></script>
     <title>EG_Prices</title>
   </head>
   <body>
@@ -104,7 +104,7 @@
 
         <!-- Pages Start -->
         <div class="page-wrapper">
-          <div id="settingsPage">
+          <div id="settingsPage" data-num="0">
             <div class="language option">
               <span data-en="English"></span>
               <div class="switch" id="langSwitch" tabindex="0"></div>
@@ -117,7 +117,7 @@
             </div>
           </div>
 
-          <div id="goldPage" class="page">
+          <div id="goldPage" class="page" data-num="1">
             <div class="top-list">
               <div class="item">
                 <div class="asset" data-en="Gold Ounce"></div>
@@ -204,7 +204,7 @@
             </div>
           </div>
 
-          <div id="silverPage" class="page">
+          <div id="silverPage" class="page" data-num="2">
             <div class="top-list">
               <div class="item">
                 <div class="asset" data-en="Silver Ounce"></div>
@@ -286,7 +286,7 @@
             </div>
           </div>
 
-          <div id="bankPage" class="page">
+          <div id="bankPage" class="page" data-num="3">
             <div class="top-list">
               <div class="item">
                 <div class="asset" data-en="US Dollar"></div>
@@ -418,7 +418,7 @@
             </div>
           </div>
 
-          <div id="marketPage" class="page">
+          <div id="marketPage" class="page" data-num="4">
             <div class="top-list">
               <div class="item">
                 <div class="asset" data-en="US Dollar"></div>
@@ -550,7 +550,7 @@
             </div>
           </div>
 
-          <div id="gasolinePage" class="page">
+          <div id="gasolinePage" class="page" data-num="5">
             <div class="t-wrapper">
               <table>
                 <thead>
@@ -599,6 +599,7 @@
             id="calculatorPage"
             class="page"
             data-en="Calculator"
+            data-num="6"
             style="
               background-color: var(--red3);
               place-content: center;
