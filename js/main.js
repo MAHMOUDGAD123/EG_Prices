@@ -245,7 +245,7 @@ settings_switches.forEach((action_fun, switch_id) => {
     const curr_page_num = +curr_page.dataset.num;
     const is_page = curr_page_num !== 0;
 
-    if (Math.abs(distance) >= 100 && is_page) {
+    if (Math.abs(distance) >= 90 && is_page) {
       // distance > 0 -> sliding right
       // distance < 0 -> sliding left
       const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
@@ -260,25 +260,23 @@ settings_switches.forEach((action_fun, switch_id) => {
         .getElementById(page_btn.get(curr_page.id))
         .classList.remove("picked");
       btn.classList.add("picked");
+
       curr_page = page;
     }
   };
 
   content.addEventListener("pointerdown", (e) => {
     pointer_x = e.pageX;
-    // console.log("pointerdown event fired");
   });
 
   // if chrome use touchend event
   if (navigator.userAgent.indexOf("Chrome") > -1) {
     content.addEventListener("touchend", (e) => {
       change_page(e, e.changedTouches[0].pageX);
-      // console.log("touchend event fired");
     });
   } else {
     content.addEventListener("pointerup", (e) => {
       change_page(e, e.pageX);
-      // console.log("pointerup event fired");
     });
   }
 }

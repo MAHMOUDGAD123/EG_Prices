@@ -37,7 +37,8 @@
   --red4: #3e0000;
   --gold1: #ffd700;
   --gold2: #a28a00;
-  --gold3: #ffd90070;
+  --gold3: #ffd9007d;
+  --gold4: #ffd9005f;
   --white1: #ffffff;
   --white2: #ffffffbd;
   --black1: #000;
@@ -344,7 +345,7 @@ main {
               background-color: var(--gold2);
             }
             & td {
-              background-color: var(--gold3);
+              background-color: var(--gold4);
               padding: 6px;
             }
 
@@ -431,11 +432,12 @@ main {
 
       &:focus-visible {
         outline: 2px solid var(--white2);
-      }
-
-      &:hover {
         background-color: var(--gold3);
       }
+
+      /* &:hover {
+        background-color: var(--gold4);
+      } */
 
       &.picked {
         background-color: var(--red2);
