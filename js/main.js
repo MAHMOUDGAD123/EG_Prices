@@ -241,7 +241,6 @@ settings_switches.forEach((action_fun, switch_id) => {
   const content = document.querySelector(".content");
 
   const change_page = (e, curr_pointer_x) => {
-    e.preventDefault();
     const distance = pointer_x - curr_pointer_x;
     const curr_page_num = +curr_page.dataset.num;
     const is_page = curr_page_num !== 0;
@@ -266,7 +265,6 @@ settings_switches.forEach((action_fun, switch_id) => {
   };
 
   content.addEventListener("pointerdown", (e) => {
-    e.preventDefault();
     pointer_x = e.pageX;
     // console.log("pointerdown event fired");
   });
@@ -274,13 +272,13 @@ settings_switches.forEach((action_fun, switch_id) => {
   // if chrome use touchend event
   if (navigator.userAgent.indexOf("Chrome") > -1) {
     content.addEventListener("touchend", (e) => {
-      // console.log("touchend event fired");
       change_page(e, e.changedTouches[0].pageX);
+      // console.log("touchend event fired");
     });
   } else {
     content.addEventListener("pointerup", (e) => {
-      // console.log("pointerup event fired");
       change_page(e, e.pageX);
+      // console.log("pointerup event fired");
     });
   }
 }
