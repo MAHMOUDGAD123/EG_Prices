@@ -240,7 +240,7 @@ settings_switches.forEach((action_fun, switch_id) => {
   const content = document.querySelector(".content");
 
   content.addEventListener("pointerdown", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     pointer_x = e.pageX;
   });
 
@@ -257,7 +257,7 @@ settings_switches.forEach((action_fun, switch_id) => {
   };
 
   content.addEventListener("pointerup", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const curr_pointer_x = e.pageX;
     const distance = pointer_x - curr_pointer_x;
     const curr_page_num = +curr_page.dataset.num;
