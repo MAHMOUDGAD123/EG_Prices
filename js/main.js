@@ -136,7 +136,7 @@ const bad_internet = () => {
 //===================== initialization Start ======================
 // set the initial page
 curr_page = document.getElementById("goldPage");
-curr_page.style.display = "flex";
+curr_page.classList.add("picked");
 document.getElementById(page_btn.get(curr_page.id)).classList.add("picked");
 
 set_lang();
@@ -145,8 +145,7 @@ set_lang();
 (async () => {
   if (run) {
     // get data from api
-    // const res = await fetch("http://localhost:3000/");
-    const res = await fetch("../prices.json");
+    const res = await fetch("https://eg-prices-api.vercel.app/");
 
     if (res.ok) {
       const data = await res.json();
@@ -190,7 +189,7 @@ function set_lang() {
 
 function set_data(data) {
   document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent = data[el.dataset.val];
+    el.textContent = data[el.dataset.val] || "-";
   });
 }
 
@@ -204,8 +203,8 @@ page_btn.forEach((btn_id, page_id, map) => {
 
   const set_page = () => {
     if (page !== curr_page) {
-      page.style.display = "flex";
-      curr_page.style.display = "none";
+      curr_page.classList.remove("picked");
+      page.classList.add("picked");
       btn.classList.add("picked");
       document.getElementById(map.get(curr_page.id)).classList.remove("picked");
       curr_page = page;
@@ -240,7 +239,7 @@ settings_switches.forEach((action_fun, switch_id) => {
 {
   const content = document.querySelector(".content");
 
-  const change_page = (e, curr_pointer_x) => {
+  const change_page = (curr_pointer_x) => {
     const distance = pointer_x - curr_pointer_x;
     const curr_page_num = +curr_page.dataset.num;
     const is_page = curr_page_num !== 0;
@@ -253,8 +252,8 @@ settings_switches.forEach((action_fun, switch_id) => {
       const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
 
       const page = document.querySelector(`[data-num="${page_num}"]`);
-      curr_page.style.display = "none";
-      page.style.display = "flex";
+      curr_page.classList.remove("picked");
+      page.classList.add("picked");
       const btn = document.getElementById(page_btn.get(page.id));
       document
         .getElementById(page_btn.get(curr_page.id))
@@ -272,11 +271,11 @@ settings_switches.forEach((action_fun, switch_id) => {
   // if chrome use touchend event
   if (navigator.userAgent.indexOf("Chrome") > -1) {
     content.addEventListener("touchend", (e) => {
-      change_page(e, e.changedTouches[0].pageX);
+      change_page(e.changedTouches[0].pageX);
     });
   } else {
     content.addEventListener("pointerup", (e) => {
-      change_page(e, e.pageX);
+      change_page(e.pageX);
     });
   }
 }
