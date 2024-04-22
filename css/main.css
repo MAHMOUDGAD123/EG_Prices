@@ -381,7 +381,6 @@ main {
         background-color: var(--red2);
         width: 75%;
         height: 30%;
-        display: none;
 
         & > .option {
           display: flex;
