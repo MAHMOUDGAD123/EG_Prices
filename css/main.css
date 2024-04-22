@@ -164,18 +164,14 @@ body {
   }
 }
 
-i.bad-net {
-  position: absolute;
-  color: var(--green2);
-  animation: blink 0.5s linear 0.5s infinite alternate;
-  display: none;
-}
-
 i.icon {
   color: var(--white2);
 }
 
 header {
+  transform: translateX(150%);
+  transition: transform 1s;
+
   & > .logo {
     display: flex;
     align-items: center;
@@ -229,6 +225,90 @@ main {
   overflow: hidden;
   position: relative;
 
+  & > :is(#badNetPage, #loadingPage) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-rad);
+    position: absolute;
+
+    left: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+  }
+
+  & > #badNetPage {
+    top: 50%;
+    transition: transform 1s;
+    transform: translateY(150%);
+
+    & > i {
+      font-size: 90px;
+      color: var(--gold1);
+      animation: blink 1s linear infinite alternate;
+    }
+
+    & > .msg {
+      color: var(--red1);
+      font-size: 1.5rem;
+    }
+  }
+
+  & > #loadingPage {
+    top: 35%;
+    transition: transform 1s;
+
+    & > .logo {
+      width: 50dvw;
+      max-width: 350px;
+      min-width: 150px;
+    }
+
+    & > #loading {
+      --w: 8px;
+      width: calc(15px + 1vw);
+      aspect-ratio: 1;
+      position: relative;
+      animation: r-spin infinite 1s linear;
+      border-radius: 100%;
+
+      & > :only-child {
+        background-color: #222;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        aspect-ratio: 1;
+        border-radius: 100%;
+        position: absolute;
+        left: 50%;
+        translate: -50% -50%;
+      }
+
+      &::before {
+        width: calc(100% + var(--w) * 2);
+        background-image: conic-gradient(var(--red1), transparent);
+        top: 50%;
+      }
+
+      &::after {
+        width: var(--w);
+        background-color: var(--red1);
+        transform: translateY(-50%);
+      }
+    }
+  }
+
   & > .content {
     flex: 1;
     border-radius: var(--border-rad);
@@ -237,6 +317,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    transform: translateX(150%);
+    transition: transform 1s 0.5s;
 
     & > .clock-settings {
       display: flex;
@@ -286,7 +368,7 @@ main {
         scale: 0 1;
 
         &.picked {
-          transition: scale var(--transition);
+          transition: scale 700ms;
           scale: 1 1;
         }
 
@@ -420,6 +502,8 @@ main {
     background-color: var(--gold3);
     padding: 7px;
     border-radius: var(--border-rad);
+    transform: translateY(150%);
+    transition: transform 1s 1s;
 
     & > * {
       border-radius: var(--border-rad);

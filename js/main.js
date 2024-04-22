@@ -7,6 +7,8 @@ let curr_page = null;
 let ar = true; // en: false | ar: true
 let pointer_x = 0;
 const page_count = 6;
+let loading = true;
+const initial_page = 1;
 
 const en_ar = new Map([
   // weekdays
@@ -56,6 +58,7 @@ const en_ar = new Map([
   ["Price", "السعر"],
   ["Type", "النوع"],
   ["liter", "لتر"],
+  ["Network Error", "تحقق من إتصالك بالإنترنت"],
 
   // Gold
   ["Gold Ounce", "أونصة الذهب"],
@@ -120,38 +123,63 @@ const page_btn = new Map([
   ["calculatorPage", "calculator_page_btn"],
 ]);
 
+const content = ["header", ".content", "nav"];
+
 // settings_switch_id => action_function
 const settings_switches = new Map([["langSwitch", set_lang]]);
 
-const bad_internet = () => {
-  const bad_net_icon = curr_page.querySelector("i.bad-net");
-  bad_net_icon.style.display = "block";
-
-  setTimeout(() => {
-    bad_net_icon.style.display = "none";
-  }, 2500);
+const pick_page = (page) => {
+  page.classList.add("picked");
+  document.getElementById(page_btn.get(page.id)).classList.add("picked");
 };
+
+const unpick_page = (page) => {
+  page.classList.remove("picked");
+  document.getElementById(page_btn.get(page.id)).classList.remove("picked");
+};
+
+const bad_internet = () => {
+  document.getElementById("badNetPage").style.transform = "none";
+};
+
 //===================== Data & tools End ======================
 
 //===================== initialization Start ======================
-// set the initial page
-curr_page = document.getElementById("goldPage");
-curr_page.classList.add("picked");
-document.getElementById(page_btn.get(curr_page.id)).classList.add("picked");
 
 set_lang();
 
 // data init
 (async () => {
   if (run) {
-    // get data from api
-    const res = await fetch("https://eg-prices-api.vercel.app/");
+    // show loading page
+    const loadingPage = document.getElementById("loadingPage");
+    loadingPage.style.display = "flex";
+    try {
+      // get data from api
+      const res = await fetch("https://eg-prices-api.vercel.app/");
 
-    if (res.ok) {
-      const data = await res.json();
-      set_data(data);
-    } else {
-      // bad_internet();
+      if (res.ok) {
+        const data = await res.json();
+        set_data(data);
+        // remove loading page
+        loadingPage.style.transform = "translateY(-150%)";
+        // set the initial page
+        curr_page = document.querySelector(`[data-num="${initial_page}"]`);
+        pick_page(curr_page);
+        // show content
+        content.forEach((sel) => {
+          document.querySelector(sel).style.transform = "none";
+        });
+      } else {
+        // remove loading page
+        loadingPage.style.transform = "translateY(-150%)";
+        bad_internet();
+      }
+    } catch (er) {
+      // remove loading page
+      loadingPage.style.transform = "translateY(-150%)";
+      console.error("Fetch Error ❌:", er.message);
+      bad_internet();
     }
   }
 })();
@@ -197,16 +225,15 @@ function set_data(data) {
 
 //========================= Events Start =========================
 // Pages Btns
+
 page_btn.forEach((btn_id, page_id, map) => {
   const page = document.getElementById(page_id);
   const btn = document.getElementById(btn_id);
 
   const set_page = () => {
     if (page !== curr_page) {
-      curr_page.classList.remove("picked");
-      page.classList.add("picked");
-      btn.classList.add("picked");
-      document.getElementById(map.get(curr_page.id)).classList.remove("picked");
+      unpick_page(curr_page);
+      pick_page(page);
       curr_page = page;
     }
   };
@@ -250,16 +277,9 @@ settings_switches.forEach((action_fun, switch_id) => {
       const dir = (distance > 0 ? 1 : -1) * (ar ? 1 : -1);
       const num = curr_page_num + dir;
       const page_num = num < 1 ? page_count : num > page_count ? 1 : num;
-
       const page = document.querySelector(`[data-num="${page_num}"]`);
-      curr_page.classList.remove("picked");
-      page.classList.add("picked");
-      const btn = document.getElementById(page_btn.get(page.id));
-      document
-        .getElementById(page_btn.get(curr_page.id))
-        .classList.remove("picked");
-      btn.classList.add("picked");
-
+      unpick_page(curr_page);
+      pick_page(page);
       curr_page = page;
     }
   };
