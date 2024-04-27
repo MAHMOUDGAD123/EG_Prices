@@ -437,11 +437,12 @@ main {
         height: 100%;
         gap: 20px;
         position: absolute;
-        scale: 0 1;
+        transform: rotateY(90deg);
+        transition: transform 100ms;
 
         &.picked {
-          transition: scale 700ms;
-          scale: 1 1;
+          transition: transform 1s;
+          transform: none;
         }
 
         & [data-val] {
