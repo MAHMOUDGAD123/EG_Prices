@@ -47,6 +47,7 @@
   --en_font: "en_font";
   --ar_font: "ar_font";
   --transition: 500ms;
+  --timing-fun: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 html {
@@ -94,6 +95,46 @@ body {
 }
 
 /* Global rules End */
+
+select {
+  font-family: inherit;
+}
+
+input[type="number"] {
+  font-family: var(--en_font);
+}
+
+select,
+input[type="number"] {
+  appearance: none;
+  outline: none;
+  border: none;
+  text-align: center;
+  caret-color: var(--red1);
+  width: 100%;
+  padding: 7px var(--padding);
+  border-radius: 100px;
+  color: var(--red2);
+  background-color: #e9e9ed;
+
+  &:is(:focus-visible, :focus) {
+    /* outline: 3px solid var(--gold1); */
+    box-shadow: 0 0 0 2px inset var(--red1);
+  }
+}
+
+label {
+  transition: color var(--transition);
+  text-align: start;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+
+  &:has(+ :is(*:focus, *:focus-visible)) {
+    color: var(--red1);
+  }
+}
 
 .switch {
   --w: 35px;
@@ -168,9 +209,23 @@ i.icon {
   color: var(--white2);
 }
 
+i.action {
+  cursor: pointer;
+  transition-property: color, scale;
+  transition-duration: var(--transition);
+  outline: none;
+  border: none;
+  color: var(--gold1);
+
+  &:is(:hover, :focus-visible) {
+    color: var(--red1);
+    scale: 1.2;
+  }
+}
+
 header {
   transform: translateX(150%);
-  transition: transform 1s;
+  transition: transform 1s var(--timing-fun);
 
   & > .logo {
     display: flex;
@@ -318,37 +373,54 @@ main {
     flex-direction: column;
     gap: 15px;
     transform: translateX(150%);
-    transition: transform 1s 0.5s;
+    transition: transform 1s 0.5s var(--timing-fun);
 
-    & > .clock-settings {
+    & > .clock-tools {
       display: flex;
       align-items: center;
       justify-content: space-between;
       color: var(--white1);
 
-      & > #settings_page_btn {
+      & > .tools {
         display: flex;
         align-items: center;
-        cursor: pointer;
-        border: none;
-        outline: none;
+        gap: 15px;
 
-        & > i {
-          transition: transform var(--transition);
-        }
+        & > * {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          border: none;
+          outline: none;
 
-        &:focus-visible {
-          outline: 2px solid var(--white2);
-        }
+          &.picked > i {
+            scale: 1.4;
+          }
 
-        &:is(:hover, :focus-visible) > i {
-          color: var(--gold1);
-        }
-
-        &.picked {
-          & > i {
-            transform: rotateZ(180deg);
+          &:is(:hover, :focus-visible) > i {
             color: var(--gold1);
+            scale: 1.4;
+          }
+
+          &#calculator_page_btn {
+            & > i {
+              transition: scale 0.5s;
+            }
+
+            &.picked > i {
+              animation: change-col infinite linear 1s alternate;
+            }
+          }
+
+          &#settings_page_btn {
+            & > i {
+              transition: rotate 1.5s, scale 0.5s;
+            }
+
+            &.picked > i {
+              color: var(--gold1);
+              rotate: z 1turn;
+            }
           }
         }
       }
@@ -360,9 +432,9 @@ main {
 
       & > .page {
         display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
-        flex-direction: column;
         gap: 20px;
         position: absolute;
         scale: 0 1;
@@ -429,9 +501,11 @@ main {
                 }
               }
             }
+
             & th[scope="row"] {
               background-color: var(--gold2);
             }
+
             & td {
               background-color: var(--gold4);
               padding: 6px;
@@ -476,6 +550,7 @@ main {
           gap: 5px;
           align-items: center;
           justify-content: center;
+          white-space: nowrap;
 
           & > span:nth-child(1) {
             color: var(--gold1);
@@ -488,6 +563,243 @@ main {
           }
         }
       }
+
+      & > #calculatorPage {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 25px;
+
+        & > .options {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+
+          & > * {
+            background-color: var(--gold4);
+            flex-basis: 95px;
+            padding: 5px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            position: relative;
+            contain: layout;
+            overflow: hidden;
+            border-radius: var(--border-rad);
+            max-width: 110px;
+
+            &::before {
+              content: "";
+              background-color: var(--red2);
+              width: 100%;
+              height: 100%;
+              scale: 0;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              translate: -50% -50%;
+              z-index: -1;
+              transition: scale var(--transition);
+              border-radius: var(--border-rad);
+            }
+
+            &.picked {
+              color: var(--gold1);
+
+              &::before {
+                scale: 1;
+              }
+            }
+
+            &:focus-visible {
+              outline: 2px solid var(--white2);
+              background-color: var(--gold3);
+            }
+
+            &:hover {
+              background-color: var(--gold2);
+            }
+          }
+        }
+
+        & > .calc-wrapper {
+          position: relative;
+          flex: 1;
+          overflow-y: scroll;
+
+          & > .calc {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: rotateX(90deg);
+            border-radius: var(--border-rad);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 35px;
+
+            &.picked {
+              transition: transform 1s;
+              transform: none;
+
+              & > .title {
+                padding-inline: 20px;
+                width: 200px;
+              }
+            }
+
+            & > .title {
+              color: var(--gold1);
+              border-inline: 10px solid;
+              border-block: 2px solid;
+              border-radius: 100px;
+              padding-block: 5px;
+              background-color: var(--red3);
+              white-space: nowrap;
+              overflow: hidden;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 35px;
+              width: 0px;
+              transition-property: width, padding, font-size;
+              transition-duration: 1s;
+              transition-delay: 0.3s;
+              font-size: 0.9rem;
+            }
+
+            & :is(.input, .select) {
+              width: 50%;
+              max-width: 200px;
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+            }
+
+            & > .result {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 7px;
+              outline: none;
+              border: none;
+              width: 100%;
+
+              & > .output {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--gold1);
+                width: 100%;
+                gap: 5px;
+
+                & > .calc_out {
+                  font-family: var(--en_font);
+                  word-break: break-all;
+                }
+
+                & > .unit {
+                  color: var(--red1);
+                }
+              }
+            }
+
+            /* non-Currency Calc */
+            &[data-calcType="0"] {
+              & > .input {
+                & > label {
+                  & > .unit {
+                    font-size: 0.65rem;
+                    color: var(--gold1);
+
+                    &::before {
+                      content: "( ";
+                    }
+                    &::after {
+                      content: " )";
+                    }
+                  }
+                }
+              }
+            }
+
+            /* Currency Calc */
+            &[data-calcType="1"] {
+              &.swapped {
+                & > .selections {
+                  flex-direction: row-reverse;
+                }
+              }
+
+              & > .from-to {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                font-size: 0.9rem;
+
+                & > i.reset {
+                  width: 45px;
+                }
+
+                & > :is(.from, .to) {
+                  color: var(--gold1);
+                  max-width: 200px;
+                  flex: 1;
+                }
+              }
+
+              & > :is(.selections, .inputs) {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+              }
+
+              & > .selections {
+                & > i.swap {
+                  cursor: pointer;
+                  transition: color var(--transition);
+                  outline: none;
+                  border: none;
+
+                  &:is(:hover, :focus-visible) {
+                    color: var(--red1);
+                    scale: 1.2;
+                  }
+                }
+
+                & > .select > select.one-option {
+                }
+              }
+
+              & > .inputs {
+                & > i {
+                  color: var(--gold1);
+                }
+              }
+
+              & > .result {
+                & > i {
+                  color: var(--white2);
+                  font-size: 0.8rem;
+                }
+
+                & > .output {
+                  max-width: 200px;
+                  flex-direction: column;
+                  justify-content: center;
+                  gap: 0;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -495,15 +807,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 25px;
+    justify-content: space-around;
     color: var(--white1);
     padding-block: 5px;
     background-color: var(--gold3);
     padding: 7px;
     border-radius: var(--border-rad);
     transform: translateY(150%);
-    transition: transform 1s 1s;
+    transition: transform 1s 1s var(--timing-fun);
 
     & > * {
       border-radius: var(--border-rad);
@@ -514,7 +825,7 @@ main {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 5px;
       cursor: pointer;
       outline: none;
       border: none;
@@ -538,7 +849,7 @@ main {
       }
 
       &:focus-visible {
-        outline: 2px solid var(--white2);
+        /* outline: 2px solid var(--white2); */
         background-color: var(--gold3);
       }
 
@@ -548,7 +859,6 @@ main {
 
       &.picked {
         color: var(--gold1);
-        /* background-color: var(--red2); */
 
         &::before {
           scale: 1;
@@ -561,6 +871,29 @@ main {
 
       & > .txt {
         font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (height < 615px) or (width < 320px) {
+  main {
+    & > .content {
+      & > .page-wrapper {
+        & > .page > .top-list {
+          gap: 15px;
+        }
+
+        & > #calculatorPage > .calc-wrapper > .calc {
+          gap: 17px;
+
+          &.picked {
+            & > .title {
+              font-size: 0.75rem;
+              width: 170px;
+            }
+          }
+        }
       }
     }
   }
@@ -581,30 +914,42 @@ main {
         height: 65px;
 
         & > i {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
 
         & > .txt {
-          font-size: 0.8rem;
+          font-size: 1rem;
         }
       }
     }
   }
 }
 @media (width < 450px) {
-  main > nav {
-    gap: 5px;
+  main {
+    & > nav {
+      gap: 5px;
 
-    & > * {
-      width: 70px;
-      height: 60px;
+      & > * {
+        width: 60px;
+        height: 50px;
 
-      & > i {
-        font-size: 0.8rem;
+        & > i {
+          font-size: 0.9rem;
+        }
+
+        & > .txt {
+          font-size: 0.7rem;
+        }
       }
+    }
 
-      & > .txt {
-        font-size: 0.6rem;
+    & > .content > .page-wrapper > #calculatorPage {
+      & > .options {
+        font-size: 0.75rem;
+
+        & > * {
+          flex-basis: 70px;
+        }
       }
     }
   }
@@ -629,5 +974,14 @@ main {
 @keyframes r-spin {
   to {
     rotate: z -360deg;
+  }
+}
+
+@keyframes change-col {
+  from {
+    color: var(--red1);
+  }
+  to {
+    color: var(--gold1);
   }
 }

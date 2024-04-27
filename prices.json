@@ -20,6 +20,7 @@
   "gold12_egp_s": 1851,
   "gold9_egp_b": 1397,
   "gold9_egp_s": 1389,
+
   "sil999_egp_b": 46,
   "sil999_egp_s": 45,
   "sil960_egp_b": 44,
@@ -36,6 +37,7 @@
   "sil800_egp_s": 36,
   "silOZ_egp_b": 1437,
   "silOZ_egp_s": 1398,
+
   "usd_egp_b": 48.407,
   "usd_egp_s": 48.268,
   "sar_egp_b": 12.905,
@@ -72,6 +74,7 @@
   "nok_egp_s": 4.389,
   "dkk_egp_b": 6.928,
   "dkk_egp_s": 6.907,
+
   "usd_egp_bm_b": 49.84,
   "usd_egp_bm_s": 49.33,
   "sar_egp_bm_b": 13.29,
@@ -108,6 +111,7 @@
   "nok_egp_bm_s": 4.49,
   "dkk_egp_bm_b": 7.13,
   "dkk_egp_bm_s": 7.06,
+
   "gasoline80": 11,
   "gasoline92": 12.5,
   "gasoline95": 13.5,

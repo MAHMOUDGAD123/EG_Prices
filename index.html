@@ -44,33 +44,33 @@
     <main>
       <nav>
         <div tabindex="0" id="gold_page_btn">
-          <i class="fi fi-sr-treasure-chest"></i>
+          <!-- <i class="fi fi-sr-treasure-chest"></i> -->
+          <i class="fa-solid fa-coins"></i>
           <div class="txt" data-en="Gold">Gold</div>
         </div>
 
         <div tabindex="0" id="silver_page_btn">
-          <i class="fi fi-ss-treasure-chest"></i>
+          <!-- <i class="fi fi-ss-treasure-chest"></i> -->
+          <i class="fa-solid fa-sack-dollar"></i>
           <div class="txt" data-en="Silver">Silver</div>
         </div>
 
         <div tabindex="0" id="bank_page_btn">
-          <i class="fi fi-br-bank"></i>
+          <!-- <i class="fi fi-br-bank"></i> -->
+          <i class="fa-solid fa-building-columns"></i>
           <div class="txt" data-en="Bank">Bank</div>
         </div>
 
         <div tabindex="0" id="market_page_btn">
-          <i class="fi fi-br-stats"></i>
+          <!-- <i class="fi fi-br-stats"></i> -->
+          <i class="fa-solid fa-chart-column"></i>
           <div class="txt" data-en="Market">Market</div>
         </div>
 
         <div tabindex="0" id="gasoline_page_btn">
-          <i class="fi fi-rr-gas-pump-alt"></i>
-          <div class="txt" data-en="Gasoline">Gasoline</div>
-        </div>
-
-        <div tabindex="0" id="calculator_page_btn">
-          <i class="fi fi-br-calculator"></i>
-          <div class="txt" data-en="Calculator">Calculator</div>
+          <!-- <i class="fi fi-rr-gas-pump-alt"></i> -->
+          <i class="fa-solid fa-gas-pump"></i>
+          <div class="txt" data-en="Gas">Gasoline</div>
         </div>
       </nav>
 
@@ -87,7 +87,7 @@
       </div>
 
       <div class="content">
-        <div class="clock-settings">
+        <div class="clock-tools">
           <div class="clock">
             <i class="fa-regular fa-clock icon"></i>
             <div class="time">
@@ -99,8 +99,14 @@
             </div>
           </div>
 
-          <div id="settings_page_btn" tabindex="0">
-            <i class="fa-solid fa-gear icon"></i>
+          <div class="tools">
+            <div id="calculator_page_btn" tabindex="0">
+              <i class="fa-solid fa-calculator icon"></i>
+            </div>
+
+            <div id="settings_page_btn" tabindex="0">
+              <i class="fa-solid fa-gear icon"></i>
+            </div>
           </div>
         </div>
 
@@ -129,12 +135,301 @@
             </div>
           </div>
 
+          <div id="calculatorPage" class="page" data-num="-1">
+            <div class="options">
+              <div id="goldOpt" data-en="Gold" tabindex="0"></div>
+              <div id="silverOpt" data-en="Silver" tabindex="0"></div>
+              <div id="GoldsmithsOpt" data-en="Goldsmiths" tabindex="0"></div>
+              <div id="bankOpt" data-en="Bank" tabindex="0"></div>
+              <div id="marketOpt" data-en="Market" tabindex="0"></div>
+              <div id="gasOpt" data-en="Gas" tabindex="0"></div>
+            </div>
+
+            <div class="calc-wrapper">
+              <!-- Gold Calc -->
+              <div class="calc" id="goldCalc" data-num="1" data-calcType="0">
+                <div class="title" data-en="Gold Calculator"></div>
+
+                <div class="select">
+                  <label for="goldKaratSel" data-en="Type"></label>
+
+                  <select id="goldKaratSel" class="calc_sel"></select>
+                </div>
+
+                <div class="input">
+                  <label for="gold_grams">
+                    <span data-en="no. of"></span>
+                    <span class="unit"></span>
+                  </label>
+                  <input
+                    type="number"
+                    class="calc_in"
+                    id="gold_grams"
+                    min="0"
+                  />
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out"></span>
+                    <span class="unit" data-en="EGP"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Silver Calc -->
+              <div class="calc" id="silverCalc" data-num="2" data-calcType="0">
+                <div class="title" data-en="Silver Calculator"></div>
+
+                <div class="select">
+                  <label for="silverKaratSel" data-en="Type"></label>
+
+                  <select id="silverKaratSel" class="calc_sel"></select>
+                </div>
+
+                <div class="input">
+                  <label for="silver_grams">
+                    <span data-en="no. of"></span>
+                    <span class="unit"></span>
+                  </label>
+                  <input
+                    type="number"
+                    class="calc_in"
+                    id="silver_grams"
+                    min="0"
+                  />
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out"></span>
+                    <span class="unit" data-en="EGP"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Goldsmiths Calc -->
+              <div
+                class="calc"
+                id="GoldsmithsCalc"
+                data-num="3"
+                data-calcType="1"
+              >
+                <div class="title" data-en="Goldsmiths Calculator"></div>
+
+                <div class="from-to">
+                  <span class="from" data-en="From"></span>
+                  <i
+                    class="fa-solid fa-rotate-right action reset"
+                    tabindex="0"
+                  ></i>
+                  <span class="to" data-en="To"></span>
+                </div>
+
+                <div class="selections">
+                  <!-- Other Currencies -->
+                  <div class="select">
+                    <select
+                      id="goldsmithsXSel"
+                      class="calc_sel xEGP one-option from"
+                    ></select>
+                  </div>
+
+                  <i
+                    class="fa-solid fa-right-left action swap"
+                    tabindex="0"
+                  ></i>
+
+                  <!-- EGP -->
+                  <div class="select">
+                    <select
+                      id="goldsmithsSel"
+                      class="calc_sel EGP one-option to"
+                    ></select>
+                  </div>
+                </div>
+
+                <div class="inputs">
+                  <div class="input">
+                    <input type="number" class="calc_in xEGP from" min="0" />
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="input">
+                    <input type="number" class="calc_in EGP to" min="0" />
+                  </div>
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out from"></span>
+                    <span class="unit from" data-en=""></span>
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="output">
+                    <span class="calc_out to"></span>
+                    <span class="unit to" data-en=""></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bank Calc -->
+              <div class="calc" id="bankCalc" data-num="4" data-calcType="1">
+                <div class="title" data-en="Bank Calculator"></div>
+
+                <div class="from-to">
+                  <span class="from" data-en="From"></span>
+                  <i
+                    class="fa-solid fa-rotate-right action reset"
+                    tabindex="0"
+                  ></i>
+                  <span class="to" data-en="To"></span>
+                </div>
+
+                <div class="selections">
+                  <!-- Other Currencies -->
+                  <div class="select">
+                    <select id="bankXSel" class="calc_sel xEGP from"></select>
+                  </div>
+
+                  <i
+                    class="fa-solid fa-right-left action swap"
+                    tabindex="0"
+                  ></i>
+
+                  <!-- EGP -->
+                  <div class="select">
+                    <select
+                      id="bankSel"
+                      class="calc_sel EGP one-option to"
+                    ></select>
+                  </div>
+                </div>
+
+                <div class="inputs">
+                  <div class="input">
+                    <input type="number" class="calc_in xEGP from" min="0" />
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="input">
+                    <input type="number" class="calc_in EGP to" min="0" />
+                  </div>
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out from"></span>
+                    <span class="unit from" data-en=""></span>
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="output">
+                    <span class="calc_out to"></span>
+                    <span class="unit to" data-en=""></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Market Calc -->
+              <div class="calc" id="marketCalc" data-num="5" data-calcType="1">
+                <div class="title" data-en="Market Calculator"></div>
+
+                <div class="from-to">
+                  <span class="from" data-en="From"></span>
+                  <i
+                    class="fa-solid fa-rotate-right action reset"
+                    tabindex="0"
+                  ></i>
+                  <span class="to" data-en="To"></span>
+                </div>
+
+                <div class="selections">
+                  <!-- Other Currencies -->
+                  <div class="select">
+                    <select id="marketXSel" class="calc_sel xEGP from"></select>
+                  </div>
+
+                  <i
+                    class="fa-solid fa-right-left action swap"
+                    tabindex="0"
+                  ></i>
+
+                  <!-- EGP -->
+                  <div class="select">
+                    <select
+                      id="marketSel"
+                      class="calc_sel EGP one-option to"
+                    ></select>
+                  </div>
+                </div>
+
+                <div class="inputs">
+                  <div class="input">
+                    <input type="number" class="calc_in xEGP from" min="0" />
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="input">
+                    <input type="number" class="calc_in EGP to" min="0" />
+                  </div>
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out from"></span>
+                    <span class="unit from" data-en=""></span>
+                  </div>
+
+                  <i class="fa-solid fa-equals"></i>
+
+                  <div class="output">
+                    <span class="calc_out to"></span>
+                    <span class="unit to" data-en=""></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gas Calc -->
+              <div class="calc" id="gasCalc" data-num="6" data-calcType="0">
+                <div class="title" data-en="Gasoline Calculator"></div>
+
+                <div class="select">
+                  <label for="gasSel" data-en="Type"></label>
+
+                  <select id="gasSel" class="calc_sel"></select>
+                </div>
+
+                <div class="input">
+                  <label for="liters">
+                    <span data-en="no. of"></span>
+                    <span class="unit"></span>
+                  </label>
+                  <input type="number" class="calc_in" id="liters" min="0" />
+                </div>
+
+                <div class="result" tabindex="0">
+                  <div class="output">
+                    <span class="calc_out"></span>
+                    <span class="unit" data-en="EGP"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div id="goldPage" class="page" data-num="1">
             <div class="top-list">
               <div class="item">
                 <div class="asset" data-en="Gold Ounce"></div>
                 <div class="value" data-val="goldO_usd">-</div>
-                <div class="unit" data-en="USD"></div>
+                <div class="unit" data-en="Dollar"></div>
               </div>
 
               <div class="item">
@@ -144,9 +439,9 @@
               </div>
 
               <div class="item">
-                <div class="asset" data-en="US Dollar"></div>
+                <div class="asset" data-en="Gold's USD"></div>
                 <div class="value" data-val="usd_gold">-</div>
-                <div class="unit" data-en="Gold"></div>
+                <div class="unit" data-en="EGP"></div>
               </div>
             </div>
 
@@ -599,7 +894,7 @@
                     <td data-val="solar">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="Gas Stove Cylinder"></th>
+                    <th scope="row" data-en="Stove Cylinder"></th>
                     <td data-val="gas_cyl">-</td>
                   </tr>
                 </tbody>
@@ -607,18 +902,6 @@
             </div>
           </div>
 
-          <div
-            id="calculatorPage"
-            class="page"
-            data-en="Calculator"
-            data-num="6"
-            style="
-              background-color: var(--red3);
-              place-content: center;
-              font-size: 40px;
-              border-radius: var(--border-rad);
-            "
-          ></div>
           <!-- Pages End -->
         </div>
       </div>
