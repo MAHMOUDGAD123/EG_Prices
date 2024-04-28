@@ -112,10 +112,11 @@ input[type="number"] {
   text-align: center;
   caret-color: var(--red1);
   width: 100%;
-  padding: 7px var(--padding);
+  padding: var(--padding);
   border-radius: 100px;
   color: var(--red2);
   background-color: #e9e9ed;
+  font-size: 1rem;
 
   &:is(:focus-visible, :focus) {
     /* outline: 3px solid var(--gold1); */
@@ -129,7 +130,7 @@ label {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 
   &:has(+ :is(*:focus, *:focus-visible)) {
     color: var(--red1);
@@ -438,7 +439,6 @@ main {
         gap: 20px;
         position: absolute;
         transform: rotateY(90deg);
-        transition: transform 100ms;
 
         &.picked {
           transition: transform 1s;
@@ -572,8 +572,10 @@ main {
         gap: 25px;
 
         & > .options {
-          display: flex;
-          flex-wrap: wrap;
+          /* display: flex; */
+          /* flex-wrap: wrap; */
+          display: grid;
+          grid: none / repeat(3, 1fr);
           align-items: center;
           justify-content: center;
           gap: 7px;
@@ -589,7 +591,7 @@ main {
             contain: layout;
             overflow: hidden;
             border-radius: var(--border-rad);
-            max-width: 110px;
+            /* max-width: 110px; */
 
             &::before {
               content: "";
@@ -713,7 +715,7 @@ main {
               & > .input {
                 & > label {
                   & > .unit {
-                    font-size: 0.65rem;
+                    font-size: 0.75rem;
                     color: var(--gold1);
 
                     &::before {
@@ -877,7 +879,17 @@ main {
   }
 }
 
-@media (height < 615px) or (width < 320px) {
+@media (height < 650px) or (width < 320px) {
+  label {
+    font-size: 0.9rem;
+  }
+
+  select,
+  input[type="number"] {
+    padding-block: 7px;
+    font-size: 0.9rem;
+  }
+
   main {
     & > .content {
       & > .page-wrapper {

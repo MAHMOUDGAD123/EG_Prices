@@ -1,12 +1,12 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+let testing = true; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
 let curr_page = null; // holds the curr page
 let curr_calc = null; // holds the curr calculator
 const initial_page = 1;
-const initial_calc = 1;
+const initial_calc = 3;
 let prices = null; // object hold all prices
 const precision = 2;
 
