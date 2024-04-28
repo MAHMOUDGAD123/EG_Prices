@@ -742,7 +742,7 @@ main {
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                font-size: 0.9rem;
+                font-size: 1rem;
 
                 & > i.reset {
                   width: 45px;
@@ -899,6 +899,12 @@ main {
 
         & > #calculatorPage > .calc-wrapper > .calc {
           gap: 17px;
+
+          &[data-calcType="1"] {
+            & > .from-to {
+              font-size: 0.9rem;
+            }
+          }
 
           &.picked {
             & > .title {
