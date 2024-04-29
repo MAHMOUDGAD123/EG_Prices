@@ -47,7 +47,8 @@
   --en_font: "en_font";
   --ar_font: "ar_font";
   --transition: 500ms;
-  --timing-fun: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* --timing-fun: cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+  --timing-fun: ease-in-out;
 }
 
 html {
