@@ -39,6 +39,7 @@
   --gold2: #a28a00;
   --gold3: #ffd9007d;
   --gold4: #ffd9005f;
+  --gold5: #ffeb7b;
   --white1: #ffffff;
   --white2: #ffffffbd;
   --black1: #000;
@@ -47,7 +48,6 @@
   --en_font: "en_font";
   --ar_font: "ar_font";
   --transition: 500ms;
-  /* --timing-fun: cubic-bezier(0.68, -0.55, 0.265, 1.55); */
   --timing-fun: ease-in-out;
 }
 
@@ -120,8 +120,28 @@ input[type="number"] {
   font-size: 1rem;
 
   &:is(:focus-visible, :focus) {
-    /* outline: 3px solid var(--gold1); */
     box-shadow: 0 0 0 2px inset var(--red1);
+  }
+}
+
+input[type="text"] {
+  appearance: none;
+  outline: none;
+  border: none;
+  border-radius: 100px;
+  text-align: start;
+  color: var(--gold1);
+  padding: 10px;
+  font-family: "cairo";
+  background-color: var(--gold4);
+
+  &:is(:focus-visible, :focus) {
+    box-shadow: 0 0 0 5px inset var(--gold3);
+  }
+
+  &::placeholder {
+    opacity: 0.5;
+    color: currentColor;
   }
 }
 
@@ -429,15 +449,15 @@ main {
     }
 
     & > .page-wrapper {
-      position: relative;
       flex: 1;
+      position: relative;
 
-      & > .page {
+      & .page {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
-        gap: 20px;
+        gap: 15px;
         position: absolute;
         transform: rotateY(90deg);
 
@@ -447,15 +467,14 @@ main {
         }
 
         & > .options {
-          /* display: flex; */
-          /* flex-wrap: wrap; */
-          display: grid;
-          grid: none / repeat(3, 1fr);
+          display: flex;
+          flex-wrap: wrap;
           align-items: center;
           justify-content: center;
           gap: 7px;
 
           & > * {
+            flex-basis: 90px;
             background-color: var(--gold4);
             padding: 5px;
             cursor: pointer;
@@ -465,8 +484,6 @@ main {
             contain: layout;
             overflow: hidden;
             border-radius: var(--border-rad);
-            /* flex-basis: 95px; */
-            /* max-width: 110px; */
 
             &::before {
               content: "";
@@ -532,7 +549,8 @@ main {
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 20px;
+          gap: 10px;
+          width: 100%;
 
           & > .item {
             flex: 1;
@@ -540,7 +558,7 @@ main {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
             background-image: linear-gradient(var(--red2), var(--red4));
             padding: var(--padding);
             border-radius: var(--border-rad);
@@ -562,10 +580,11 @@ main {
         & > .t-wrapper {
           overflow-y: scroll;
           border-radius: var(--border-rad);
+          width: 100%;
 
           & > table {
             width: 100%;
-            border-spacing: 2px;
+            border-spacing: 1px;
             font-family: "cairo";
 
             & th[scope="col"] {
@@ -573,7 +592,7 @@ main {
               color: var(--gold1);
 
               & > .unit {
-                font-size: 12px;
+                font-size: 0.7rem;
                 color: var(--white2);
 
                 &::before {
@@ -594,8 +613,13 @@ main {
               padding: 6px;
             }
 
-            & > tbody > tr:hover > * {
+            & > tbody > tr.top > * {
               background-color: var(--gold1);
+              color: var(--red4);
+            }
+
+            & > tbody > tr:hover > * {
+              background-color: var(--gold5);
               color: var(--black1);
             }
 
@@ -658,7 +682,7 @@ main {
             &.picked {
               & > .title {
                 padding-inline: 20px;
-                width: 200px;
+                width: 220px;
               }
             }
 
@@ -679,7 +703,6 @@ main {
               transition-property: width, padding, font-size;
               transition-duration: 1s;
               transition-delay: 0.3s;
-              font-size: 0.9rem;
             }
 
             & :is(.input, .select) {
@@ -783,9 +806,6 @@ main {
                     scale: 1.2;
                   }
                 }
-
-                & > .select > select.one-option {
-                }
               }
 
               & > .inputs {
@@ -811,6 +831,119 @@ main {
           }
         }
       }
+
+      & > #mainPage {
+        align-items: center;
+
+        & > #searchBox {
+          display: flex;
+          justify-content: flex-end;
+          position: relative;
+          width: 0;
+          transition: width 1s;
+
+          &:is(:focus, :focus-visible, :focus-within) {
+            width: 80%;
+
+            & > input[type="text"] {
+              opacity: 1;
+            }
+
+            & > #searchIcon {
+              background-color: transparent;
+              translate: none;
+              /* opacity: 0; */
+            }
+          }
+
+          & > input[type="text"] {
+            opacity: 0;
+            width: 100%;
+            transition: opacity 1s;
+            color: var(--white1);
+          }
+
+          & > #searchIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--gold2);
+            border-radius: 100px;
+            position: absolute;
+            height: 100%;
+            aspect-ratio: 1;
+            color: var(--gold1);
+            transition: translate 1s;
+            translate: 50% 0;
+
+            &.ar {
+              translate: -50% 0;
+            }
+          }
+        }
+
+        & > #searchResults {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+
+          &.ar > .result {
+            background-image: linear-gradient(
+              to right,
+              var(--gold1) 50%,
+              var(--red2) 50%
+            );
+          }
+
+          & > .result {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-radius: var(--border-rad);
+            background-image: linear-gradient(
+              to right,
+              var(--red2) 50%,
+              var(--gold1) 50%
+            );
+
+            & > * {
+              display: flex;
+              gap: 5px;
+              justify-content: center;
+              align-items: center;
+            }
+
+            & > .name-unit {
+              color: var(--gold1);
+              & > .unit {
+                font-size: 0.8rem;
+                color: var(--gold3);
+
+                &::before {
+                  content: "( ";
+                }
+
+                &::after {
+                  content: " )";
+                }
+              }
+            }
+
+            & > .price-unit {
+              color: var(--red2);
+
+              & > .unit {
+                font-size: 0.9rem;
+                color: var(--red3);
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -821,16 +954,19 @@ main {
     justify-content: space-around;
     color: var(--white1);
     padding-block: 5px;
-    background-color: var(--gold3);
-    padding: 7px;
+    background-color: var(--gold2);
+    padding: 5px;
     border-radius: var(--border-rad);
     transform: translateY(150%);
     transition: transform 1s 1s var(--timing-fun);
+    margin-block-start: 30px;
+    position: relative;
 
-    & > * {
-      border-radius: var(--border-rad);
-      width: 80px;
-      height: 75px;
+    & > .btn {
+      --w: 85px;
+      border-radius: 100px;
+      width: var(--w);
+      height: var(--w);
       padding: 5px;
       display: flex;
       flex-direction: column;
@@ -844,6 +980,16 @@ main {
       contain: layout;
       overflow: hidden;
 
+      &#main_page_btn {
+        --w: 70px;
+        background-color: var(--gold2);
+        border-radius: 100px;
+
+        &.picked {
+          color: var(--red2);
+        }
+      }
+
       &::before {
         content: "";
         background-color: var(--red2);
@@ -855,8 +1001,8 @@ main {
         left: 50%;
         translate: -50% -50%;
         z-index: -1;
-        transition: scale var(--transition);
-        border-radius: var(--border-rad);
+        transition: none;
+        border-radius: inherit;
       }
 
       &:focus-visible {
@@ -869,29 +1015,26 @@ main {
       } */
 
       &.picked {
-        color: var(--gold1);
-
-        &::before {
-          scale: 1;
-        }
+        color: var(--red4);
       }
 
       & > i {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+        transition: color var(--transition);
       }
 
       & > .txt {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        transition: color var(--transition);
       }
     }
   }
 }
 
 /* Media Queries */
-@media (height < 500px) and (width > 650px) {
-  main > .content > .page-wrapper > .page > .top-list > .item {
-    flex-direction: row;
-    font-size: 0.8rem;
+@media (height < 550px) {
+  main > .content > .page-wrapper .page > .top-list {
+    display: none;
   }
 }
 @media (height < 650px) or (width < 320px) {
@@ -905,29 +1048,19 @@ main {
     font-size: 0.9rem;
   }
 
-  main {
-    & > .content {
-      & > .page-wrapper {
-        & > .page > .top-list {
-          gap: 15px;
-        }
+  main > .content > .page-wrapper > #calculatorPage > .wrapper > .calc {
+    gap: 17px;
 
-        & > #calculatorPage > .wrapper > .calc {
-          gap: 17px;
+    &[data-calcType="1"] {
+      & > .from-to {
+        font-size: 0.9rem;
+      }
+    }
 
-          &[data-calcType="1"] {
-            & > .from-to {
-              font-size: 0.9rem;
-            }
-          }
-
-          &.picked {
-            & > .title {
-              font-size: 0.7rem;
-              width: 170px;
-            }
-          }
-        }
+    &.picked {
+      & > .title {
+        font-size: 0.8rem;
+        width: 180px;
       }
     }
   }
@@ -943,12 +1076,34 @@ main {
       flex-direction: row;
       gap: 7px;
 
-      & > * {
-        width: 75px;
-        height: 65px;
+      & > .btn {
+        --w: 70px;
+
+        &::before {
+          transition: scale var(--transition);
+        }
+
+        &#main_page_btn {
+          --w: 65px;
+          background-color: var(--gold2);
+          outline: 10px solid #222;
+          transform: translateY(calc(-50% - 7px));
+
+          &.picked {
+            color: var(--gold1);
+
+            &::before {
+              scale: 1;
+            }
+          }
+
+          & > .txt {
+            display: none;
+          }
+        }
 
         & > i {
-          font-size: 1.1rem;
+          font-size: 1.2rem;
         }
 
         & > .txt {
@@ -963,28 +1118,82 @@ main {
     & > nav {
       gap: 5px;
 
-      & > * {
-        width: 60px;
-        height: 50px;
+      & > .btn {
+        --w: 55px;
+
+        &#main_page_btn {
+          --w: 55px;
+          outline-width: 7px;
+        }
 
         & > i {
-          font-size: 0.9rem;
+          font-size: 1.1rem;
         }
 
         & > .txt {
-          font-size: 0.7rem;
+          font-size: 0.9rem;
         }
       }
     }
 
     & > .content > .page-wrapper {
-      & > #calculatorPage {
+      & > .page {
         & > .options {
           font-size: 0.75rem;
 
           & > * {
-            flex-basis: 70px;
+            flex-basis: 75px;
           }
+        }
+      }
+    }
+  }
+}
+@media (width < 290px) {
+  main {
+    & > .content {
+      & > .page-wrapper {
+        & .page {
+          & > .top-list > .item > * {
+            font-size: 0.8rem;
+          }
+
+          & > .t-wrapper > table {
+            font-size: 0.8rem;
+          }
+        }
+
+        & > #calculatorPage > .wrapper > .calc {
+          & :is(.input, .select) > :is(input, select) {
+            font-size: 0.8rem;
+          }
+
+          & > .result > .output {
+            & > :is(.calc_out, .unit) {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    & > nav {
+      gap: 5px;
+
+      & > .btn {
+        --w: 55px;
+
+        &#main_page_btn {
+          --w: 50px;
+          /* outline-width: 5px; */
+        }
+
+        & > i {
+          font-size: 0.8rem;
+        }
+
+        & > .txt {
+          font-size: 0.75rem;
         }
       }
     }

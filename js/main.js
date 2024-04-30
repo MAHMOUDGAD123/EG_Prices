@@ -3,10 +3,12 @@ let testing = false; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
-let curr_page = null; // holds the curr page
-let curr_calc = null; // holds the curr calculator
-const initial_page = 1;
+let curr_page = null; // holds the current page
+let curr_calc = null; // holds the current calculator
+let curr_curr = null; // holds the current currency info
+const initial_page = 3;
 const initial_calc = 1;
+const initial_curr = 1;
 let prices = null; // object hold all prices
 const precision = 2;
 
@@ -64,6 +66,9 @@ const en_ar = new Map([
   ["Amount", "الكمية"],
   ["From", "من"],
   ["To", "إلى"],
+  ["Search", "البحث"],
+  ["Search...", "البحث..."],
+  ["Main", "الرئيسية"],
 
   // units
   ["liter", "لتر"],
@@ -160,12 +165,12 @@ const page_btn = new Map([
   ["calculatorPage", "calculator_page_btn"],
   ["goldPage", "gold_page_btn"],
   ["silverPage", "silver_page_btn"],
-  ["bankPage", "bank_page_btn"],
-  ["marketPage", "market_page_btn"],
+  ["mainPage", "main_page_btn"],
+  ["currencyPage", "currency_page_btn"],
   ["gasolinePage", "gasoline_page_btn"],
 ]);
 
-// calculator_page_id => option_btn_id
+// calculator_id => option_btn_id
 const calc_opt = new Map([
   ["goldCalc", "goldOpt"],
   ["silverCalc", "silverOpt"],
@@ -173,6 +178,12 @@ const calc_opt = new Map([
   ["bankCalc", "bankOpt"],
   ["marketCalc", "marketOpt"],
   ["gasCalc", "gasOpt"],
+]);
+
+// calculator_id => option_btn_id
+const currency_opt = new Map([
+  ["bankInfo", "bankInfoOpt"],
+  ["marketInfo", "marketInfoOpt"],
 ]);
 
 // <select> id => [ array of options of [ array of data attributes ]+ ]+
@@ -547,6 +558,15 @@ const calc_selections = new Map([
   ],
 ]);
 
+const search_map = new Map([
+  ["", ""],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+]);
+
 // used for animate the page after loading
 const content = ["header", ".content", "nav"];
 
@@ -594,6 +614,11 @@ set_lang();
         // set the initial calculator
         curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
         pick(curr_calc, calc_opt);
+        // set the initial currency info
+        curr_curr = document.querySelector(
+          `.currency[data-num="${initial_curr}"]`
+        );
+        pick(curr_curr, currency_opt);
         // show content
         content.forEach((sel) => {
           document.querySelector(sel).style.transform = "none";
@@ -616,8 +641,10 @@ set_lang();
     set_data(prices);
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
+    curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
     pick(curr_page, page_btn);
     pick(curr_calc, calc_opt);
+    pick(curr_curr, currency_opt);
     const loadingPage = document.getElementById("loadingPage");
     loadingPage.style.transform = "translateY(-150%)";
     content.forEach((sel) => {
@@ -635,6 +662,9 @@ function set_lang() {
   const all_txt = document.querySelectorAll("[data-en]");
   const logo = document.querySelector(".logo > .txt");
   const _switch = document.getElementById("langSwitch");
+  const searchBox_in = document.querySelector("#searchBox > input");
+  const searchIcon = document.querySelector("#searchIcon");
+  const searchResults = document.querySelector("#searchResults");
 
   if (ar) {
     ar = false;
@@ -646,6 +676,10 @@ function set_lang() {
       const en_txt = ele.dataset.en;
       ele.textContent = en_ar.get(en_txt);
     });
+
+    searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
+    searchIcon.classList.add("ar");
+    searchResults.classList.add("ar");
   } else {
     ar = true;
     _switch.classList.remove("on");
@@ -656,6 +690,10 @@ function set_lang() {
       const en_txt = ele.dataset.en;
       ele.textContent = en_txt;
     });
+
+    searchBox_in.placeholder = searchBox_in.dataset.en;
+    searchIcon.classList.remove("ar");
+    searchResults.classList.remove("ar");
   }
 }
 
@@ -669,15 +707,37 @@ function set_data(data) {
 
 //========================= Events Start =========================
 
+// currency page options
+currency_opt.forEach((opt_id, info_id, ref) => {
+  const info = document.getElementById(info_id);
+  const opt = document.getElementById(opt_id);
+
+  const show_info = () => {
+    if (info !== curr_curr) {
+      unpick(curr_curr, ref);
+      pick(info, ref);
+      curr_curr = info;
+    }
+  };
+
+  opt.addEventListener("click", show_info);
+
+  opt.addEventListener("keydown", (e) => {
+    if (e.code === "Enter" || e.code === "Space") {
+      show_info();
+    }
+  });
+});
+
 // Pages Btns
-page_btn.forEach((btn_id, page_id) => {
+page_btn.forEach((btn_id, page_id, ref) => {
   const page = document.getElementById(page_id);
   const btn = document.getElementById(btn_id);
 
   const set_page = () => {
     if (page !== curr_page) {
-      unpick(curr_page, page_btn);
-      pick(page, page_btn);
+      unpick(curr_page, ref);
+      pick(page, ref);
       curr_page = page;
     }
   };
@@ -764,6 +824,13 @@ function build_calc_selections() {
     });
     // select the 1st option
     sel_ele.firstChild.selected = true;
+
+    if (sel_ele.classList.contains("one-option")) {
+      // make select element responseless
+      sel_ele.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+      });
+    }
   });
 }
 
@@ -959,7 +1026,7 @@ const currency_calc = (calc) => {
 
 // calculators set function
 function set_culculators() {
-  calc_opt.forEach((opt_id, calc_id) => {
+  calc_opt.forEach((opt_id, calc_id, ref) => {
     const calc = document.getElementById(calc_id);
     const opt = document.getElementById(opt_id);
 
@@ -967,15 +1034,13 @@ function set_culculators() {
     //--------------------------------------------------
     const show_calc = () => {
       if (calc !== curr_calc) {
-        unpick(curr_calc, calc_opt);
-        pick(calc, calc_opt);
+        unpick(curr_calc, ref);
+        pick(calc, ref);
         curr_calc = calc;
       }
     };
 
-    opt.addEventListener("click", () => {
-      show_calc();
-    });
+    opt.addEventListener("click", show_calc);
 
     opt.addEventListener("keydown", (e) => {
       if (e.code === "Enter" || e.code === "Space") {
@@ -1003,6 +1068,29 @@ function set_culculators() {
 }
 
 //========================== Calculator End ==========================
+
+//========================== Search Start ==========================
+
+const searchBox = document.getElementById("searchBox");
+const searchIcon = document.getElementById("searchIcon");
+
+searchBox.addEventListener("click", (e) => {
+  searchBox.querySelector("input[type='text']").focus();
+});
+
+searchBox.addEventListener("focusin", (e) => {
+  if (!ar) {
+    searchIcon.classList.remove("ar");
+  }
+});
+
+searchBox.addEventListener("focusout", (e) => {
+  if (!ar) {
+    searchIcon.classList.add("ar");
+  }
+});
+
+//=========================== Search End ===========================
 
 // clear consloe
 // setInterval(console.clear, 60000);

@@ -43,34 +43,29 @@
 
     <main>
       <nav>
-        <div tabindex="0" id="gold_page_btn">
-          <!-- <i class="fi fi-sr-treasure-chest"></i> -->
+        <div class="btn" tabindex="0" id="gold_page_btn">
           <i class="fa-solid fa-coins"></i>
-          <div class="txt" data-en="Gold">Gold</div>
+          <span class="txt" data-en="Gold"></span>
         </div>
 
-        <div tabindex="0" id="silver_page_btn">
-          <!-- <i class="fi fi-ss-treasure-chest"></i> -->
+        <div class="btn" tabindex="0" id="silver_page_btn">
           <i class="fa-solid fa-sack-dollar"></i>
-          <div class="txt" data-en="Silver">Silver</div>
+          <span class="txt" data-en="Silver"></span>
         </div>
 
-        <div tabindex="0" id="bank_page_btn">
-          <!-- <i class="fi fi-br-bank"></i> -->
-          <i class="fa-solid fa-building-columns"></i>
-          <div class="txt" data-en="Bank">Bank</div>
+        <div class="btn" tabindex="0" id="main_page_btn">
+          <i class="fa-solid fa-house"></i>
+          <span class="txt" data-en="Main"></span>
         </div>
 
-        <div tabindex="0" id="market_page_btn">
-          <!-- <i class="fi fi-br-stats"></i> -->
-          <i class="fa-solid fa-chart-column"></i>
-          <div class="txt" data-en="Market">Market</div>
+        <div class="btn" tabindex="0" id="currency_page_btn">
+          <i class="fa-solid fa-dollar-sign"></i>
+          <span class="txt" data-en="Currency"></span>
         </div>
 
-        <div tabindex="0" id="gasoline_page_btn">
-          <!-- <i class="fi fi-rr-gas-pump-alt"></i> -->
+        <div class="btn" tabindex="0" id="gasoline_page_btn">
           <i class="fa-solid fa-gas-pump"></i>
-          <div class="txt" data-en="Gas">Gasoline</div>
+          <span class="txt" data-en="Gas"></span>
         </div>
       </nav>
 
@@ -462,16 +457,6 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row" data-en="Gold Ounce"></th>
-                    <td data-val="goldO_egp_b">-</td>
-                    <td data-val="goldO_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Gold Pound"></th>
-                    <td data-val="goldP_egp_b">-</td>
-                    <td data-val="goldP_egp_s">-</td>
-                  </tr>
-                  <tr>
                     <th scope="row" data-en="24-karat"></th>
                     <td data-val="gold24_egp_b">-</td>
                     <td data-val="gold24_egp_s">-</td>
@@ -481,7 +466,7 @@
                     <td data-val="gold22_egp_b">-</td>
                     <td data-val="gold22_egp_s">-</td>
                   </tr>
-                  <tr>
+                  <tr class="top">
                     <th scope="row" data-en="21-karat"></th>
                     <td data-val="gold21_egp_b">-</td>
                     <td data-val="gold21_egp_s">-</td>
@@ -505,6 +490,16 @@
                     <th scope="row" data-en="9-karat"></th>
                     <td data-val="gold9_egp_b">-</td>
                     <td data-val="gold9_egp_s">-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-en="Gold Ounce"></th>
+                    <td data-val="goldO_egp_b">-</td>
+                    <td data-val="goldO_egp_s">-</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" data-en="Gold Pound"></th>
+                    <td data-val="goldP_egp_b">-</td>
+                    <td data-val="goldP_egp_s">-</td>
                   </tr>
                 </tbody>
               </table>
@@ -548,12 +543,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row" data-en="Silver Ounce"></th>
-                    <td data-val="silOZ_egp_b">-</td>
-                    <td data-val="silOZ_egp_s">-</td>
-                  </tr>
-                  <tr>
+                  <tr class="top">
                     <th scope="row" data-en="Silver 999"></th>
                     <td data-val="sil999_egp_b">-</td>
                     <td data-val="sil999_egp_s">-</td>
@@ -588,272 +578,328 @@
                     <td data-val="sil800_egp_b">-</td>
                     <td data-val="sil800_egp_s">-</td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="bankPage" class="page" data-num="3">
-            <div class="top-list">
-              <div class="item">
-                <div class="asset" data-en="US Dollar"></div>
-                <div class="value" data-val="usd_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Euro"></div>
-                <div class="value" data-val="eur_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Sterling Pound"></div>
-                <div class="value" data-val="gbp_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-            </div>
-
-            <div class="t-wrapper">
-              <table>
-                <thead>
                   <tr>
-                    <th scope="col" data-en="Currency"></th>
-                    <th scope="col">
-                      <span data-en="Buy"></span>
-                      <span class="unit" data-en="EGP"></span>
-                    </th>
-                    <th scope="col">
-                      <span data-en="Sell"></span>
-                      <span class="unit" data-en="EGP"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row" data-en="US Dollar"></th>
-                    <td data-val="usd_egp_b">-</td>
-                    <td data-val="usd_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Euro"></th>
-                    <td data-val="eur_egp_b">-</td>
-                    <td data-val="eur_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Sterling Pound"></th>
-                    <td data-val="gbp_egp_b">-</td>
-                    <td data-val="gbp_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Saudi Riyal"></th>
-                    <td data-val="sar_egp_b">-</td>
-                    <td data-val="sar_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="UAE Dirham"></th>
-                    <td data-val="aed_egp_b">-</td>
-                    <td data-val="aed_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Kuwait Dinar"></th>
-                    <td data-val="kwd_egp_b">-</td>
-                    <td data-val="kwd_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Oman Riyal"></th>
-                    <td data-val="omr_egp_b">-</td>
-                    <td data-val="omr_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Qatar Riyal"></th>
-                    <td data-val="qar_egp_b">-</td>
-                    <td data-val="qar_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Chinese Yuan"></th>
-                    <td data-val="cny_egp_b">-</td>
-                    <td data-val="cny_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Jordanian Dinar"></th>
-                    <td data-val="jod_egp_b">-</td>
-                    <td data-val="jod_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Bahrain Dinar"></th>
-                    <td data-val="bhd_egp_b">-</td>
-                    <td data-val="bhd_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Canadian Dollar"></th>
-                    <td data-val="cad_egp_b">-</td>
-                    <td data-val="cad_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Australian Dollar"></th>
-                    <td data-val="aud_egp_b">-</td>
-                    <td data-val="aud_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Japanese Yen"></th>
-                    <td data-val="jpy_egp_b">-</td>
-                    <td data-val="jpy_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Swedish Krona"></th>
-                    <td data-val="sek_egp_b">-</td>
-                    <td data-val="sek_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Swiss Franc"></th>
-                    <td data-val="chf_egp_b">-</td>
-                    <td data-val="chf_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Norwegian Krone"></th>
-                    <td data-val="nok_egp_b">-</td>
-                    <td data-val="nok_egp_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Dinish Krone"></th>
-                    <td data-val="dkk_egp_b">-</td>
-                    <td data-val="dkk_egp_s">-</td>
+                    <th scope="row" data-en="Silver Ounce"></th>
+                    <td data-val="silOZ_egp_b">-</td>
+                    <td data-val="silOZ_egp_s">-</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <div id="marketPage" class="page" data-num="4">
-            <div class="top-list">
-              <div class="item">
-                <div class="asset" data-en="US Dollar"></div>
-                <div class="value" data-val="usd_egp_bm_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Euro"></div>
-                <div class="value" data-val="eur_egp_bm_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Sterling Pound"></div>
-                <div class="value" data-val="gbp_egp_bm_b">-</div>
-                <div class="unit" data-en="EGP"></div>
+          <div id="mainPage" class="page" data-num="3">
+            <div id="searchBox" tabindex="0">
+              <input type="text" data-en="Search..." />
+              <div id="searchIcon">
+                <i class="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
 
-            <div class="t-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col" data-en="Currency"></th>
-                    <th scope="col">
-                      <span data-en="Buy"></span>
-                      <span class="unit" data-en="EGP"></span>
-                    </th>
-                    <th scope="col">
-                      <span data-en="Sell"></span>
-                      <span class="unit" data-en="EGP"></span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row" data-en="US Dollar"></th>
-                    <td data-val="usd_egp_bm_b">-</td>
-                    <td data-val="usd_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Euro"></th>
-                    <td data-val="eur_egp_bm_b">-</td>
-                    <td data-val="eur_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Sterling Pound"></th>
-                    <td data-val="gbp_egp_bm_b">-</td>
-                    <td data-val="gbp_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Saudi Riyal"></th>
-                    <td data-val="sar_egp_bm_b">-</td>
-                    <td data-val="sar_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="UAE Dirham"></th>
-                    <td data-val="aed_egp_bm_b">-</td>
-                    <td data-val="aed_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Kuwait Dinar"></th>
-                    <td data-val="kwd_egp_bm_b">-</td>
-                    <td data-val="kwd_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Oman Riyal"></th>
-                    <td data-val="omr_egp_bm_b">-</td>
-                    <td data-val="omr_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Qatar Riyal"></th>
-                    <td data-val="qar_egp_bm_b">-</td>
-                    <td data-val="qar_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Chinese Yuan"></th>
-                    <td data-val="cny_egp_bm_b">-</td>
-                    <td data-val="cny_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Jordanian Dinar"></th>
-                    <td data-val="jod_egp_bm_b">-</td>
-                    <td data-val="jod_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Bahrain Dinar"></th>
-                    <td data-val="bhd_egp_bm_b">-</td>
-                    <td data-val="bhd_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Canadian Dollar"></th>
-                    <td data-val="cad_egp_bm_b">-</td>
-                    <td data-val="cad_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Australian Dollar"></th>
-                    <td data-val="aud_egp_bm_b">-</td>
-                    <td data-val="aud_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Japanese Yen"></th>
-                    <td data-val="jpy_egp_bm_b">-</td>
-                    <td data-val="jpy_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Swedish Krona"></th>
-                    <td data-val="sek_egp_bm_b">-</td>
-                    <td data-val="sek_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Swiss Franc"></th>
-                    <td data-val="chf_egp_bm_b">-</td>
-                    <td data-val="chf_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Norwegian Krone"></th>
-                    <td data-val="nok_egp_bm_b">-</td>
-                    <td data-val="nok_egp_bm_s">-</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" data-en="Dinish Krone"></th>
-                    <td data-val="dkk_egp_bm_b">-</td>
-                    <td data-val="dkk_egp_bm_s">-</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div id="searchResults">
+              <div class="result">
+                <div class="name-unit">
+                  <span class="name" data-en="Gold"></span>
+                  <span class="unit" data-en="gram"></span>
+                </div>
+                <div class="price-unit">
+                  <span class="price">465231</span>
+                  <span class="unit" data-en="EGP"></span>
+                </div>
+              </div>
+              <div class="result">
+                <div class="name-unit">
+                  <span class="name" data-en="Gold"></span>
+                  <span class="unit" data-en="gram"></span>
+                </div>
+                <div class="price-unit">
+                  <span class="price">465231</span>
+                  <span class="unit" data-en="EGP"></span>
+                </div>
+              </div>
+              <div class="result">
+                <div class="name-unit">
+                  <span class="name" data-en="Gold"></span>
+                  <span class="unit" data-en="gram"></span>
+                </div>
+                <div class="price-unit">
+                  <span class="price">465231</span>
+                  <span class="unit" data-en="EGP"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="currencyPage" class="page" data-num="4">
+            <div class="options">
+              <div id="bankInfoOpt" data-en="Bank" tabindex="0"></div>
+              <div id="marketInfoOpt" data-en="Market" tabindex="0"></div>
+            </div>
+
+            <div class="wrapper">
+              <div id="bankInfo" class="page currency" data-num="1">
+                <div class="top-list">
+                  <div class="item">
+                    <div class="asset" data-en="US Dollar"></div>
+                    <div class="value" data-val="usd_egp_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+
+                  <div class="item">
+                    <div class="asset" data-en="Euro"></div>
+                    <div class="value" data-val="eur_egp_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+
+                  <div class="item">
+                    <div class="asset" data-en="Sterling Pound"></div>
+                    <div class="value" data-val="gbp_egp_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+                </div>
+
+                <div class="t-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col" data-en="Currency"></th>
+                        <th scope="col">
+                          <span data-en="Buy"></span>
+                          <span class="unit" data-en="EGP"></span>
+                        </th>
+                        <th scope="col">
+                          <span data-en="Sell"></span>
+                          <span class="unit" data-en="EGP"></span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" data-en="US Dollar"></th>
+                        <td data-val="usd_egp_b">-</td>
+                        <td data-val="usd_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Euro"></th>
+                        <td data-val="eur_egp_b">-</td>
+                        <td data-val="eur_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Sterling Pound"></th>
+                        <td data-val="gbp_egp_b">-</td>
+                        <td data-val="gbp_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Saudi Riyal"></th>
+                        <td data-val="sar_egp_b">-</td>
+                        <td data-val="sar_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="UAE Dirham"></th>
+                        <td data-val="aed_egp_b">-</td>
+                        <td data-val="aed_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Kuwait Dinar"></th>
+                        <td data-val="kwd_egp_b">-</td>
+                        <td data-val="kwd_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Oman Riyal"></th>
+                        <td data-val="omr_egp_b">-</td>
+                        <td data-val="omr_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Qatar Riyal"></th>
+                        <td data-val="qar_egp_b">-</td>
+                        <td data-val="qar_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Chinese Yuan"></th>
+                        <td data-val="cny_egp_b">-</td>
+                        <td data-val="cny_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Jordanian Dinar"></th>
+                        <td data-val="jod_egp_b">-</td>
+                        <td data-val="jod_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Bahrain Dinar"></th>
+                        <td data-val="bhd_egp_b">-</td>
+                        <td data-val="bhd_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Canadian Dollar"></th>
+                        <td data-val="cad_egp_b">-</td>
+                        <td data-val="cad_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Australian Dollar"></th>
+                        <td data-val="aud_egp_b">-</td>
+                        <td data-val="aud_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Japanese Yen"></th>
+                        <td data-val="jpy_egp_b">-</td>
+                        <td data-val="jpy_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Swedish Krona"></th>
+                        <td data-val="sek_egp_b">-</td>
+                        <td data-val="sek_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Swiss Franc"></th>
+                        <td data-val="chf_egp_b">-</td>
+                        <td data-val="chf_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Norwegian Krone"></th>
+                        <td data-val="nok_egp_b">-</td>
+                        <td data-val="nok_egp_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Dinish Krone"></th>
+                        <td data-val="dkk_egp_b">-</td>
+                        <td data-val="dkk_egp_s">-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="marketInfo" class="page currency" data-num="2">
+                <div class="top-list">
+                  <div class="item">
+                    <div class="asset" data-en="US Dollar"></div>
+                    <div class="value" data-val="usd_egp_bm_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+
+                  <div class="item">
+                    <div class="asset" data-en="Euro"></div>
+                    <div class="value" data-val="eur_egp_bm_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+
+                  <div class="item">
+                    <div class="asset" data-en="Sterling Pound"></div>
+                    <div class="value" data-val="gbp_egp_bm_b">-</div>
+                    <div class="unit" data-en="EGP"></div>
+                  </div>
+                </div>
+
+                <div class="t-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col" data-en="Currency"></th>
+                        <th scope="col">
+                          <span data-en="Buy"></span>
+                          <span class="unit" data-en="EGP"></span>
+                        </th>
+                        <th scope="col">
+                          <span data-en="Sell"></span>
+                          <span class="unit" data-en="EGP"></span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" data-en="US Dollar"></th>
+                        <td data-val="usd_egp_bm_b">-</td>
+                        <td data-val="usd_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Euro"></th>
+                        <td data-val="eur_egp_bm_b">-</td>
+                        <td data-val="eur_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Sterling Pound"></th>
+                        <td data-val="gbp_egp_bm_b">-</td>
+                        <td data-val="gbp_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Saudi Riyal"></th>
+                        <td data-val="sar_egp_bm_b">-</td>
+                        <td data-val="sar_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="UAE Dirham"></th>
+                        <td data-val="aed_egp_bm_b">-</td>
+                        <td data-val="aed_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Kuwait Dinar"></th>
+                        <td data-val="kwd_egp_bm_b">-</td>
+                        <td data-val="kwd_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Oman Riyal"></th>
+                        <td data-val="omr_egp_bm_b">-</td>
+                        <td data-val="omr_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Qatar Riyal"></th>
+                        <td data-val="qar_egp_bm_b">-</td>
+                        <td data-val="qar_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Chinese Yuan"></th>
+                        <td data-val="cny_egp_bm_b">-</td>
+                        <td data-val="cny_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Jordanian Dinar"></th>
+                        <td data-val="jod_egp_bm_b">-</td>
+                        <td data-val="jod_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Bahrain Dinar"></th>
+                        <td data-val="bhd_egp_bm_b">-</td>
+                        <td data-val="bhd_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Canadian Dollar"></th>
+                        <td data-val="cad_egp_bm_b">-</td>
+                        <td data-val="cad_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Australian Dollar"></th>
+                        <td data-val="aud_egp_bm_b">-</td>
+                        <td data-val="aud_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Japanese Yen"></th>
+                        <td data-val="jpy_egp_bm_b">-</td>
+                        <td data-val="jpy_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Swedish Krona"></th>
+                        <td data-val="sek_egp_bm_b">-</td>
+                        <td data-val="sek_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Swiss Franc"></th>
+                        <td data-val="chf_egp_bm_b">-</td>
+                        <td data-val="chf_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Norwegian Krone"></th>
+                        <td data-val="nok_egp_bm_b">-</td>
+                        <td data-val="nok_egp_bm_s">-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" data-en="Dinish Krone"></th>
+                        <td data-val="dkk_egp_bm_b">-</td>
+                        <td data-val="dkk_egp_bm_s">-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
 
