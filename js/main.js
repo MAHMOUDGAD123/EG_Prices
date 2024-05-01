@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+let testing = true; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
@@ -69,6 +69,7 @@ const en_ar = new Map([
   ["Search", "البحث"],
   ["Search...", "البحث..."],
   ["Main", "الرئيسية"],
+  ["Cash", "العملة"],
 
   // units
   ["liter", "لتر"],
@@ -83,12 +84,19 @@ const en_ar = new Map([
   ["Gold's USD", "دولار الصاغة"],
   ["Goldsmiths USD", "دولار الصاغة"],
   ["Goldsmiths", "الصاغة"],
+  ["Gold 24-Karat", "ذهب عيار 24"],
   ["24-karat", "عيار 24"],
+  ["Gold 22-Karat", "ذهب عيار 22"],
   ["22-karat", "عيار 22"],
+  ["Gold 21-Karat", "ذهب عيار 21"],
   ["21-karat", "عيار 21"],
+  ["Gold 18-Karat", "ذهب عيار 18"],
   ["18-karat", "عيار 18"],
+  ["Gold 14-Karat", "ذهب عيار 14"],
   ["14-karat", "عيار 14"],
+  ["Gold 12-Karat", "ذهب عيار 12"],
   ["12-karat", "عيار 12"],
+  ["Gold 9-Karat", "ذهب عيار 9"],
   ["9-karat", "عيار 9"],
   ["Gold Calculator", "حاسبة الذهب"],
   ["Goldsmiths Calculator", "حاسبة الصاغة"],
