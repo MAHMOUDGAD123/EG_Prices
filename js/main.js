@@ -662,6 +662,78 @@ const en_search_map = [
       p_unit: "EGP",
     },
   ],
+  [
+    "silver ounce",
+    {
+      name: "Silver Ounce",
+      n_unit: "gram",
+      price: "silOZ_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 999",
+    {
+      name: "Silver 999",
+      n_unit: "gram",
+      price: "sil999_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 960",
+    {
+      name: "Silver 960",
+      n_unit: "gram",
+      price: "sil960_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 958",
+    {
+      name: "Silver 958",
+      n_unit: "gram",
+      price: "sil958_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 950",
+    {
+      name: "Silver 950",
+      n_unit: "gram",
+      price: "sil950_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 947",
+    {
+      name: "Silver 947",
+      n_unit: "gram",
+      price: "sil947_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 925",
+    {
+      name: "Silver 925",
+      n_unit: "gram",
+      price: "sil925_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "silver 800",
+    {
+      name: "Silver 800",
+      n_unit: "gram",
+      price: "sil800_egp_b",
+      p_unit: "EGP",
+    },
+  ],
 ];
 
 const ar_search_map = [
@@ -752,6 +824,78 @@ const ar_search_map = [
       name: "Gold 9-Karat",
       n_unit: "gram",
       price: "gold9_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "أونصة الفضة",
+    {
+      name: "Silver Ounce",
+      n_unit: "gram",
+      price: "silOZ_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 999",
+    {
+      name: "Silver 999",
+      n_unit: "gram",
+      price: "sil999_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 960",
+    {
+      name: "Silver 960",
+      n_unit: "gram",
+      price: "sil960_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 958",
+    {
+      name: "Silver 958",
+      n_unit: "gram",
+      price: "sil958_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 950",
+    {
+      name: "Silver 950",
+      n_unit: "gram",
+      price: "sil950_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 947",
+    {
+      name: "Silver 947",
+      n_unit: "gram",
+      price: "sil947_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 925",
+    {
+      name: "Silver 925",
+      n_unit: "gram",
+      price: "sil925_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "فضة 800",
+    {
+      name: "Silver 800",
+      n_unit: "gram",
+      price: "sil800_egp_b",
       p_unit: "EGP",
     },
   ],
