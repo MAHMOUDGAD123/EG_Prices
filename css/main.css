@@ -40,6 +40,7 @@
   --gold3: #ffd9007d;
   --gold4: #ffd9005f;
   --gold5: #ffeb7b;
+  --gold6: #f1d530;
   --white1: #ffffff;
   --white2: #ffffffbd;
   --black1: #000;
@@ -904,6 +905,7 @@ main {
             border-radius: 30px;
             width: 100%;
             font-size: 1.2rem;
+            transition: all 1s;
             --brdr-rad: 20px;
 
             & > * {
@@ -940,7 +942,7 @@ main {
 
             & > .price-unit {
               color: var(--red2);
-              background-color: var(--gold1);
+              background-color: var(--gold6);
               border-radius: 0 var(--brdr-rad) var(--brdr-rad) 0;
 
               & > .unit {

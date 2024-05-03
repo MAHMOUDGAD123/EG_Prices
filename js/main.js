@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+let testing = true; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
@@ -73,10 +73,16 @@ const en_ar = new Map([
 
   // units
   ["liter", "لتر"],
+  ["Gram", "جرام"],
   ["gram", "جرام"],
+  ["Ounce", "أونصة"],
   ["ounce", "أونصة"],
   ["cylinder", "إسطوانة"],
   ["gold pound", "جنية ذهب"],
+  ["Pound", "جنية"],
+  ["pound", "جنية"],
+  ["Dollar", "دولار"],
+  ["dollar", "دولار"],
 
   // Gold
   ["Gold Ounce", "أونصة الذهب"],
@@ -117,7 +123,6 @@ const en_ar = new Map([
 
   // currency
   ["Currency", "العملة"],
-  ["Dollar", "دولار"],
   ["Egyptian Pound", "جنية مصري"],
   [" EGP ", "جنية مصري"],
   ["EGP", "ج.م"],
@@ -566,14 +571,191 @@ const calc_selections = new Map([
   ],
 ]);
 
-const search_map = new Map([
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-]);
+const en_search_map = [
+  [
+    "goldsmiths usd",
+    {
+      name: "Goldsmiths USD",
+      n_unit: "dollar",
+      price: "usd_gold",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold ounce",
+    {
+      name: "Gold Ounce",
+      n_unit: "ounce",
+      price: "goldO_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold pound",
+    {
+      name: "Gold Pound",
+      n_unit: "pound",
+      price: "goldP_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 24 karat",
+    {
+      name: "Gold 24-Karat",
+      n_unit: "gram",
+      price: "gold24_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 22 karat",
+    {
+      name: "Gold 22-Karat",
+      n_unit: "gram",
+      price: "gold22_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 21 karat",
+    {
+      name: "Gold 21-Karat",
+      n_unit: "gram",
+      price: "gold21_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 18 karat",
+    {
+      name: "Gold 18-Karat",
+      n_unit: "gram",
+      price: "gold18_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 14 karat",
+    {
+      name: "Gold 14-Karat",
+      n_unit: "gram",
+      price: "gold14_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 12 karat",
+    {
+      name: "Gold 12-Karat",
+      n_unit: "gram",
+      price: "gold12_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "gold 9 karat",
+    {
+      name: "Gold 9-Karat",
+      n_unit: "gram",
+      price: "gold9_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+];
+
+const ar_search_map = [
+  [
+    "دولار الصاغة",
+    {
+      name: "Goldsmiths USD",
+      n_unit: "dollar",
+      price: "usd_gold",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "أونصة الذهب",
+    {
+      name: "Gold Ounce",
+      n_unit: "ounce",
+      price: "goldO_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "جنية ذهب",
+    {
+      name: "Gold Pound",
+      n_unit: "pound",
+      price: "goldP_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 24",
+    {
+      name: "Gold 24-Karat",
+      n_unit: "gram",
+      price: "gold24_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 22",
+    {
+      name: "Gold 22-Karat",
+      n_unit: "gram",
+      price: "gold22_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 21",
+    {
+      name: "Gold 21-Karat",
+      n_unit: "gram",
+      price: "gold21_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 18",
+    {
+      name: "Gold 18-Karat",
+      n_unit: "gram",
+      price: "gold18_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 14",
+    {
+      name: "Gold 14-Karat",
+      n_unit: "gram",
+      price: "gold14_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 12",
+    {
+      name: "Gold 12-Karat",
+      n_unit: "gram",
+      price: "gold12_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+  [
+    "ذهب عيار 9",
+    {
+      name: "Gold 9-Karat",
+      n_unit: "gram",
+      price: "gold9_egp_b",
+      p_unit: "EGP",
+    },
+  ],
+];
 
 // used for animate the page after loading
 const content = ["header", ".content", "nav"];
@@ -614,6 +796,7 @@ set_lang();
       if (res.ok) {
         prices = await res.json();
         set_data(prices);
+        show_all();
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
         // set the initial page
@@ -647,6 +830,7 @@ set_lang();
     // testing
     prices = await (await fetch("../prices.json")).json();
     set_data(prices);
+    show_all();
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
     curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
@@ -1079,25 +1263,94 @@ function set_culculators() {
 
 //========================== Search Start ==========================
 
-const searchBox = document.getElementById("searchBox");
-const searchIcon = document.getElementById("searchIcon");
+const show_all = () => {
+  const results = document.getElementById("searchResults");
+  results.innerHTML = "";
 
-searchBox.addEventListener("click", (e) => {
-  searchBox.querySelector("input[type='text']").focus();
-});
+  (ar ? en_search_map : ar_search_map).forEach(
+    ([key, { name, n_unit, price, p_unit }]) => {
+      const [_name, _n_unit, _p_unit] = ar
+        ? [name, n_unit, p_unit]
+        : [en_ar.get(name), en_ar.get(n_unit), en_ar.get(p_unit)];
 
-searchBox.addEventListener("focusin", (e) => {
-  if (!ar) {
-    searchIcon.classList.remove("ar");
-  }
-});
+      results.innerHTML += `
+      <div class="result">
+        <div class="name-unit">
+          <span class="name" data-en="${name}">${_name}</span>
+          <span class="unit" data-en="${n_unit}">${_n_unit}</span>
+        </div>
+          <div class="price-unit">
+            <span class="price">${prices[price]}</span>
+            <span class="unit" data-en="${p_unit}">${_p_unit}</span>
+          </div>
+      </div>
+    `;
+    }
+  );
+};
 
-searchBox.addEventListener("focusout", (e) => {
-  if (!ar) {
-    searchIcon.classList.add("ar");
-  }
-});
+const __search = (inp) => {
+  const results = document.getElementById("searchResults");
+  results.innerHTML = "";
 
+  (ar ? en_search_map : ar_search_map).forEach(
+    ([key, { name, n_unit, price, p_unit }]) => {
+      const match = inp.split("").every((ch, i) => ch === key[i]);
+
+      if (match) {
+        const [_name, _n_unit, _p_unit] = ar
+          ? [name, n_unit, p_unit]
+          : [en_ar.get(name), en_ar.get(n_unit), en_ar.get(p_unit)];
+
+        results.innerHTML += `
+          <div class="result">
+            <div class="name-unit">
+              <span class="name" data-en="${name}">${_name}</span>
+              <span class="unit" data-en="${n_unit}">${_n_unit}</span>
+            </div>
+              <div class="price-unit">
+                <span class="price">${prices[price]}</span>
+                <span class="unit" data-en="${p_unit}">${_p_unit}</span>
+              </div>
+          </div>
+    `;
+      }
+    }
+  );
+};
+
+{
+  const searchBox = document.getElementById("searchBox");
+  const searchIcon = document.getElementById("searchIcon");
+  const searchIn = document.getElementById("searchIn");
+
+  searchBox.addEventListener("click", (e) => {
+    searchBox.querySelector("input[type='text']").focus();
+  });
+
+  searchBox.addEventListener("focusin", (e) => {
+    if (!ar) {
+      searchIcon.classList.remove("ar");
+    }
+  });
+
+  searchBox.addEventListener("focusout", (e) => {
+    if (!ar) {
+      searchIcon.classList.add("ar");
+    }
+  });
+
+  // searching
+  searchIn.addEventListener("input", (e) => {
+    const in_val = e.target.value;
+
+    if (in_val) {
+      __search(in_val);
+    } else {
+      show_all();
+    }
+  });
+}
 //=========================== Search End ===========================
 
 // clear consloe
