@@ -905,7 +905,6 @@ main {
             border-radius: 30px;
             width: 100%;
             font-size: 1.2rem;
-            transition: all 1s;
             --brdr-rad: 20px;
 
             & > * {
