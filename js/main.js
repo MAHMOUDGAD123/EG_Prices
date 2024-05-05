@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+let testing = true; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
@@ -1149,7 +1149,7 @@ const search_map = [
     },
   ],
   [
-    ["solar", "السولار"],
+    ["solar", "سولار"],
     {
       name: "Solar",
       n_unit: "liter",
@@ -1164,6 +1164,89 @@ const search_map = [
       n_unit: "cylinder",
       price: "gas_cyl",
       p_unit: "EGP",
+    },
+  ],
+];
+
+const tops_map = [
+  [
+    ["goldsmiths usd", "دولار الصاغة"],
+    {
+      name: "Goldsmiths USD",
+      n_unit: "dollar",
+      price: "usd_gold",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["gold 24 karat", "ذهب عيار 24"],
+    {
+      name: "Gold 24-Karat",
+      n_unit: "gram",
+      price: "gold24_egp_b",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["gold 21 karat", "ذهب عيار 21"],
+    {
+      name: "Gold 21-Karat",
+      n_unit: "gram",
+      price: "gold21_egp_b",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["silver 999", "فضة 999"],
+    {
+      name: "Silver 999",
+      n_unit: "gram",
+      price: "sil999_egp_b",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["usd", "دولار أمريكي"],
+    {
+      name: "USD Bank",
+      n_unit: "dollar",
+      price: "usd_egp_b",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["usd", "دولار أمريكي"],
+    {
+      name: "USD Market",
+      n_unit: "dollar",
+      price: "usd_egp_bm_b",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["gasoline 92", "بنزين 92"],
+    {
+      name: "Gasoline 92",
+      n_unit: "liter",
+      price: "gasoline92",
+      p_unit: "EGP",
+      top: true,
+    },
+  ],
+  [
+    ["gasoline 80", "بنزين 80"],
+    {
+      name: "Gasoline 80",
+      n_unit: "liter",
+      price: "gasoline80",
+      p_unit: "EGP",
+      top: true,
     },
   ],
 ];
@@ -1207,7 +1290,7 @@ set_lang();
       if (res.ok) {
         prices = await res.json();
         set_data(prices);
-        show_all();
+        show_tops();
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
         // set the initial page
@@ -1241,7 +1324,7 @@ set_lang();
     // testing
     prices = await (await fetch("../prices.json")).json();
     set_data(prices);
-    show_all();
+    show_tops();
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
     curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
@@ -1674,11 +1757,11 @@ function set_culculators() {
 
 //========================== Search Start ==========================
 
-const show_all = () => {
+const show_tops = () => {
   const results = document.getElementById("searchResults");
   results.innerHTML = "";
 
-  search_map.forEach(([_, { name, n_unit, price, p_unit }]) => {
+  tops_map.forEach(([_, { name, n_unit, price, p_unit }]) => {
     const [_name, _n_unit, _p_unit] = ar
       ? [name, n_unit, p_unit]
       : [en_ar.get(name), en_ar.get(n_unit), en_ar.get(p_unit)];
@@ -1705,7 +1788,7 @@ const __search = (inp) => {
   search_map.forEach(([[en_key, ar_key], { name, n_unit, price, p_unit }]) => {
     const match = ar
       ? inp.split("").every((ch, i) => ch.toLowerCase() === en_key[i])
-      : inp.split("").every((ch, i) => ch.toLowerCase() === ar_key[i]);
+      : inp.split("").every((ch, i) => ch === ar_key[i]);
 
     if (match) {
       const [_name, _n_unit, _p_unit] = ar
@@ -1718,10 +1801,10 @@ const __search = (inp) => {
               <span class="name" data-en="${name}">${_name}</span>
               <span class="unit" data-en="${n_unit}">${_n_unit}</span>
             </div>
-              <div class="price-unit">
-                <span class="price">${prices[price]}</span>
-                <span class="unit" data-en="${p_unit}">${_p_unit}</span>
-              </div>
+            <div class="price-unit">
+              <span class="price">${prices[price]}</span>
+              <span class="unit" data-en="${p_unit}">${_p_unit}</span>
+            </div>
           </div>
     `;
     }
@@ -1756,7 +1839,7 @@ const __search = (inp) => {
     if (in_val) {
       __search(in_val);
     } else {
-      show_all();
+      show_tops();
     }
   });
 }
