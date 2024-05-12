@@ -711,7 +711,7 @@ main {
             );
           }
 
-          &:is(:hover, :focus, :focus-visible) {
+          &:hover {
             &::before {
               scale: 1;
             }
