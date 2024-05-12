@@ -44,27 +44,37 @@
     <main>
       <nav>
         <div class="btn" tabindex="0" id="gold_page_btn">
-          <i class="fa-solid fa-coins"></i>
+          <div class="icon">
+            <i class="fa-solid fa-coins"></i>
+          </div>
           <span class="txt" data-en="Gold"></span>
         </div>
 
         <div class="btn" tabindex="0" id="silver_page_btn">
-          <i class="fa-solid fa-sack-dollar"></i>
+          <div class="icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
           <span class="txt" data-en="Silver"></span>
         </div>
 
         <div class="btn" tabindex="0" id="main_page_btn">
-          <i class="fa-solid fa-house"></i>
-          <span class="txt" data-en="Main"></span>
+          <div class="icon">
+            <i class="fa-solid fa-house"></i>
+          </div>
+          <span class="txt" data-en="Home"></span>
         </div>
 
         <div class="btn" tabindex="0" id="currency_page_btn">
-          <i class="fa-solid fa-dollar-sign"></i>
+          <div class="icon">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
           <span class="txt" data-en="Cash"></span>
         </div>
 
         <div class="btn" tabindex="0" id="gasoline_page_btn">
-          <i class="fa-solid fa-gas-pump"></i>
+          <div class="icon">
+            <i class="fa-solid fa-gas-pump"></i>
+          </div>
           <span class="txt" data-en="Gas"></span>
         </div>
       </nav>
@@ -95,6 +105,10 @@
           </div>
 
           <div class="tools">
+            <div id="search_page_btn" tabindex="0">
+              <i class="fa-solid fa-magnifying-glass icon"></i>
+            </div>
+
             <div id="calculator_page_btn" tabindex="0">
               <i class="fa-solid fa-calculator icon"></i>
             </div>
@@ -419,27 +433,21 @@
             </div>
           </div>
 
-          <div id="goldPage" class="page" data-num="1">
-            <div class="top-list">
-              <div class="item">
-                <div class="asset" data-en="Gold Ounce"></div>
-                <div class="value" data-val="goldO_usd">-</div>
-                <div class="unit" data-en="Dollar"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Gold Ounce"></div>
-                <div class="value" data-val="goldO_euro">-</div>
-                <div class="unit" data-en="Euro"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Gold's USD"></div>
-                <div class="value" data-val="usd_gold">-</div>
-                <div class="unit" data-en="EGP"></div>
+          <div id="searchPage" class="page" data-num="-2">
+            <i id="emptySearch" class="fa-solid fa-magnifying-glass-dollar"></i>
+            <div id="searchBox" tabindex="0">
+              <input id="searchIn" type="text" data-en="Search..." />
+              <div id="searchIcon">
+                <i class="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
 
+            <div class="holder">
+              <div id="searchResults"></div>
+            </div>
+          </div>
+
+          <div id="goldPage" class="page" data-num="1">
             <div class="t-wrapper">
               <table>
                 <thead>
@@ -457,37 +465,37 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row" data-en="24-karat"></th>
+                    <th scope="row" data-en="24 Karat"></th>
                     <td data-val="gold24_egp_b">-</td>
                     <td data-val="gold24_egp_s">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="22-karat"></th>
+                    <th scope="row" data-en="22 Karat"></th>
                     <td data-val="gold22_egp_b">-</td>
                     <td data-val="gold22_egp_s">-</td>
                   </tr>
-                  <tr class="top">
-                    <th scope="row" data-en="21-karat"></th>
+                  <tr>
+                    <th scope="row" data-en="21 Karat"></th>
                     <td data-val="gold21_egp_b">-</td>
                     <td data-val="gold21_egp_s">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="18-karat"></th>
+                    <th scope="row" data-en="18 Karat"></th>
                     <td data-val="gold18_egp_b">-</td>
                     <td data-val="gold18_egp_s">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="14-karat"></th>
+                    <th scope="row" data-en="14 Karat"></th>
                     <td data-val="gold14_egp_b">-</td>
                     <td data-val="gold14_egp_s">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="12-karat"></th>
+                    <th scope="row" data-en="12 Karat"></th>
                     <td data-val="gold12_egp_b">-</td>
                     <td data-val="gold12_egp_s">-</td>
                   </tr>
                   <tr>
-                    <th scope="row" data-en="9-karat"></th>
+                    <th scope="row" data-en="9 Karat"></th>
                     <td data-val="gold9_egp_b">-</td>
                     <td data-val="gold9_egp_s">-</td>
                   </tr>
@@ -504,29 +512,26 @@
                 </tbody>
               </table>
             </div>
+
+            <div class="headers">
+              <div class="head">
+                <div class="name" data-en="Gold Ounce"></div>
+                <div class="price">
+                  <div class="value" data-val="goldO_usd"></div>
+                  <div class="unit" data-en=" USD "></div>
+                </div>
+              </div>
+              <div class="head">
+                <div class="name" data-en="Gold Ounce"></div>
+                <div class="price">
+                  <div class="value" data-val="goldO_eur"></div>
+                  <div class="unit" data-en="EUR"></div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div id="silverPage" class="page" data-num="2">
-            <div class="top-list">
-              <div class="item">
-                <div class="asset" data-en="Silver Ounce"></div>
-                <div class="value" data-val="silOZ_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Silver 999"></div>
-                <div class="value" data-val="sil999_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-
-              <div class="item">
-                <div class="asset" data-en="Gold Ounce"></div>
-                <div class="value" data-val="goldO_egp_b">-</div>
-                <div class="unit" data-en="EGP"></div>
-              </div>
-            </div>
-
             <div class="t-wrapper">
               <table>
                 <thead>
@@ -543,7 +548,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="top">
+                  <tr>
                     <th scope="row" data-en="Silver 999"></th>
                     <td data-val="sil999_egp_b">-</td>
                     <td data-val="sil999_egp_s">-</td>
@@ -589,14 +594,177 @@
           </div>
 
           <div id="mainPage" class="page" data-num="3">
-            <div id="searchBox" tabindex="0">
-              <input id="searchIn" type="text" data-en="Search..." />
-              <div id="searchIcon">
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="top-list">
+              <div class="item">
+                <div class="sell">
+                  <span class="val" data-val="gold24_egp_s"></span>
+                  <span class="txt" data-en="sell"></span>
+                </div>
+                <div class="buy" data-val="gold24_egp_b">-</div>
+                <div class="asset" data-en="24 Karat"></div>
+              </div>
+
+              <div class="item">
+                <div class="sell">
+                  <span class="val" data-val="gold22_egp_s"></span>
+                  <span class="txt" data-en="sell"></span>
+                </div>
+                <div class="buy" data-val="gold22_egp_b">-</div>
+                <div class="asset" data-en="22 Karat"></div>
+              </div>
+
+              <div class="item top">
+                <div class="sell">
+                  <span class="val" data-val="gold21_egp_s"></span>
+                  <span class="txt" data-en="sell"></span>
+                </div>
+                <div class="buy" data-val="gold21_egp_b">-</div>
+                <div class="asset" data-en="21 Karat"></div>
+              </div>
+
+              <div class="item">
+                <div class="sell">
+                  <span class="val" data-val="gold18_egp_s"></span>
+                  <span class="txt" data-en="sell"></span>
+                </div>
+                <div class="buy" data-val="gold18_egp_b">-</div>
+                <div class="asset" data-en="18 Karat"></div>
+              </div>
+
+              <div class="item">
+                <div class="sell">
+                  <span class="val" data-val="gold14_egp_s"></span>
+                  <span class="txt" data-en="sell"></span>
+                </div>
+                <div class="buy" data-val="gold14_egp_b">-</div>
+                <div class="asset" data-en="14 Karat"></div>
               </div>
             </div>
 
-            <div id="searchResults"></div>
+            <div class="holder">
+              <div id="goldTv">
+                <!-- TradingView Widget BEGIN -->
+                <!-- <div class="tradingview-widget-container ar">
+                  <div class="tradingview-widget-container__widget"></div>
+                  <div class="tradingview-widget-copyright"></div>
+                  <script
+                    type="text/javascript"
+                    src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js"
+                    async
+                  >
+                    {
+                      "symbol": "TVC:GOLD",
+                      "width": "100%",
+                      "isTransparent": true,
+                      "colorTheme": "dark",
+                      "locale": "ar_AE"
+                    }
+                  </script>
+                </div> -->
+                <!-- TradingView Widget END -->
+              </div>
+
+              <div class="details">
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/gold-pound.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Gold Pound"></div>
+                    <div class="price">
+                      <div class="val" data-val="goldP_egp_b"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/goldOz.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Gold Ounce"></div>
+                    <div class="price">
+                      <div class="val" data-val="goldO_egp_b"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/sagha-usd.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Sagha USD"></div>
+                    <div class="price">
+                      <div class="val" data-val="usd_gold"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/bank-usd.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Banks USD"></div>
+                    <div class="price">
+                      <div class="val" data-val="usd_egp"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/black-usd.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Market USD"></div>
+                    <div class="price">
+                      <div class="val" data-val="usd_egpp"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/sagha-dif.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Sagha Diff"></div>
+                    <div class="price">
+                      <div class="val" data-val="market_usd_diff"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/market-dif.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Market Diff"></div>
+                    <div class="price">
+                      <div class="val" data-val="sagha_usd_diff"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/silverOz.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Silver Price"></div>
+                    <div class="price">
+                      <div class="val" data-val="sil800_egp_b"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card" tabindex="0">
+                  <img src="./files/imgs/usdt.svg" />
+                  <div class="info">
+                    <div class="name" data-en="USDT"></div>
+                    <div class="price">
+                      <div class="val" data-val="usdt_egp"></div>
+                      <div class="unit" data-en=" EGP "></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div id="currencyPage" class="page" data-num="4">
@@ -607,26 +775,6 @@
 
             <div class="wrapper">
               <div id="bankInfo" class="page currency" data-num="1">
-                <div class="top-list">
-                  <div class="item">
-                    <div class="asset" data-en="US Dollar"></div>
-                    <div class="value" data-val="usd_egp_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-
-                  <div class="item">
-                    <div class="asset" data-en="Euro"></div>
-                    <div class="value" data-val="eur_egp_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-
-                  <div class="item">
-                    <div class="asset" data-en="Sterling Pound"></div>
-                    <div class="value" data-val="gbp_egp_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-                </div>
-
                 <div class="t-wrapper">
                   <table>
                     <thead>
@@ -708,57 +856,12 @@
                         <td data-val="aud_egp_b">-</td>
                         <td data-val="aud_egp_s">-</td>
                       </tr>
-                      <tr>
-                        <th scope="row" data-en="Japanese Yen"></th>
-                        <td data-val="jpy_egp_b">-</td>
-                        <td data-val="jpy_egp_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Swedish Krona"></th>
-                        <td data-val="sek_egp_b">-</td>
-                        <td data-val="sek_egp_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Swiss Franc"></th>
-                        <td data-val="chf_egp_b">-</td>
-                        <td data-val="chf_egp_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Norwegian Krone"></th>
-                        <td data-val="nok_egp_b">-</td>
-                        <td data-val="nok_egp_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Dinish Krone"></th>
-                        <td data-val="dkk_egp_b">-</td>
-                        <td data-val="dkk_egp_s">-</td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
 
               <div id="marketInfo" class="page currency" data-num="2">
-                <div class="top-list">
-                  <div class="item">
-                    <div class="asset" data-en="US Dollar"></div>
-                    <div class="value" data-val="usd_egp_bm_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-
-                  <div class="item">
-                    <div class="asset" data-en="Euro"></div>
-                    <div class="value" data-val="eur_egp_bm_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-
-                  <div class="item">
-                    <div class="asset" data-en="Sterling Pound"></div>
-                    <div class="value" data-val="gbp_egp_bm_b">-</div>
-                    <div class="unit" data-en="EGP"></div>
-                  </div>
-                </div>
-
                 <div class="t-wrapper">
                   <table>
                     <thead>
@@ -839,31 +942,6 @@
                         <th scope="row" data-en="Australian Dollar"></th>
                         <td data-val="aud_egp_bm_b">-</td>
                         <td data-val="aud_egp_bm_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Japanese Yen"></th>
-                        <td data-val="jpy_egp_bm_b">-</td>
-                        <td data-val="jpy_egp_bm_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Swedish Krona"></th>
-                        <td data-val="sek_egp_bm_b">-</td>
-                        <td data-val="sek_egp_bm_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Swiss Franc"></th>
-                        <td data-val="chf_egp_bm_b">-</td>
-                        <td data-val="chf_egp_bm_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Norwegian Krone"></th>
-                        <td data-val="nok_egp_bm_b">-</td>
-                        <td data-val="nok_egp_bm_s">-</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" data-en="Dinish Krone"></th>
-                        <td data-val="dkk_egp_bm_b">-</td>
-                        <td data-val="dkk_egp_bm_s">-</td>
                       </tr>
                     </tbody>
                   </table>

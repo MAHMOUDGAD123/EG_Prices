@@ -68,8 +68,16 @@ const en_ar = new Map([
   ["To", "إلى"],
   ["Search", "البحث"],
   ["Search...", "البحث..."],
-  ["Main", "الرئيسية"],
+  ["Home", "الرئيسية"],
   ["Cash", "العملة"],
+  ["buy", "شراء"],
+  ["sell", "بيع"],
+  ["Banks USD", "دولار البنوك"],
+  ["Market USD", "دولار السوق"],
+  ["Sagha USD", "دولار الصاغة"],
+  ["Sagha Diff", "فرق السوق"],
+  ["Market Diff", "فرق الصاغة"],
+  ["Silver Price", "سعر الفضة"],
 
   // units
   ["liter", "لتر"],
@@ -86,24 +94,24 @@ const en_ar = new Map([
 
   // Gold
   ["Gold Ounce", "أونصة الذهب"],
-  ["Gold Pound", "جنية ذهب"],
+  ["Gold Pound", "جنية الذهب"],
   ["Gold's USD", "دولار الصاغة"],
   ["Goldsmiths USD", "دولار الصاغة"],
   ["Goldsmiths", "الصاغة"],
   ["Gold 24-Karat", "ذهب عيار 24"],
-  ["24-karat", "عيار 24"],
+  ["24 Karat", "عيار 24"],
   ["Gold 22-Karat", "ذهب عيار 22"],
-  ["22-karat", "عيار 22"],
+  ["22 Karat", "عيار 22"],
   ["Gold 21-Karat", "ذهب عيار 21"],
-  ["21-karat", "عيار 21"],
+  ["21 Karat", "عيار 21"],
   ["Gold 18-Karat", "ذهب عيار 18"],
-  ["18-karat", "عيار 18"],
+  ["18 Karat", "عيار 18"],
   ["Gold 14-Karat", "ذهب عيار 14"],
-  ["14-karat", "عيار 14"],
+  ["14 Karat", "عيار 14"],
   ["Gold 12-Karat", "ذهب عيار 12"],
-  ["12-karat", "عيار 12"],
+  ["12 Karat", "عيار 12"],
   ["Gold 9-Karat", "ذهب عيار 9"],
-  ["9-karat", "عيار 9"],
+  ["9 Karat", "عيار 9"],
   ["Gold Calculator", "حاسبة الذهب"],
   ["Goldsmiths Calculator", "حاسبة الصاغة"],
   ["Silver Calculator", "حاسبة الفضة"],
@@ -122,12 +130,14 @@ const en_ar = new Map([
   ["Silver Ounce", "أونصة الفضة"],
 
   // currency
+  ["USDT", "الدولار الرقمي"],
   ["Currency", "العملة"],
   ["Egyptian Pound", "جنية مصري"],
   [" EGP ", "جنية مصري"],
   ["EGP", "ج.م"],
   ["US Dollar", "دولار أمريكي"],
   ["USD", "دولار أمريكي"],
+  [" USD ", "دولار"],
   ["usd", "دولار أمريكي"],
   ["USD Bank", "دولار أمريكي البنك"],
   ["USD Market", "دولار أمريكي السوق"],
@@ -230,6 +240,7 @@ const en_ar = new Map([
 const page_btn = new Map([
   ["settingsPage", "settings_page_btn"],
   ["calculatorPage", "calculator_page_btn"],
+  ["searchPage", "search_page_btn"],
   ["goldPage", "gold_page_btn"],
   ["silverPage", "silver_page_btn"],
   ["mainPage", "main_page_btn"],
@@ -260,37 +271,37 @@ const calc_selections = new Map([
     [
       [
         ["price", "gold24_egp_b"],
-        ["en", "24-karat"],
+        ["en", "24 Karat"],
         ["unit", "gram"],
       ],
       [
         ["price", "gold22_egp_b"],
-        ["en", "22-karat"],
+        ["en", "22 Karat"],
         ["unit", "gram"],
       ],
       [
         ["price", "gold21_egp_b"],
-        ["en", "21-karat"],
+        ["en", "21 Karat"],
         ["unit", "gram"],
       ],
       [
         ["price", "gold18_egp_b"],
-        ["en", "18-karat"],
+        ["en", "18 Karat"],
         ["unit", "gram"],
       ],
       [
         ["price", "gold14_egp_b"],
-        ["en", "14-karat"],
+        ["en", "14 Karat"],
         ["unit", "gram"],
       ],
       [
-        ["price", "12_egp_b"],
-        ["en", "12-karat"],
+        ["price", "gold12_egp_b"],
+        ["en", "12 Karat"],
         ["unit", "gram"],
       ],
       [
         ["price", "gold9_egp_b"],
-        ["en", "9-karat"],
+        ["en", "9 Karat"],
         ["unit", "gram"],
       ],
       [
@@ -442,31 +453,6 @@ const calc_selections = new Map([
         ["en", "AUD"],
         ["unit", "AUD"],
       ],
-      [
-        ["price", "jpy_egp_b"],
-        ["en", "JPY"],
-        ["unit", "JPY"],
-      ],
-      [
-        ["price", "sek_egp_b"],
-        ["en", "SEK"],
-        ["unit", "SEK"],
-      ],
-      [
-        ["price", "chf_egp_b"],
-        ["en", "CHF"],
-        ["unit", "CHF"],
-      ],
-      [
-        ["price", "nok_egp_b"],
-        ["en", "NOK"],
-        ["unit", "NOK"],
-      ],
-      [
-        ["price", "dkk_egp_b"],
-        ["en", "DKK"],
-        ["unit", "DKK"],
-      ],
     ],
   ],
 
@@ -549,31 +535,6 @@ const calc_selections = new Map([
         ["en", "AUD"],
         ["unit", "AUD"],
       ],
-      [
-        ["price", "jpy_egp_bm_b"],
-        ["en", "JPY"],
-        ["unit", "JPY"],
-      ],
-      [
-        ["price", "sek_egp_bm_b"],
-        ["en", "SEK"],
-        ["unit", "SEK"],
-      ],
-      [
-        ["price", "chf_egp_bm_b"],
-        ["en", "CHF"],
-        ["unit", "CHF"],
-      ],
-      [
-        ["price", "nok_egp_bm_b"],
-        ["en", "NOK"],
-        ["unit", "NOK"],
-      ],
-      [
-        ["price", "dkk_egp_bm_b"],
-        ["en", "DKK"],
-        ["unit", "DKK"],
-      ],
     ],
   ],
 
@@ -629,624 +590,409 @@ const search_map = [
   [
     ["goldsmiths usd", "دولار الصاغة"],
     {
+      img: "sagha-usd",
       name: "Goldsmiths USD",
-      n_unit: "dollar",
       price: "usd_gold",
-      p_unit: "EGP",
     },
   ],
   [
-    ["gold ounce", "أونصة الذهب"],
+    ["gold ounce", "اونصة الذهب"],
     {
+      img: "goldOz",
       name: "Gold Ounce",
-      n_unit: "ounce",
       price: "goldO_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold pound", "جنية ذهب"],
     {
+      img: "gold-pound",
       name: "Gold Pound",
-      n_unit: "pound",
       price: "goldP_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 24 karat", "ذهب عيار 24"],
     {
+      img: "24k",
       name: "Gold 24-Karat",
-      n_unit: "gram",
       price: "gold24_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 22 karat", "ذهب عيار 22"],
     {
+      img: "22k",
       name: "Gold 22-Karat",
-      n_unit: "gram",
       price: "gold22_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 21 karat", "ذهب عيار 21"],
     {
+      img: "21k",
       name: "Gold 21-Karat",
-      n_unit: "gram",
       price: "gold21_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 18 karat", "ذهب عيار 18"],
     {
+      img: "18k",
       name: "Gold 18-Karat",
-      n_unit: "gram",
       price: "gold18_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 14 karat", "ذهب عيار 14"],
     {
+      img: "14k",
       name: "Gold 14-Karat",
-      n_unit: "gram",
       price: "gold14_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 12 karat", "ذهب عيار 12"],
     {
+      img: "12k",
       name: "Gold 12-Karat",
-      n_unit: "gram",
       price: "gold12_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gold 9 karat", "ذهب عيار 9"],
     {
+      img: "9k",
       name: "Gold 9-Karat",
-      n_unit: "gram",
       price: "gold9_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
-    ["silver ounce", "أونصة الفضة"],
+    ["silver ounce", "اونصة الفضة"],
     {
+      img: "silverOz",
       name: "Silver Ounce",
-      n_unit: "ounce",
       price: "silOZ_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 999", "فضة 999"],
     {
+      img: "999k",
       name: "Silver 999",
-      n_unit: "gram",
       price: "sil999_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 960", "فضة 960"],
     {
+      img: "960k",
       name: "Silver 960",
-      n_unit: "gram",
       price: "sil960_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 958", "فضة 958"],
     {
+      img: "958k",
       name: "Silver 958",
-      n_unit: "gram",
       price: "sil958_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 950", "فضة 950"],
     {
+      img: "950k",
       name: "Silver 950",
-      n_unit: "gram",
       price: "sil950_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 947", "فضة 947"],
     {
+      img: "947k",
       name: "Silver 947",
-      n_unit: "gram",
       price: "sil947_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 925", "فضة 925"],
     {
+      img: "925k",
       name: "Silver 925",
-      n_unit: "gram",
       price: "sil925_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["silver 800", "فضة 800"],
     {
+      img: "800k",
       name: "Silver 800",
-      n_unit: "gram",
       price: "sil800_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["usd", "دولار أمريكي"],
     {
+      img: "USD",
       name: "USD Bank",
-      n_unit: "dollar",
       price: "usd_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["usd", "دولار أمريكي"],
     {
+      img: "USD",
       name: "USD Market",
-      n_unit: "dollar",
       price: "usd_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["sar", "ريال سعودي"],
     {
+      img: "SAR",
       name: "SAR Bank",
-      n_unit: "sar",
       price: "sar_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["sar", "ريال سعودي"],
     {
+      img: "SAR",
       name: "SAR Market",
-      n_unit: "sar",
       price: "sar_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["eur", "يورو"],
     {
+      img: "EUR",
       name: "EUR Bank",
-      n_unit: "eur",
       price: "eur_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["eur", "يورو"],
     {
+      img: "EUR",
       name: "EUR Market",
-      n_unit: "eur",
       price: "eur_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["aed", "درهم إماراتي"],
     {
+      img: "AED",
       name: "AED Bank",
-      n_unit: "aed",
       price: "aed_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["aed", "درهم إماراتي"],
     {
+      img: "AED",
       name: "AED Market",
-      n_unit: "aed",
       price: "aed_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["kwd", "دينار كويتي"],
     {
+      img: "KWD",
       name: "KWD Bank",
-      n_unit: "kwd",
       price: "kwd_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["kwd", "دينار كويتي"],
     {
+      img: "KWD",
       name: "KWD Market",
-      n_unit: "kwd",
       price: "kwd_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gbp", "جنية إسترليني"],
     {
+      img: "GBP",
       name: "GBP Bank",
-      n_unit: "gbp",
       price: "gbp_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gbp", "جنية إسترليني"],
     {
+      img: "GBP",
       name: "GBP Market",
-      n_unit: "gbp",
       price: "gbp_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["omr", "ريال عماني"],
     {
+      img: "OMR",
       name: "OMR Bank",
-      n_unit: "omr",
       price: "omr_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["omr", "ريال عماني"],
     {
+      img: "OMR",
       name: "OMR Market",
-      n_unit: "omr",
       price: "omr_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["qar", "ريال قطري"],
     {
+      img: "QAR",
       name: "QAR Bank",
-      n_unit: "qar",
       price: "qar_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["qar", "ريال قطري"],
     {
+      img: "QAR",
       name: "QAR Market",
-      n_unit: "qar",
       price: "qar_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["cny", "يوان صيني"],
     {
+      img: "CNY",
       name: "CNY Bank",
-      n_unit: "cny",
       price: "cny_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["cny", "يوان صيني"],
     {
+      img: "CNY",
       name: "CNY Market",
-      n_unit: "cny",
       price: "cny_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["bhd", "دينار بحريني"],
     {
+      img: "BHD",
       name: "BHD Bank",
-      n_unit: "bhd",
       price: "bhd_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["bhd", "دينار بحريني"],
     {
+      img: "BHD",
       name: "BHD Market",
-      n_unit: "bhd",
       price: "bhd_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["jod", "دينار أردني"],
     {
+      img: "JOD",
       name: "JOD Bank",
-      n_unit: "jod",
       price: "jod_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["jod", "دينار أردني"],
     {
+      img: "JOD",
       name: "JOD Market",
-      n_unit: "jod",
       price: "jod_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["cad", "دولار كندي"],
     {
+      img: "CAD",
       name: "CAD Bank",
-      n_unit: "cad",
       price: "cad_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["cad", "دولار كندي"],
     {
+      img: "CAD",
       name: "CAD Market",
-      n_unit: "cad",
       price: "cad_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["aud", "دولار استرالي"],
     {
+      img: "AUD",
       name: "AUD Bank",
-      n_unit: "aud",
       price: "aud_egp_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["aud", "دولار استرالي"],
     {
+      img: "AUD",
       name: "AUD Market",
-      n_unit: "aud",
       price: "aud_egp_bm_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["jpy", "ين ياباني"],
-    {
-      name: "JPY Bank",
-      n_unit: "jpy",
-      price: "jpy_egp_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["jpy", "ين ياباني"],
-    {
-      name: "JPY Market",
-      n_unit: "jpy",
-      price: "jpy_egp_bm_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["sek", "كرون سويدي"],
-    {
-      name: "SEK Bank",
-      n_unit: "sek",
-      price: "sek_egp_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["sek", "كرون سويدي"],
-    {
-      name: "SEK Market",
-      n_unit: "sek",
-      price: "sek_egp_bm_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["chf", "فرنك سويسري"],
-    {
-      name: "CHF Bank",
-      n_unit: "chf",
-      price: "chf_egp_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["chf", "فرنك سويسري"],
-    {
-      name: "CHF Market",
-      n_unit: "chf",
-      price: "chf_egp_bm_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["nok", "كرون نرويجي"],
-    {
-      name: "NOK Bank",
-      n_unit: "nok",
-      price: "nok_egp_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["nok", "كرون نرويجي"],
-    {
-      name: "NOK Market",
-      n_unit: "nok",
-      price: "nok_egp_bm_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["dkk", "كرون دانماركي"],
-    {
-      name: "DKK Bank",
-      n_unit: "dkk",
-      price: "dkk_egp_b",
-      p_unit: "EGP",
-    },
-  ],
-  [
-    ["dkk", "كرون دانماركي"],
-    {
-      name: "DKK Market",
-      n_unit: "dkk",
-      price: "dkk_egp_bm_b",
-      p_unit: "EGP",
     },
   ],
   [
     ["gasoline 95", "بنزين 95"],
     {
+      img: "gas",
       name: "Gasoline 95",
-      n_unit: "liter",
       price: "gasoline95",
-      p_unit: "EGP",
     },
   ],
   [
     ["gasoline 92", "بنزين 92"],
     {
+      img: "gas",
       name: "Gasoline 92",
-      n_unit: "liter",
       price: "gasoline92",
-      p_unit: "EGP",
     },
   ],
   [
     ["gasoline 80", "بنزين 80"],
     {
+      img: "gas",
       name: "Gasoline 80",
-      n_unit: "liter",
       price: "gasoline80",
-      p_unit: "EGP",
     },
   ],
   [
     ["kerosene", "كيروسين"],
     {
+      img: "gas",
       name: "Kerosene",
-      n_unit: "liter",
       price: "kerosene",
-      p_unit: "EGP",
     },
   ],
   [
     ["solar", "سولار"],
     {
+      img: "gas",
       name: "Solar",
-      n_unit: "liter",
       price: "solar",
-      p_unit: "EGP",
     },
   ],
   [
-    ["stove cylinder", "إسطوانة البوتاجاز"],
+    ["stove cylinder", "اسطوانة البوتاجاز"],
     {
+      img: "stoveCyl",
       name: "Stove Cylinder",
-      n_unit: "cylinder",
       price: "gas_cyl",
-      p_unit: "EGP",
-    },
-  ],
-];
-
-const tops_map = [
-  [
-    ["goldsmiths usd", "دولار الصاغة"],
-    {
-      name: "Goldsmiths USD",
-      n_unit: "dollar",
-      price: "usd_gold",
-      p_unit: "EGP",
-      top: true,
     },
   ],
   [
-    ["gold 24 karat", "ذهب عيار 24"],
+    ["usdt", "دولار رقمي"],
     {
-      name: "Gold 24-Karat",
-      n_unit: "gram",
-      price: "gold24_egp_b",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["gold 21 karat", "ذهب عيار 21"],
-    {
-      name: "Gold 21-Karat",
-      n_unit: "gram",
-      price: "gold21_egp_b",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["silver 999", "فضة 999"],
-    {
-      name: "Silver 999",
-      n_unit: "gram",
-      price: "sil999_egp_b",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["usd", "دولار أمريكي"],
-    {
-      name: "USD Bank",
-      n_unit: "dollar",
-      price: "usd_egp_b",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["usd", "دولار أمريكي"],
-    {
-      name: "USD Market",
-      n_unit: "dollar",
-      price: "usd_egp_bm_b",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["gasoline 92", "بنزين 92"],
-    {
-      name: "Gasoline 92",
-      n_unit: "liter",
-      price: "gasoline92",
-      p_unit: "EGP",
-      top: true,
-    },
-  ],
-  [
-    ["gasoline 80", "بنزين 80"],
-    {
-      name: "Gasoline 80",
-      n_unit: "liter",
-      price: "gasoline80",
-      p_unit: "EGP",
-      top: true,
+      img: "usdt",
+      name: "USDT",
+      price: "usdt_egp",
     },
   ],
 ];
@@ -1290,7 +1036,6 @@ set_lang();
       if (res.ok) {
         prices = await res.json();
         set_data(prices);
-        show_tops();
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
         // set the initial page
@@ -1324,7 +1069,6 @@ set_lang();
     // testing
     prices = await (await fetch("../prices.json")).json();
     set_data(prices);
-    show_tops();
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
     curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
@@ -1347,14 +1091,13 @@ set_lang();
 function set_lang() {
   const all_txt = document.querySelectorAll("[data-en]");
   const logo = document.querySelector(".logo > .txt");
-  const _switch = document.getElementById("langSwitch");
+  const lang_switch = document.getElementById("langSwitch");
   const searchBox_in = document.querySelector("#searchBox > input");
   const searchIcon = document.querySelector("#searchIcon");
-  const searchResults = document.querySelector("#searchResults");
 
   if (ar) {
     ar = false;
-    _switch.classList.add("on");
+    lang_switch.classList.add("on");
     document.body.classList.add("ar");
     logo.classList.add("ar");
 
@@ -1365,10 +1108,9 @@ function set_lang() {
 
     searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
     searchIcon.classList.add("ar");
-    searchResults.classList.add("ar");
   } else {
     ar = true;
-    _switch.classList.remove("on");
+    lang_switch.classList.remove("on");
     document.body.classList.remove("ar");
     logo.classList.remove("ar");
 
@@ -1379,11 +1121,14 @@ function set_lang() {
 
     searchBox_in.placeholder = searchBox_in.dataset.en;
     searchIcon.classList.remove("ar");
-    searchResults.classList.remove("ar");
   }
 }
 
 function set_data(data) {
+  // get the usd differences
+  data["sagha_usd_diff"] = (data["usd_egp"] - data["usd_gold"]).toPrecision(4);
+  data["market_usd_diff"] = (data["usd_egp"] - data["usd_egpp"]).toPrecision(4);
+
   document.querySelectorAll("[data-val]").forEach((el) => {
     el.textContent = data[el.dataset.val] || "-";
   });
@@ -1757,55 +1502,31 @@ function set_culculators() {
 
 //========================== Search Start ==========================
 
-const show_tops = () => {
-  const results = document.getElementById("searchResults");
-  results.innerHTML = "";
-
-  tops_map.forEach(([_, { name, n_unit, price, p_unit }]) => {
-    const [_name, _n_unit, _p_unit] = ar
-      ? [name, n_unit, p_unit]
-      : [en_ar.get(name), en_ar.get(n_unit), en_ar.get(p_unit)];
-
-    results.innerHTML += `
-      <div class="result">
-        <div class="name-unit">
-          <span class="name" data-en="${name}">${_name}</span>
-          <span class="unit" data-en="${n_unit}">${_n_unit}</span>
-        </div>
-          <div class="price-unit">
-            <span class="price">${prices[price]}</span>
-            <span class="unit" data-en="${p_unit}">${_p_unit}</span>
-          </div>
-      </div>
-    `;
-  });
-};
-
 const __search = (inp) => {
   const results = document.getElementById("searchResults");
   results.innerHTML = "";
 
-  search_map.forEach(([[en_key, ar_key], { name, n_unit, price, p_unit }]) => {
+  search_map.forEach(([[en_key, ar_key], { img, name, price }]) => {
     const match = ar
       ? inp.split("").every((ch, i) => ch.toLowerCase() === en_key[i])
       : inp.split("").every((ch, i) => ch === ar_key[i]);
 
     if (match) {
-      const [_name, _n_unit, _p_unit] = ar
-        ? [name, n_unit, p_unit]
-        : [en_ar.get(name), en_ar.get(n_unit), en_ar.get(p_unit)];
+      const [_name, unit] = ar
+        ? [name, "EGP"]
+        : [en_ar.get(name), en_ar.get("EGP")];
 
       results.innerHTML += `
-          <div class="result">
-            <div class="name-unit">
-              <span class="name" data-en="${name}">${_name}</span>
-              <span class="unit" data-en="${n_unit}">${_n_unit}</span>
-            </div>
-            <div class="price-unit">
-              <span class="price">${prices[price]}</span>
-              <span class="unit" data-en="${p_unit}">${_p_unit}</span>
+        <div class="info-card" tabindex="0">
+          <img src="./files/imgs/${img}.svg" />
+          <div class="info">
+            <div class="name" data-en="${name}">${_name}</div>
+            <div class="price">
+              <div class="val" data-val="${price}">${prices[price]}</div>
+              <div class="unit" data-en="EGP">${unit}</div>
             </div>
           </div>
+        </div>
     `;
     }
   });
@@ -1839,7 +1560,7 @@ const __search = (inp) => {
     if (in_val) {
       __search(in_val);
     } else {
-      show_tops();
+      document.getElementById("searchResults").innerHTML = "";
     }
   });
 }

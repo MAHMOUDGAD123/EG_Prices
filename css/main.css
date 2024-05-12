@@ -41,6 +41,7 @@
   --gold4: #ffd9005f;
   --gold5: #ffeb7b;
   --gold6: #f1d530;
+  --gold7: #d69a00;
   --white1: #ffffff;
   --white2: #ffffffbd;
   --black1: #000;
@@ -50,6 +51,9 @@
   --ar_font: "ar_font";
   --transition: 500ms;
   --timing-fun: ease-in-out;
+
+  --details-item-bg-dir: to left;
+  --details-item-scale-origin: left;
 }
 
 html {
@@ -93,6 +97,8 @@ body {
   &.ar {
     direction: rtl;
     font-family: var(--ar_font), monospace;
+    --details-item-bg-dir: to right;
+    --details-item-scale-origin: right;
   }
 }
 
@@ -310,7 +316,6 @@ main {
     align-items: center;
     border-radius: var(--border-rad);
     position: absolute;
-
     left: 50%;
     translate: -50% -50%;
     width: 100%;
@@ -394,7 +399,7 @@ main {
     padding: var(--padding);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     transform: translateX(150%);
     transition: transform 1s 0.5s var(--timing-fun);
 
@@ -431,6 +436,8 @@ main {
             }
 
             &.picked > i {
+              --col-from: var(--red1);
+              --col-to: var(--gold1);
               animation: change-col infinite linear 1s alternate;
             }
           }
@@ -445,6 +452,17 @@ main {
               rotate: z 1turn;
             }
           }
+
+          &#search_page_btn {
+            & > i {
+              transition: scale 0.5s, rotate 1s;
+            }
+
+            &.picked > i {
+              color: var(--gold1);
+              rotate: z 90deg;
+            }
+          }
         }
       }
     }
@@ -452,6 +470,7 @@ main {
     & > .page-wrapper {
       flex: 1;
       position: relative;
+      margin-top: 10px;
 
       & .page {
         display: flex;
@@ -544,38 +563,7 @@ main {
 
         & [data-val] {
           font-family: "cairo";
-        }
-
-        & > .top-list {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
-          width: 100%;
-
-          & > .item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            background-image: linear-gradient(var(--red2), var(--red4));
-            padding: var(--padding);
-            border-radius: var(--border-rad);
-            max-width: 170px;
-            height: 100%;
-
-            & > .asset {
-              color: var(--gold1);
-            }
-            & > .value {
-              color: var(--white1);
-            }
-            & > .unit {
-              color: var(--white2);
-            }
-          }
+          direction: ltr;
         }
 
         & > .t-wrapper {
@@ -614,19 +602,224 @@ main {
               padding: 6px;
             }
 
-            & > tbody > tr.top > * {
-              background-color: var(--gold1);
-              color: var(--red4);
-            }
+            & > tbody > tr {
+              & > * {
+                transition: background-color 500ms, color 500ms;
+              }
 
-            & > tbody > tr:hover > * {
-              background-color: var(--gold5);
-              color: var(--black1);
+              &:hover > * {
+                background-color: var(--gold1);
+                color: var(--red4);
+              }
             }
 
             & > thead {
               position: sticky;
               top: 0;
+            }
+          }
+        }
+
+        & > .top-list {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 15px;
+          width: 100%;
+
+          & > .item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: var(--gold2);
+            padding: 10px;
+            border-radius: 25px;
+            height: 100%;
+            max-width: 200px;
+            min-height: 120px;
+            position: relative;
+
+            &.top {
+              background-image: linear-gradient(var(--red3), var(--red2));
+              animation: grow infinite 0.7s alternate ease-in-out;
+
+              & > .buy {
+                color: var(--gold1);
+              }
+
+              & > .asset {
+                color: var(--white1);
+              }
+            }
+
+            & > .asset {
+              white-space: nowrap;
+            }
+            & > .buy {
+              font-size: 1.9rem;
+            }
+            & > .sell {
+              position: absolute;
+              top: 7px;
+              left: 9px;
+              background-color: var(--gold3);
+              padding-inline: 7px;
+              border-radius: 25px;
+              font-size: 0.8rem;
+              display: flex;
+              align-items: center;
+              gap: 5px;
+            }
+          }
+        }
+
+        & .info-card {
+          background-color: var(--gold2);
+          border-radius: 100px;
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+          padding: 7px 15px;
+          white-space: nowrap;
+          border: none;
+          outline: none;
+          position: relative;
+          contain: layout;
+          overflow: hidden;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            border-radius: inherit;
+            width: 100%;
+            height: 100%;
+            transition: scale 700ms;
+            scale: 0 1;
+            transform-origin: var(--details-item-scale-origin);
+            z-index: -1;
+            background-image: linear-gradient(
+              var(--details-item-bg-dir),
+              var(--red2),
+              var(--red3)
+            );
+          }
+
+          &:is(:hover, :focus, :focus-visible) {
+            &::before {
+              scale: 1;
+            }
+
+            & > .info {
+              & > .name {
+                color: var(--gold5);
+              }
+              & > .price {
+                & > .val {
+                  --col-from: var(--white1);
+                  --col-to: var(--gold1);
+                  animation: change-col 1s infinite linear alternate;
+                }
+              }
+            }
+          }
+
+          & > img {
+            --w: 60px;
+            width: var(--w);
+            height: var(--w);
+            border-radius: 100px;
+          }
+
+          & > .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+
+            & > .name {
+              text-align: start;
+              font-size: 1.5rem;
+              transition: color 700ms;
+            }
+
+            & > .price {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              gap: 7px;
+
+              & > .val {
+                font-size: 1.5rem;
+              }
+              & > .unit {
+                color: var(--white2);
+                font-family: "cairo";
+              }
+            }
+          }
+        }
+      }
+
+      & > #goldPage {
+        & > .headers {
+          font-family: "cairo";
+          align-items: center;
+          display: grid;
+          grid: none / repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+          gap: 10px;
+
+          & > .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background-color: var(--gold2);
+            padding: 5px 15px;
+            border-inline-start: 10px solid var(--red2);
+            border-radius: 3px;
+            transition: background-color 500ms;
+
+            &:hover {
+              background-color: var(--gold1);
+
+              & > .name {
+                color: var(--red4);
+              }
+
+              & > .price {
+                & > .value {
+                  color: var(--red4);
+                }
+                & > .unit {
+                  color: var(--red2);
+                }
+              }
+            }
+
+            & > .name {
+              transition: color 500ms;
+            }
+
+            & > .price {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+
+              & > .value {
+                transition: color 500ms;
+              }
+
+              & > .unit {
+                color: var(--white2);
+                transition: color 500ms;
+              }
             }
           }
         }
@@ -672,11 +865,9 @@ main {
       }
 
       & > #calculatorPage {
-        & > .wrapper {
-          position: relative;
-          flex: 1;
-          overflow-y: scroll;
+        gap: 20px;
 
+        & > .wrapper {
           & > .calc {
             gap: 35px;
 
@@ -833,8 +1024,20 @@ main {
         }
       }
 
-      & > #mainPage {
+      & > #searchPage {
         align-items: center;
+        contain: layout;
+
+        & > #emptySearch {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          translate: -50% -50%;
+          color: var(--white2);
+          opacity: 0.2;
+          font-size: 5rem;
+          z-index: -1;
+        }
 
         & > #searchBox {
           display: flex;
@@ -848,6 +1051,7 @@ main {
 
             & > input[type="text"] {
               opacity: 1;
+              background-image: linear-gradient(var(--red3), var(--red2));
             }
 
             & > #searchIcon {
@@ -882,72 +1086,67 @@ main {
           }
         }
 
-        & > #searchResults {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
+        & > .holder {
           width: 100%;
           height: 100%;
           overflow-y: scroll;
 
-          &.ar > .result {
-            & > .name-unit {
-              border-radius: 0 var(--brdr-rad) var(--brdr-rad) 0;
+          & > #searchResults {
+            display: grid;
+            grid: none / repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: 15px;
+            width: 100%;
+          }
+        }
+      }
+
+      & > #mainPage {
+        gap: 20px;
+
+        & > .holder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          overflow-y: scroll;
+
+          & > #goldTv {
+            background-color: #111;
+            border-radius: 60px;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px 30px;
+            white-space: nowrap;
+            border: none;
+            outline: none;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color var(--transition);
+            /* overflow: hidden; */
+            display: none;
+
+            & > .tradingview-widget-container {
+              display: flex;
+              align-items: center;
+              place-content: center;
+              pointer-events: none;
             }
 
-            & > .price-unit {
-              border-radius: var(--brdr-rad) 0 0 var(--brdr-rad);
+            &:is(:hover, :focus-visible) {
+              /* background-color: #ffd90050; */
+              background-image: linear-gradient(#ff00004a, #8e000074);
             }
           }
 
-          & > .result {
-            display: flex;
-            border-radius: 30px;
+          & > .details {
+            display: grid;
+            grid: none / repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: 15px;
             width: 100%;
-            font-size: 1.2rem;
-            --brdr-rad: 20px;
-
-            & > * {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              width: 100%;
-              height: 100%;
-              padding: 5px;
-
-              & > .unit {
-                font-size: 1rem;
-              }
-            }
-
-            & > .name-unit {
-              color: var(--gold1);
-              background-color: var(--red2);
-              border-radius: var(--brdr-rad) 0 0 var(--brdr-rad);
-
-              & > .unit {
-                color: var(--white2);
-
-                &::before {
-                  content: "( ";
-                }
-
-                &::after {
-                  content: " )";
-                }
-              }
-            }
-
-            & > .price-unit {
-              color: var(--red2);
-              background-color: var(--gold6);
-              border-radius: 0 var(--brdr-rad) var(--brdr-rad) 0;
-
-              & > .unit {
-                color: var(--red1);
-              }
-            }
           }
         }
       }
@@ -962,12 +1161,12 @@ main {
     color: var(--white1);
     padding-block: 5px;
     background-color: var(--gold2);
-    padding: 5px;
+    padding: 7px;
     border-radius: var(--border-rad);
     transform: translateY(150%);
     transition: transform 1s 1s var(--timing-fun);
-    margin-block-start: 30px;
     position: relative;
+    contain: layout;
 
     & > .btn {
       --w: 85px;
@@ -978,37 +1177,10 @@ main {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
       cursor: pointer;
       outline: none;
       border: none;
       position: relative;
-      contain: layout;
-      overflow: hidden;
-
-      &#main_page_btn {
-        background-color: var(--gold2);
-        border-radius: 100px;
-
-        &.picked {
-          color: var(--red2);
-        }
-      }
-
-      &::before {
-        content: "";
-        background-color: var(--red2);
-        width: 100%;
-        height: 100%;
-        scale: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        translate: -50% -50%;
-        z-index: -1;
-        transition: none;
-        border-radius: inherit;
-      }
 
       &:focus-visible {
         /* outline: 2px solid var(--white2); */
@@ -1023,13 +1195,43 @@ main {
         color: var(--red4);
       }
 
-      & > i {
-        font-size: 1.4rem;
-        transition: color var(--transition);
+      & > .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        contain: layout;
+        border-radius: 100px;
+        aspect-ratio: 1;
+        font-size: 1.3rem;
+
+        &::before,
+        &::after {
+          content: "";
+          width: 100%;
+          height: 100%;
+          scale: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          translate: -50% -50%;
+          z-index: -1;
+          transition: none;
+          border-radius: inherit;
+        }
+        &::before {
+          background-color: #222;
+        }
+        &::after {
+          background-color: var(--red2);
+        }
+
+        & > i {
+          transition: color var(--transition);
+        }
       }
 
       & > .txt {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         transition: color var(--transition);
       }
     }
@@ -1037,11 +1239,6 @@ main {
 }
 
 /* Media Queries */
-@media (height < 550px) {
-  main > .content > .page-wrapper .page > .top-list {
-    display: none;
-  }
-}
 @media (height < 650px) or (width < 320px) {
   label {
     font-size: 0.9rem;
@@ -1065,7 +1262,33 @@ main {
     &.picked {
       & > .title {
         font-size: 0.8rem;
-        width: 180px;
+        width: 185px;
+      }
+    }
+  }
+}
+@media (height < 400px) {
+  main {
+    & > nav {
+      & > .btn {
+        --w: 45px;
+
+        & > .icon > i {
+          font-size: 1.1rem;
+        }
+
+        & > .txt {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
+@media (width < 770px) {
+  main > .content > .page-wrapper .page#mainPage {
+    & > .top-list {
+      & > .item:is(:first-child, :last-child) {
+        display: none;
       }
     }
   }
@@ -1078,64 +1301,80 @@ main {
 
     & > nav {
       /* horizontal mode */
+      gap: 5px;
       flex-direction: row;
-      gap: 7px;
+      border-radius: 100px;
+      margin-block-start: 30px;
 
       & > .btn {
-        --w: 70px;
+        --w: 60px;
+        justify-content: flex-end;
 
-        &::before {
-          transition: scale var(--transition);
-        }
+        &.picked {
+          color: var(--gold1);
 
-        &#main_page_btn {
-          background-color: var(--gold2);
-          outline: 12px solid #222;
-          transform: translateY(calc(-50% - 7px));
-
-          &.picked {
-            color: var(--gold1);
+          & > .icon {
+            transform: translateY(calc(-75%));
+            background-color: transparent;
 
             &::before {
+              scale: 1.4;
+              transition: scale 700ms;
+            }
+            &::after {
               scale: 1;
+              transition: scale 700ms;
             }
           }
 
           & > .txt {
-            display: none;
+            opacity: 1;
           }
         }
 
-        & > i {
+        & > .txt {
+          opacity: 0;
           font-size: 1.2rem;
+          color: var(--red4);
+          translate: 0 25%;
+          transition: opacity 500ms;
         }
 
-        & > .txt {
-          font-size: 1rem;
+        & > .icon {
+          width: 55px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          translate: -50% -50%;
+          font-size: 1.5rem;
+          background-color: var(--gold4);
+          transition: transform 500ms, background-color 2s;
         }
       }
     }
   }
 }
-@media (width < 450px) or (height < 400px) {
+@media (width < 450px) {
   main {
     & > nav {
-      gap: 5px;
+      margin-block-start: 25px;
 
       & > .btn {
         --w: 50px;
 
-        &#main_page_btn {
-          --w: 55px;
-          outline-width: 8px;
+        &.picked {
+          & > .icon {
+            transform: translateY(-80%);
+          }
         }
 
-        & > i {
-          font-size: 1rem;
+        & > .icon {
+          width: 45px;
+          font-size: 1.3rem;
         }
 
         & > .txt {
-          font-size: 0.85rem;
+          font-size: 0.9rem;
         }
       }
     }
@@ -1149,9 +1388,38 @@ main {
             flex-basis: 75px;
           }
         }
+
+        & > .top-list {
+          gap: 10px;
+
+          & > .item > .buy {
+            font-size: 1.7rem;
+          }
+        }
+
+        & .info-card {
+          & > img {
+            --w: 50px;
+          }
+
+          & > .info {
+            & > .name {
+              font-size: 1.2rem;
+            }
+
+            & > .price {
+              & > .val {
+                font-size: 1.3rem;
+              }
+              & > .unit {
+                font-size: 0.85rem;
+              }
+            }
+          }
+        }
       }
 
-      & > #mainPage > #searchResults {
+      & > #searchPage > #searchResults {
         & > .result {
           font-size: 1.1rem;
         }
@@ -1164,8 +1432,50 @@ main {
     & > .content {
       & > .page-wrapper {
         & .page {
-          & > .top-list > .item > * {
-            font-size: 0.8rem;
+          & > .top-list {
+            & > .item {
+              min-height: 100px;
+
+              & > .asset {
+                font-size: 0.8rem;
+              }
+              & > .buy {
+                font-size: 1.3rem;
+              }
+              & > .sell {
+                font-size: 0.65rem;
+                border-radius: 10px;
+                gap: 3px;
+                left: 50%;
+                translate: -50% 0;
+              }
+            }
+          }
+
+          & .info-card {
+            border-radius: 30px;
+            flex-direction: column;
+            --details-item-bg-dir: to bottom;
+            --details-item-scale-origin: top;
+
+            &::before {
+              scale: 1 0;
+            }
+
+            & > .info {
+              align-items: center;
+
+              & > .name {
+                white-space: wrap;
+                text-align: center;
+              }
+
+              & > .price {
+                flex-direction: column;
+                gap: 0;
+                justify-content: center;
+              }
+            }
           }
 
           & > .t-wrapper > table {
@@ -1185,35 +1495,32 @@ main {
           }
         }
 
-        & > #mainPage > #searchResults {
-          & > :is(.result, .result.ar) {
+        & > #goldPage > .headers > .head {
+          font-size: 0.9rem;
+
+          & > .price {
             flex-direction: column;
-
-            > .name-unit {
-              border-radius: var(--brdr-rad) var(--brdr-rad) 0 0;
-            }
-
-            & > .price-unit {
-              border-radius: 0 0 var(--brdr-rad) var(--brdr-rad);
-            }
+            gap: 0;
           }
         }
       }
     }
 
     & > nav {
-      gap: 5px;
+      margin-block-start: 15px;
 
       & > .btn {
-        --w: 45px;
+        --w: 35px;
 
-        &#main_page_btn {
-          --w: 45px;
-          outline-width: 6px;
+        &.picked {
+          & > .icon {
+            transform: translateY(-85%);
+          }
         }
 
-        & > i {
-          font-size: 0.9rem;
+        & > .icon {
+          width: 30px;
+          font-size: 1rem;
         }
 
         & > .txt {
@@ -1234,6 +1541,12 @@ main {
   }
 }
 
+@keyframes grow {
+  to {
+    scale: 1.075;
+  }
+}
+
 @keyframes spin {
   to {
     rotate: z 360deg;
@@ -1248,9 +1561,9 @@ main {
 
 @keyframes change-col {
   from {
-    color: var(--red1);
+    color: var(--col-from);
   }
   to {
-    color: var(--gold1);
+    color: var(--col-to);
   }
 }
