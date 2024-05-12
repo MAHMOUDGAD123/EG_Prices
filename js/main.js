@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+let testing = true; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
@@ -598,7 +598,7 @@ const search_map = [
   [
     ["gold ounce", "اونصة الذهب"],
     {
-      img: "goldOz",
+      img: "gold",
       name: "Gold Ounce",
       price: "goldO_egp_b",
     },
@@ -670,7 +670,7 @@ const search_map = [
   [
     ["silver ounce", "اونصة الفضة"],
     {
-      img: "silverOz",
+      img: "silver",
       name: "Silver Ounce",
       price: "silOZ_egp_b",
     },
