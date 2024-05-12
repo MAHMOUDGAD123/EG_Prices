@@ -75,8 +75,8 @@ const en_ar = new Map([
   ["Banks USD", "دولار البنوك"],
   ["Market USD", "دولار السوق"],
   ["Sagha USD", "دولار الصاغة"],
-  ["Sagha Diff", "فرق السوق"],
-  ["Market Diff", "فرق الصاغة"],
+  ["Sagha Diff", "فرق الصاغة"],
+  ["Market Diff", "فرق السوق"],
   ["Silver Price", "سعر الفضة"],
 
   // units
