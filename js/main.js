@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-let testing = true; // used for testing
+let testing = false; // used for testing
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 const page_count = 5; // main pages count
