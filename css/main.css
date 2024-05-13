@@ -1122,7 +1122,7 @@ main {
             width: 100%;
 
             & > #goldTv {
-              padding: 10px 20px;
+              padding: 10px 15px;
 
               &.off > .info > .name > .unit::after {
                 animation: none;
@@ -1167,10 +1167,12 @@ main {
                   display: flex;
                   align-items: center;
                   font-family: "cairo";
-                  gap: 5px;
+                  gap: 7px;
 
                   & > .val {
                     --col-from: var(--white1);
+                    align-items: center;
+                    gap: 3px;
 
                     & > .unit {
                       font-size: 0.75rem;
@@ -1523,7 +1525,7 @@ main {
     }
   }
 }
-@media (width < 335px) {
+@media (width < 345px) {
   main > .content > .page-wrapper .page {
     &#mainPage
       > .holder
