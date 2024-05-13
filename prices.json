@@ -101,5 +101,9 @@
 
   "usd_egp": 47.3926,
   "usd_egpp": 48.083,
-  "usdt_egp": 47.39
+  "usdt_egp": 47.39,
+
+  "xau_usd": "2360.45",
+  "xau_usd_delta": "+14.35",
+  "xau_usd_delta_pt": "+0.61%"
 }

@@ -42,6 +42,7 @@
   --gold5: #ffeb7b;
   --gold6: #f1d530;
   --gold7: #d69a00;
+  --gold8: #ffff00;
   --white1: #ffffff;
   --white2: #ffffffbd;
   --black1: #000;
@@ -54,6 +55,7 @@
 
   --details-item-bg-dir: to left;
   --details-item-scale-origin: left;
+  --gold-delta-flex-dir: row-reverse;
 }
 
 html {
@@ -99,6 +101,7 @@ body {
     font-family: var(--ar_font), monospace;
     --details-item-bg-dir: to right;
     --details-item-scale-origin: right;
+    --gold-delta-flex-dir: row;
   }
 }
 
@@ -675,7 +678,8 @@ main {
           }
         }
 
-        & .info-card {
+        & .info-card,
+        & #goldTv {
           background-color: var(--gold2);
           border-radius: 100px;
           width: 100%;
@@ -724,7 +728,6 @@ main {
                 & > .val {
                   --col-from: var(--white1);
                   --col-to: var(--gold1);
-                  animation: change-col 1s infinite linear alternate;
                 }
               }
             }
@@ -753,7 +756,7 @@ main {
               display: flex;
               justify-content: flex-start;
               align-items: center;
-              gap: 7px;
+              gap: 5px;
 
               & > .val {
                 font-size: 1.5rem;
@@ -1112,41 +1115,117 @@ main {
           gap: 15px;
           overflow-y: scroll;
 
-          & > #goldTv {
-            background-color: #111;
-            border-radius: 60px;
-            width: 100%;
-            max-width: 600px;
-            padding: 10px 30px;
-            white-space: nowrap;
-            border: none;
-            outline: none;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color var(--transition);
-            /* overflow: hidden; */
-            display: none;
-
-            & > .tradingview-widget-container {
-              display: flex;
-              align-items: center;
-              place-content: center;
-              pointer-events: none;
-            }
-
-            &:is(:hover, :focus-visible) {
-              /* background-color: #ffd90050; */
-              background-image: linear-gradient(#ff00004a, #8e000074);
-            }
-          }
-
           & > .details {
             display: grid;
-            grid: none / repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            grid: none / repeat(auto-fit, minmax(min(350px, 100%), 1fr));
             gap: 15px;
             width: 100%;
+
+            & > #goldTv {
+              padding: 10px 20px;
+
+              &.off > .info > .name > .unit::after {
+                animation: none;
+                background-color: var(--red1);
+              }
+
+              & > img {
+                border-radius: 0;
+                translate: 0 -5%;
+              }
+
+              & > .info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                & > .name {
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                  white-space: nowrap;
+
+                  & > .unit {
+                    font-size: 0.9rem;
+                    color: var(--white2);
+                    display: flex;
+                    align-items: center;
+                    gap: 7px;
+
+                    &::after {
+                      content: "";
+                      width: 10px;
+                      aspect-ratio: 1;
+                      background-color: var(--gold5);
+                      border-radius: 100px;
+                      animation: blink infinite 500ms alternate ease-in-out;
+                    }
+                  }
+                }
+
+                & > .price {
+                  display: flex;
+                  align-items: center;
+                  font-family: "cairo";
+                  gap: 5px;
+
+                  & > .val {
+                    --col-from: var(--white1);
+
+                    & > .unit {
+                      font-size: 0.75rem;
+                      color: var(--white2);
+                    }
+
+                    & > #xauPrice {
+                      &.up {
+                        --col-to: var(--gold1);
+                        animation: change-col 500ms infinite ease-out alternate;
+                      }
+
+                      &.down {
+                        --col-to: var(--red2);
+                        animation: change-col 500ms infinite alternate;
+                      }
+
+                      &.no-chng {
+                        --col-to: var(--white2);
+                        animation: change-col 500ms infinite ease-out alternate;
+                      }
+                    }
+                  }
+
+                  & > .delta {
+                    font-size: 1rem;
+                    direction: ltr;
+                    display: flex;
+                    flex-direction: var(--gold-delta-flex-dir);
+                    align-items: center;
+                    gap: 5px;
+                    translate: 0 5%;
+                    padding-inline: 7px;
+                    border-radius: 10px;
+                    background-color: var(--gold4);
+
+                    & > i {
+                      translate: 0 2%;
+                    }
+
+                    &.up {
+                      color: var(--gold8);
+                    }
+
+                    &.down {
+                      color: var(--red4);
+
+                      & > i {
+                        transform: rotate(180deg);
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1287,7 +1366,7 @@ main {
 @media (width < 770px) {
   main > .content > .page-wrapper .page#mainPage {
     & > .top-list {
-      & > .item:is(:first-child, :last-child) {
+      & > .item:is(:nth-child(2), :last-child) {
         display: none;
       }
     }
@@ -1397,7 +1476,8 @@ main {
           }
         }
 
-        & .info-card {
+        & .info-card,
+        & #goldTv {
           & > img {
             --w: 50px;
           }
@@ -1410,11 +1490,21 @@ main {
             & > .price {
               & > .val {
                 font-size: 1.3rem;
+
+                & > .unit {
+                  font-size: 0.75rem;
+                }
               }
               & > .unit {
                 font-size: 0.85rem;
               }
             }
+          }
+        }
+
+        &#mainPage > .holder > .details > #goldTv > .info > .price {
+          & > .delta {
+            font-size: 0.85rem;
           }
         }
       }
@@ -1424,6 +1514,20 @@ main {
           font-size: 1.1rem;
         }
       }
+    }
+  }
+}
+@media (width < 335px) {
+  main > .content > .page-wrapper .page {
+    &#mainPage
+      > .holder
+      > .details
+      > #goldTv
+      > .info
+      > .price
+      > .delta
+      > #xauDeltaPt {
+      display: none;
     }
   }
 }
@@ -1452,8 +1556,9 @@ main {
             }
           }
 
-          & .info-card {
-            border-radius: 30px;
+          & .info-card,
+          & #goldTv {
+            border-radius: 20px;
             flex-direction: column;
             --details-item-bg-dir: to bottom;
             --details-item-scale-origin: top;
@@ -1468,12 +1573,37 @@ main {
               & > .name {
                 white-space: wrap;
                 text-align: center;
+                flex-direction: column;
+                gap: 0;
               }
 
               & > .price {
                 flex-direction: column;
                 gap: 0;
                 justify-content: center;
+
+                & > .val {
+                  gap: 0;
+                }
+              }
+            }
+          }
+
+          &#mainPage > .holder > .details > #goldTv {
+            & > img {
+              translate: none;
+            }
+
+            & > .info > .price {
+              gap: 0;
+
+              & > .delta {
+                font-size: 1rem;
+                translate: none;
+
+                & > #xauDeltaPt {
+                  display: block;
+                }
               }
             }
           }

@@ -1,8 +1,9 @@
 //==================== Data & tools Start =====================
-let testing = false; // used for testing
+const testing = false; // used for testing
+const precision = 2;
+const page_count = 5; // main pages count
 let ar = true; // en: false | ar: true (app language)
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
-const page_count = 5; // main pages count
 let curr_page = null; // holds the current page
 let curr_calc = null; // holds the current calculator
 let curr_curr = null; // holds the current currency info
@@ -10,7 +11,11 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-const precision = 2;
+let goldLive = {
+  xau_usd: "2360.45",
+  xau_usd_delta: "+14.35",
+  xau_usd_delta_pt: "+0.61%",
+};
 
 const en_ar = new Map([
   // weekdays
@@ -78,6 +83,7 @@ const en_ar = new Map([
   ["Sagha Diff", "فرق الصاغة"],
   ["Market Diff", "فرق السوق"],
   ["Silver Price", "سعر الفضة"],
+  ["(USD/OZ)", "(دولار/أونصة)"],
 
   // units
   ["liter", "لتر"],
@@ -1036,6 +1042,7 @@ set_lang();
       if (res.ok) {
         prices = await res.json();
         set_data(prices);
+        gold_live();
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
         // set the initial page
@@ -1069,6 +1076,7 @@ set_lang();
     // testing
     prices = await (await fetch("../prices.json")).json();
     set_data(prices);
+    gold_live();
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
     curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
@@ -1132,6 +1140,76 @@ function set_data(data) {
   document.querySelectorAll("[data-val]").forEach((el) => {
     el.textContent = data[el.dataset.val] || "-";
   });
+}
+
+// gold live data
+async function gold_live() {
+  const color_effect = (ele, cls) => {
+    ele.classList.add(cls);
+    setTimeout(() => {
+      ele.classList.remove(cls);
+    }, 4000);
+  };
+
+  const set_data = (_prev, _new) => {
+    const diff = _new.xau_usd - _prev.xau_usd;
+    const val_el = document.getElementById("xauPrice");
+    const delta_el = document.getElementById("delta");
+    const xauDelta_el = document.getElementById("xauDelta");
+    const xauDelta_pt_el = document.getElementById("xauDeltaPt");
+
+    val_el.textContent = _new.xau_usd;
+    xauDelta_el.textContent = _new.xau_usd_delta;
+    xauDelta_pt_el.textContent = _new.xau_usd_delta_pt;
+
+    if (diff > 0) {
+      // increased
+      color_effect(val_el, "up");
+    } else if (diff < 0) {
+      // decreased
+      color_effect(val_el, "down");
+    } else {
+      // no change
+      color_effect(val_el, "no-chng");
+    }
+
+    if (_new.xau_usd_delta.startsWith("+")) {
+      delta_el.classList.add("up");
+      delta_el.classList.remove("down");
+    } else if (_new.xau_usd_delta.startsWith("-")) {
+      delta_el.classList.add("down");
+      delta_el.classList.remove("up");
+    } else {
+      delta_el.classList.remove("down");
+      delta_el.classList.remove("up");
+    }
+    // save the new data
+    goldLive = _new;
+  };
+
+  // init
+  const res = await fetch("https://eg-prices-api.vercel.app/live");
+
+  if (res.ok) {
+    goldLive = await res.json();
+    set_data(goldLive, goldLive);
+
+    const today = new Date().getUTCDay();
+
+    if (today !== 0 && today !== 6) {
+      const intId = setInterval(async () => {
+        const res = await fetch("https://eg-prices-api.vercel.app/live");
+
+        if (res.ok) {
+          const _new = await res.json();
+          set_data(goldLive, _new);
+        }
+      }, 30000);
+    } else {
+      // market is off at weekend (sat - sun)
+      document.getElementById("goldTv").classList.add("off");
+    }
+  }
 }
 
 //========================= Functions End =========================
