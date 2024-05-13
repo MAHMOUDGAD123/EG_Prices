@@ -1208,18 +1208,24 @@ main {
                     background-color: var(--gold4);
 
                     & > i {
-                      translate: 0 2%;
+                      display: none;
                     }
 
                     &.up {
                       color: var(--gold8);
+                      & > i {
+                        display: block;
+                        translate: 0 5%;
+                      }
                     }
 
                     &.down {
                       color: var(--red4);
 
                       & > i {
+                        display: block;
                         transform: rotate(180deg);
+                        translate: 0 -2%;
                       }
                     }
                   }

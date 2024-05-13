@@ -1072,7 +1072,6 @@ set_lang();
     // testing
     prices = await (await fetch("../prices.json")).json();
     set_data(prices);
-    gold_live();
     curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
     curr_calc = document.querySelector(`.calc[data-num="${initial_calc}"]`);
     curr_curr = document.querySelector(`.currency[data-num="${initial_curr}"]`);
@@ -1085,6 +1084,7 @@ set_lang();
       document.querySelector(sel).style.transform = "none";
     });
     set_culculators();
+    gold_live();
   }
 })();
 
