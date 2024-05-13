@@ -11,11 +11,7 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-let goldLive = {
-  xau_usd: "2360.45",
-  xau_usd_delta: "+14.35",
-  xau_usd_delta_pt: "+0.61%",
-};
+let goldLive = null;
 
 const en_ar = new Map([
   // weekdays
@@ -1042,7 +1038,6 @@ set_lang();
       if (res.ok) {
         prices = await res.json();
         set_data(prices);
-        gold_live();
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
         // set the initial page
@@ -1061,6 +1056,7 @@ set_lang();
           document.querySelector(sel).style.transform = "none";
         });
         set_culculators();
+        gold_live();
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
