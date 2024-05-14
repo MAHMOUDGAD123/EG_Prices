@@ -1515,6 +1515,16 @@ const currency_calc = (calc) => {
     in_from.value = in_to.value = 0;
     out_from.textContent = out_to.textContent = 0;
   };
+  // reverse the layout
+  const toggle_all = () => {
+    // toggle all (from <=> to)
+    [".calc_sel", ".calc_out", ".unit"].forEach((sel) => {
+      calc.querySelectorAll(sel).forEach((ele) => {
+        ele.classList.toggle("from");
+        ele.classList.toggle("to");
+      });
+    });
+  };
   // calculations
   const calculate = (isFrom, isSwapped) => {
     // if isFrom === true => the input comes from (in_from)
@@ -1592,13 +1602,8 @@ const currency_calc = (calc) => {
   swap_btn.addEventListener("click", (e) => {
     // reverse the layout
     const isSwapped = calc.classList.toggle("swapped");
-    // toggle all (from <=> to)
-    [".calc_sel", ".calc_out", ".unit"].forEach((sel) => {
-      calc.querySelectorAll(sel).forEach((ele) => {
-        ele.classList.toggle("from");
-        ele.classList.toggle("to");
-      });
-    });
+    toggle_all();
+
     // swap units
     set_units(isSwapped);
     calculate(true, isSwapped);
@@ -1606,7 +1611,13 @@ const currency_calc = (calc) => {
 
   // reset
   reset_btn.addEventListener("click", (e) => {
-    calc.classList.remove("swapped");
+    // reset all
+    const isSwapped = calc.classList.contains("swapped");
+    if (isSwapped) {
+      calc.classList.remove("swapped");
+      toggle_all();
+      set_units();
+    }
     zero_fill();
   });
 };
