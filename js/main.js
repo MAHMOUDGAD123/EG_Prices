@@ -11,7 +11,8 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-let goldLive = null;
+let live_api_interval = 30000; // time interval for live data api fetching
+let Live_data = null; // holds the current live data object
 
 const en_ar = new Map([
   // weekdays
@@ -79,7 +80,10 @@ const en_ar = new Map([
   ["Sagha Diff", "فرق الصاغة"],
   ["Market Diff", "فرق السوق"],
   ["Silver Price", "سعر الفضة"],
+  ["Global Ounce", "الأونصة العالمية"],
+  ["Egyptian Silver", "الفضة المصري"],
   ["(USD/OZ)", "(دولار/أونصة)"],
+  ["(USD/EGP)", "(دولار/جنية)"],
 
   // units
   ["liter", "لتر"],
@@ -999,6 +1003,37 @@ const search_map = [
   ],
 ];
 
+// TV element id => data {}
+const live_map = new Map([
+  [
+    "goldTv",
+    {
+      forex: true,
+      val: "xau_usd",
+      delta_num: "xau_usd_delta",
+      delta_pt: "xau_usd_delta_pt",
+    },
+  ],
+  [
+    "USDEGPTv",
+    {
+      forex: true,
+      val: "usd_egp",
+      delta_num: "usd_egp_delta",
+      delta_pt: "usd_egp_delta_pt",
+    },
+  ],
+  [
+    "USDEGPpTv",
+    {
+      forex: false,
+      val: "usd_egpp",
+      delta_num: "usd_egpp_delta",
+      delta_pt: "usd_egpp_delta_pt",
+    },
+  ],
+]);
+
 // used for animate the page after loading
 const content = ["header", ".content", "nav"];
 
@@ -1056,7 +1091,7 @@ set_lang();
           document.querySelector(sel).style.transform = "none";
         });
         set_culculators();
-        gold_live();
+        play_live();
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -1084,7 +1119,8 @@ set_lang();
       document.querySelector(sel).style.transform = "none";
     });
     set_culculators();
-    gold_live();
+    live_api_interval = 300000;
+    play_live();
   }
 })();
 
@@ -1129,81 +1165,127 @@ function set_lang() {
 }
 
 function set_data(data) {
-  // get the usd differences
-  data["sagha_usd_diff"] = (data["usd_egp"] - data["usd_gold"]).toPrecision(4);
-  data["market_usd_diff"] = (data["usd_egp"] - data["usd_egpp"]).toPrecision(4);
-
   document.querySelectorAll("[data-val]").forEach((el) => {
     el.textContent = data[el.dataset.val] || "-";
   });
 }
 
 // gold live data
-async function gold_live() {
+async function play_live() {
   const color_effect = (ele, cls) => {
     ele.classList.add(cls);
     setTimeout(() => {
       ele.classList.remove(cls);
-    }, 4000);
+    }, 3000);
   };
 
   const set_data = (_prev, _new) => {
-    const diff = _new.xau_usd - _prev.xau_usd;
-    const val_el = document.getElementById("xauPrice");
-    const delta_el = document.getElementById("delta");
-    const xauDelta_el = document.getElementById("xauDelta");
-    const xauDelta_pt_el = document.getElementById("xauDeltaPt");
+    live_map.forEach(({ val, delta_num, delta_pt }, TV_id) => {
+      const TV_el = document.getElementById(TV_id);
+      const val_el = TV_el.querySelector(".price-now");
+      const delta_el = TV_el.querySelector(".delta");
+      const delta_num_el = TV_el.querySelector(".delta-num");
+      const delta_pt_el = TV_el.querySelector(".delta-pt");
+      // get difference
+      const new_val = _new[val];
+      const diff = new_val - _prev[val];
+      const new_delta_num_val = _new[delta_num];
+      // print data
+      val_el.textContent = new_val;
+      delta_num_el.textContent = new_delta_num_val;
+      delta_pt_el.textContent = _new[delta_pt];
 
-    val_el.textContent = _new.xau_usd;
-    xauDelta_el.textContent = _new.xau_usd_delta;
-    xauDelta_pt_el.textContent = _new.xau_usd_delta_pt;
+      if (diff > 0) {
+        // increased
+        color_effect(val_el, "up");
+      } else if (diff < 0) {
+        // decreased
+        color_effect(val_el, "down");
+      } else {
+        // no change
+        color_effect(val_el, "no-chng");
+      }
 
-    if (diff > 0) {
+      if (new_delta_num_val.startsWith("+")) {
+        delta_el.classList.add("up");
+        delta_el.classList.remove("down");
+      } else if (new_delta_num_val.startsWith("-")) {
+        delta_el.classList.add("down");
+        delta_el.classList.remove("up");
+      } else {
+        delta_el.classList.remove("down");
+        delta_el.classList.remove("up");
+      }
+    });
+    // save the new data
+    Live_data = _new;
+  };
+
+  const set_differences = () => {
+    /* get & set the usd differences */
+    const sagha_diff_el = document.getElementById("sagha_usd_diff");
+    const market_diff_el = document.getElementById("market_usd_diff");
+    // save old diffs
+    const old_sagha_diff = +sagha_diff_el.textContent;
+    const old_market_diff = +market_diff_el.textContent;
+    const new_sagha_diff = +(
+      Live_data["usd_egp"] - prices["usd_gold"]
+    ).toPrecision(4);
+    const new_market_diff = +(
+      Live_data["usd_egp"] - Live_data["usd_egpp"]
+    ).toPrecision(4);
+    // print new data
+    sagha_diff_el.textContent = new_sagha_diff;
+    market_diff_el.textContent = new_market_diff;
+
+    if (new_sagha_diff > old_sagha_diff) {
       // increased
-      color_effect(val_el, "up");
-    } else if (diff < 0) {
+      color_effect(sagha_diff_el, "up");
+    } else if (new_sagha_diff < old_sagha_diff) {
       // decreased
-      color_effect(val_el, "down");
+      color_effect(sagha_diff_el, "down");
     } else {
       // no change
-      color_effect(val_el, "no-chng");
+      color_effect(sagha_diff_el, "no-chng");
     }
 
-    if (_new.xau_usd_delta.startsWith("+")) {
-      delta_el.classList.add("up");
-      delta_el.classList.remove("down");
-    } else if (_new.xau_usd_delta.startsWith("-")) {
-      delta_el.classList.add("down");
-      delta_el.classList.remove("up");
+    if (new_market_diff > old_market_diff) {
+      // increased
+      color_effect(market_diff_el, "up");
+    } else if (new_market_diff < old_market_diff) {
+      // decreased
+      color_effect(market_diff_el, "down");
     } else {
-      delta_el.classList.remove("down");
-      delta_el.classList.remove("up");
+      // no change
+      color_effect(market_diff_el, "no-chng");
     }
-    // save the new data
-    goldLive = _new;
   };
 
   // init
   const res = await fetch("https://eg-prices-api.vercel.app/live");
 
   if (res.ok) {
-    goldLive = await res.json();
-    set_data(goldLive, goldLive);
+    Live_data = await res.json();
+    set_data(Live_data, Live_data);
+    set_differences();
 
     const today = new Date().getUTCDay();
 
     if (today !== 0 && today !== 6) {
-      const intId = setInterval(async () => {
+      setInterval(async () => {
         const res = await fetch("https://eg-prices-api.vercel.app/live");
-
         if (res.ok) {
-          const _new = await res.json();
-          set_data(goldLive, _new);
+          set_data(Live_data, await res.json());
+          set_differences();
         }
-      }, 30000);
+      }, live_api_interval);
     } else {
       // market is off at weekend (sat - sun)
-      document.getElementById("goldTv").classList.add("off");
+      live_map.forEach(({ forex }, TV_id) => {
+        if (forex) {
+          document.getElementById(TV_id).classList.add("off");
+        }
+      });
     }
   }
 }

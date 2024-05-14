@@ -643,125 +643,165 @@
 
             <div class="holder">
               <div class="details">
-                <div id="goldTv">
+                <div id="goldTv" class="info-card TV">
                   <img src="./files/imgs/gold-price.svg" />
 
                   <div class="info">
                     <div class="name">
                       <span data-en="Gold"></span>
-                      <div class="unit" data-en="(USD/OZ)"></div>
+                      <span class="unit" data-en="(USD/OZ)"></span>
                     </div>
 
                     <div class="price">
                       <div class="val">
-                        <span id="xauPrice">- - -</span>
+                        <span class="price-now">- - - -</span>
                         <span class="unit" data-en=" USD "></span>
                       </div>
 
-                      <div id="delta" class="delta">
-                        <span id="xauDeltaPt">-</span>
-                        <span id="xauDelta">-</span>
+                      <div class="delta">
+                        <span class="delta-pt">-</span>
+                        <span class="delta-num">-</span>
                         <i class="fa-solid fa-caret-up"></i>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
-                  <img src="./files/imgs/gold-pound.svg" />
+                <div id="USDEGPTv" class="info-card TV">
+                  <img src="./files/imgs/bank-usd.svg" />
+
                   <div class="info">
-                    <div class="name" data-en="Gold Pound"></div>
+                    <div class="name">
+                      <span data-en="Banks USD"></span>
+                      <span class="unit" data-en="(USD/EGP)"></span>
+                    </div>
+
                     <div class="price">
-                      <div class="val" data-val="goldP_egp_b"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <span class="price-now">- - - -</span>
+                        <span class="unit" data-en="EGP"></span>
+                      </div>
+
+                      <div class="delta">
+                        <span class="delta-pt">-</span>
+                        <span class="delta-num">-</span>
+                        <i class="fa-solid fa-caret-up"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
-                  <img src="./files/imgs/gold.svg" />
+                <div id="USDEGPpTv" class="info-card TV">
+                  <img src="./files/imgs/black-usd.svg" />
+
                   <div class="info">
-                    <div class="name" data-en="Gold Ounce"></div>
+                    <div class="name">
+                      <span data-en="Market USD"></span>
+                      <span class="unit" data-en="(USD/EGP)"></span>
+                    </div>
+
                     <div class="price">
-                      <div class="val" data-val="goldO_egp_b"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <span class="price-now">- - - -</span>
+                        <span class="unit" data-en="EGP"></span>
+                      </div>
+
+                      <div id="USDEGPpDelta" class="delta">
+                        <span class="delta-pt">-</span>
+                        <span class="delta-num">-</span>
+                        <i class="fa-solid fa-caret-up"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
+                <div class="info-card">
                   <img src="./files/imgs/sagha-usd.svg" />
                   <div class="info">
                     <div class="name" data-en="Sagha USD"></div>
                     <div class="price">
-                      <div class="val" data-val="usd_gold"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div class="price-now" data-val="usd_gold"></div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
-                  <img src="./files/imgs/bank-usd.svg" />
+                <div class="info-card">
+                  <img src="./files/imgs/gold-pound.svg" />
                   <div class="info">
-                    <div class="name" data-en="Banks USD"></div>
+                    <div class="name" data-en="Gold Pound"></div>
                     <div class="price">
-                      <div class="val" data-val="usd_egp"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div class="price-now" data-val="goldP_egp_b"></div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
-                  <img src="./files/imgs/black-usd.svg" />
+                <div class="info-card">
+                  <img src="./files/imgs/gold.svg" />
                   <div class="info">
-                    <div class="name" data-en="Market USD"></div>
+                    <div class="name" data-en="Gold Ounce"></div>
                     <div class="price">
-                      <div class="val" data-val="usd_egpp"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div class="price-now" data-val="goldO_egp_b"></div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
+                <div class="info-card">
                   <img src="./files/imgs/sagha-dif.svg" />
                   <div class="info">
                     <div class="name" data-en="Sagha Diff"></div>
                     <div class="price">
-                      <div class="val" data-val="sagha_usd_diff"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div id="sagha_usd_diff" class="price-now">- - -</div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
+                <div class="info-card">
                   <img src="./files/imgs/market-dif.svg" />
                   <div class="info">
                     <div class="name" data-en="Market Diff"></div>
                     <div class="price">
-                      <div class="val" data-val="market_usd_diff"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div id="market_usd_diff" class="price-now">- - -</div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
+                <div class="info-card">
                   <img src="./files/imgs/silver.svg" />
                   <div class="info">
-                    <div class="name" data-en="Silver Price"></div>
+                    <div class="name" data-en="Egyptian Silver"></div>
                     <div class="price">
-                      <div class="val" data-val="sil800_egp_b"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div class="price-now" data-val="sil800_egp_b"></div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="info-card" tabindex="0">
+                <div class="info-card">
                   <img src="./files/imgs/usdt.svg" />
                   <div class="info">
                     <div class="name" data-en="USDT"></div>
                     <div class="price">
-                      <div class="val" data-val="usdt_egp"></div>
-                      <div class="unit" data-en=" EGP "></div>
+                      <div class="val">
+                        <div class="price-now" data-val="usdt_egp"></div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
                     </div>
                   </div>
                 </div>

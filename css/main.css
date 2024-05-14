@@ -53,9 +53,10 @@
   --transition: 500ms;
   --timing-fun: ease-in-out;
 
-  --details-item-bg-dir: to left;
-  --details-item-scale-origin: left;
-  --gold-delta-flex-dir: row-reverse;
+  --info-card-bg-dir: to left;
+  --info-card-transform-origin: left;
+
+  --TV-delta-flex-dir: row-reverse;
 }
 
 html {
@@ -99,9 +100,9 @@ body {
   &.ar {
     direction: rtl;
     font-family: var(--ar_font), monospace;
-    --details-item-bg-dir: to right;
-    --details-item-scale-origin: right;
-    --gold-delta-flex-dir: row;
+    --info-card-bg-dir: to right;
+    --info-card-transform-origin: right;
+    --TV-delta-flex-dir: row;
   }
 }
 
@@ -235,6 +236,10 @@ label {
     top: 2px;
     gap: 7px;
   }
+}
+
+.dir-ltr {
+  direction: ltr;
 }
 
 i.icon {
@@ -678,8 +683,7 @@ main {
           }
         }
 
-        & .info-card,
-        & #goldTv {
+        & .info-card {
           background-color: var(--gold2);
           border-radius: 100px;
           width: 100%;
@@ -704,12 +708,12 @@ main {
             border-radius: inherit;
             width: 100%;
             height: 100%;
-            transition: scale 700ms;
-            scale: 0 1;
-            transform-origin: var(--details-item-scale-origin);
+            transition: transform 1s;
+            transform: rotateY(90deg);
+            transform-origin: var(--info-card-transform-origin);
             z-index: -1;
             background-image: linear-gradient(
-              var(--details-item-bg-dir),
+              var(--info-card-bg-dir),
               var(--red2),
               var(--red3)
             );
@@ -717,7 +721,7 @@ main {
 
           &:hover {
             &::before {
-              scale: 1;
+              transform: none;
             }
 
             & > .info {
@@ -757,13 +761,37 @@ main {
               justify-content: flex-start;
               align-items: center;
               gap: 5px;
+              font-family: "cairo";
 
               & > .val {
                 font-size: 1.5rem;
-              }
-              & > .unit {
-                color: var(--white2);
-                font-family: "cairo";
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                & > .price-now {
+                  direction: ltr;
+
+                  &.up {
+                    --col-to: var(--gold1);
+                    animation: change-col 500ms infinite ease-out alternate;
+                  }
+
+                  &.down {
+                    --col-to: var(--red2);
+                    animation: change-col 500ms infinite alternate;
+                  }
+
+                  &.no-chng {
+                    --col-to: var(--white2);
+                    animation: change-col 500ms infinite ease-out alternate;
+                  }
+                }
+
+                & > .unit {
+                  font-size: 1rem;
+                  color: var(--white2);
+                }
               }
             }
           }
@@ -1121,9 +1149,7 @@ main {
             gap: 15px;
             width: 100%;
 
-            & > #goldTv {
-              padding: 10px 15px;
-
+            & > .TV {
               &.off > .info > .name > .unit::after {
                 animation: none;
                 background-color: var(--red1);
@@ -1135,10 +1161,6 @@ main {
               }
 
               & > .info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-
                 & > .name {
                   display: flex;
                   align-items: center;
@@ -1150,7 +1172,7 @@ main {
                     color: var(--white2);
                     display: flex;
                     align-items: center;
-                    gap: 7px;
+                    gap: 5px;
 
                     &::after {
                       content: "";
@@ -1164,36 +1186,14 @@ main {
                 }
 
                 & > .price {
-                  display: flex;
-                  align-items: center;
-                  font-family: "cairo";
-                  gap: 7px;
-
                   & > .val {
                     --col-from: var(--white1);
-                    align-items: center;
-                    gap: 3px;
+                    flex-direction: row;
+                    gap: 5px;
 
                     & > .unit {
                       font-size: 0.75rem;
                       color: var(--white2);
-                    }
-
-                    & > #xauPrice {
-                      &.up {
-                        --col-to: var(--gold1);
-                        animation: change-col 500ms infinite ease-out alternate;
-                      }
-
-                      &.down {
-                        --col-to: var(--red2);
-                        animation: change-col 500ms infinite alternate;
-                      }
-
-                      &.no-chng {
-                        --col-to: var(--white2);
-                        animation: change-col 500ms infinite ease-out alternate;
-                      }
                     }
                   }
 
@@ -1201,7 +1201,7 @@ main {
                     font-size: 1rem;
                     direction: ltr;
                     display: flex;
-                    flex-direction: var(--gold-delta-flex-dir);
+                    flex-direction: var(--TV-delta-flex-dir);
                     align-items: center;
                     gap: 5px;
                     translate: 0 5%;
@@ -1217,7 +1217,7 @@ main {
                       color: var(--gold8);
                       & > i {
                         display: block;
-                        translate: 0 5%;
+                        translate: 0 8%;
                       }
                     }
 
@@ -1484,33 +1484,34 @@ main {
           }
         }
 
-        & .info-card,
-        & #goldTv {
+        & .info-card {
           & > img {
             --w: 50px;
           }
 
           & > .info {
             & > .name {
-              font-size: 1.2rem;
+              font-size: 1.25rem;
             }
 
             & > .price {
               & > .val {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
 
                 & > .unit {
-                  font-size: 0.75rem;
+                  font-size: 0.85rem;
                 }
-              }
-              & > .unit {
-                font-size: 0.85rem;
               }
             }
           }
         }
 
-        &#mainPage > .holder > .details > #goldTv > .info > .price {
+        &#mainPage > .holder > .details > .TV > .info > .price {
+          & > .val {
+            & > .unit {
+              font-size: 0.7rem;
+            }
+          }
           & > .delta {
             font-size: 0.85rem;
           }
@@ -1527,15 +1528,18 @@ main {
 }
 @media (width < 345px) {
   main > .content > .page-wrapper .page {
-    &#mainPage
-      > .holder
-      > .details
-      > #goldTv
-      > .info
-      > .price
-      > .delta
-      > #xauDeltaPt {
-      display: none;
+    &#mainPage > .holder > .details > .TV > .info {
+      & > .name {
+        font-size: 1.1rem;
+
+        & > .unit {
+          font-size: 0.7rem;
+        }
+      }
+
+      & > .price > .delta > .delta-pt {
+        display: none;
+      }
     }
   }
 }
@@ -1564,15 +1568,14 @@ main {
             }
           }
 
-          & .info-card,
-          & #goldTv {
+          & .info-card {
             border-radius: 20px;
             flex-direction: column;
-            --details-item-bg-dir: to bottom;
-            --details-item-scale-origin: top;
+            --info-card-bg-dir: to bottom;
+            --info-card-transform-origin: top;
 
             &::before {
-              scale: 1 0;
+              transform: rotateX(90deg);
             }
 
             & > .info {
@@ -1583,34 +1586,49 @@ main {
                 text-align: center;
                 flex-direction: column;
                 gap: 0;
+                font-size: 1.3rem;
               }
 
               & > .price {
                 flex-direction: column;
-                gap: 0;
                 justify-content: center;
+                gap: 0;
 
                 & > .val {
+                  flex-direction: column;
+                  justify-content: center;
                   gap: 0;
+
+                  & > .unit {
+                    font-size: 1rem;
+                  }
                 }
               }
             }
           }
 
-          &#mainPage > .holder > .details > #goldTv {
+          &#mainPage > .holder > .details > .TV {
             & > img {
               translate: none;
             }
 
-            & > .info > .price {
-              gap: 0;
+            & > .info {
+              & > .name {
+                font-size: 1.3rem;
 
-              & > .delta {
-                font-size: 1rem;
-                translate: none;
+                & > .unit {
+                  font-size: 1rem;
+                }
+              }
 
-                & > #xauDeltaPt {
-                  display: block;
+              & > .price {
+                & > .delta {
+                  font-size: 1rem;
+                  translate: none;
+
+                  & > .delta-pt {
+                    display: block;
+                  }
                 }
               }
             }
