@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-const testing = true; // used for testing
+const testing = false; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 let ar = true; // en: false | ar: true (app language)
