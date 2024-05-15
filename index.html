@@ -148,7 +148,7 @@
             <div class="options">
               <div id="goldOpt" data-en="Gold" tabindex="0"></div>
               <div id="silverOpt" data-en="Silver" tabindex="0"></div>
-              <div id="GoldsmithsOpt" data-en="Goldsmiths" tabindex="0"></div>
+              <div id="saghaOpt" data-en="Sagha" tabindex="0"></div>
               <div id="bankOpt" data-en="Bank" tabindex="0"></div>
               <div id="marketOpt" data-en="Market" tabindex="0"></div>
               <div id="gasOpt" data-en="Gas" tabindex="0"></div>
@@ -217,14 +217,9 @@
                 </div>
               </div>
 
-              <!-- Goldsmiths Calc -->
-              <div
-                class="calc"
-                id="GoldsmithsCalc"
-                data-num="3"
-                data-calcType="1"
-              >
-                <div class="title" data-en="Goldsmiths Calculator"></div>
+              <!-- Sagha Calc -->
+              <div class="calc" id="saghaCalc" data-num="3" data-calcType="1">
+                <div class="title" data-en="Sagha Calculator"></div>
 
                 <div class="from-to">
                   <span class="from" data-en="From"></span>
@@ -239,7 +234,7 @@
                   <!-- Other Currencies -->
                   <div class="select">
                     <select
-                      id="goldsmithsXSel"
+                      id="saghaXSel"
                       class="calc_sel xEGP one-option from"
                     ></select>
                   </div>
@@ -252,7 +247,7 @@
                   <!-- EGP -->
                   <div class="select">
                     <select
-                      id="goldsmithsSel"
+                      id="saghaSel"
                       class="calc_sel EGP one-option to"
                     ></select>
                   </div>
@@ -509,6 +504,11 @@
                     <td data-val="goldP_egp_b">-</td>
                     <td data-val="goldP_egp_s">-</td>
                   </tr>
+                  <tr>
+                    <th scope="row" data-en="Sagha USD"></th>
+                    <td data-val="sagha_usd_b">-</td>
+                    <td data-val="sagha_usd_s">-</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -721,20 +721,7 @@
                     <div class="name" data-en="Sagha USD"></div>
                     <div class="price">
                       <div class="val">
-                        <div class="price-now" data-val="usd_gold"></div>
-                        <div class="unit" data-en=" EGP "></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="info-card">
-                  <img src="./files/imgs/sagha-dif.svg" />
-                  <div class="info">
-                    <div class="name" data-en="Sagha Diff"></div>
-                    <div class="price">
-                      <div class="val">
-                        <div id="sagha_usd_diff" class="price-now">- - -</div>
+                        <div class="price-now" data-val="sagha_usd"></div>
                         <div class="unit" data-en=" EGP "></div>
                       </div>
                     </div>
@@ -748,6 +735,19 @@
                     <div class="price">
                       <div class="val">
                         <div id="market_usd_diff" class="price-now">- - -</div>
+                        <div class="unit" data-en=" EGP "></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-card">
+                  <img src="./files/imgs/sagha-dif.svg" />
+                  <div class="info">
+                    <div class="name" data-en="Sagha Diff"></div>
+                    <div class="price">
+                      <div class="val">
+                        <div id="sagha_usd_diff" class="price-now">- - -</div>
                         <div class="unit" data-en=" EGP "></div>
                       </div>
                     </div>

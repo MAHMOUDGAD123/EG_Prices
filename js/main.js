@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-const testing = false; // used for testing
+const testing = true; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 let ar = true; // en: false | ar: true (app language)
@@ -100,9 +100,7 @@ const en_ar = new Map([
   // Gold
   ["Gold Ounce", "أونصة الذهب"],
   ["Gold Pound", "جنية الذهب"],
-  ["Gold's USD", "دولار الصاغة"],
-  ["Goldsmiths USD", "دولار الصاغة"],
-  ["Goldsmiths", "الصاغة"],
+  ["Sagha", "الصاغة"],
   ["Gold 24-Karat", "ذهب عيار 24"],
   ["24 Karat", "عيار 24"],
   ["Gold 22-Karat", "ذهب عيار 22"],
@@ -118,7 +116,7 @@ const en_ar = new Map([
   ["Gold 9-Karat", "ذهب عيار 9"],
   ["9 Karat", "عيار 9"],
   ["Gold Calculator", "حاسبة الذهب"],
-  ["Goldsmiths Calculator", "حاسبة الصاغة"],
+  ["Sagha Calculator", "حاسبة الصاغة"],
   ["Silver Calculator", "حاسبة الفضة"],
   ["Bank Calculator", "حاسبة العملة في البنك"],
   ["Market Calculator", "حاسبة العملة في السوق"],
@@ -257,7 +255,7 @@ const page_btn = new Map([
 const calc_opt = new Map([
   ["goldCalc", "goldOpt"],
   ["silverCalc", "silverOpt"],
-  ["GoldsmithsCalc", "GoldsmithsOpt"],
+  ["saghaCalc", "saghaOpt"],
   ["bankCalc", "bankOpt"],
   ["marketCalc", "marketOpt"],
   ["gasCalc", "gasOpt"],
@@ -369,10 +367,10 @@ const calc_selections = new Map([
   ],
 
   [
-    "goldsmithsXSel",
+    "saghaXSel",
     [
       [
-        ["price", "usd_gold"],
+        ["price", "sagha_usd"],
         ["en", "USD"],
         ["unit", "USD"],
       ],
@@ -380,7 +378,7 @@ const calc_selections = new Map([
   ],
 
   [
-    "goldsmithsSel",
+    "saghaSel",
     [
       [
         ["price", ""],
@@ -593,11 +591,11 @@ const calc_selections = new Map([
 
 const search_map = [
   [
-    ["goldsmiths usd", "دولار الصاغة"],
+    ["sagha usd", "دولار الصاغة"],
     {
       img: "sagha-usd",
-      name: "Goldsmiths USD",
-      price: "usd_gold",
+      name: "Sagha USD",
+      price: "sagha_usd",
     },
   ],
   [
@@ -737,7 +735,7 @@ const search_map = [
     },
   ],
   [
-    ["usd", "دولار أمريكي"],
+    ["usd", "دولار امريكي"],
     {
       img: "USD",
       name: "USD Bank",
@@ -745,7 +743,7 @@ const search_map = [
     },
   ],
   [
-    ["usd", "دولار أمريكي"],
+    ["usd", "دولار امريكي"],
     {
       img: "USD",
       name: "USD Market",
@@ -1060,12 +1058,11 @@ const bad_internet = () => {
 build_calc_selections();
 set_lang();
 
-// data init
+// get & set data
 (async () => {
   if (!testing) {
-    // show loading page
-    const loadingPage = document.getElementById("loadingPage");
     try {
+      const loadingPage = document.getElementById("loadingPage");
       // get data from api
       const res = await fetch("https://eg-prices-api.vercel.app/");
 
@@ -1090,7 +1087,6 @@ set_lang();
           document.querySelector(sel).style.transform = "none";
         });
         set_culculators();
-        play_live();
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -1099,7 +1095,7 @@ set_lang();
     } catch (er) {
       // remove loading page
       loadingPage.style.transform = "translateY(-150%)";
-      console.error("Fetch Error ❌:", er.message);
+      console.error("Error ❌:", er.message);
       bad_internet();
     }
   } else {
@@ -1123,54 +1119,8 @@ set_lang();
   }
 })();
 
-//====================== initialization End =======================
-
-//========================= Functions Start =========================
-
-function set_lang() {
-  const all_txt = document.querySelectorAll("[data-en]");
-  const logo = document.querySelector(".logo > .txt");
-  const lang_switch = document.getElementById("langSwitch");
-  const searchBox_in = document.querySelector("#searchBox > input");
-  const searchIcon = document.querySelector("#searchIcon");
-
-  if (ar) {
-    ar = false;
-    lang_switch.classList.add("on");
-    document.body.classList.add("ar");
-    logo.classList.add("ar");
-
-    all_txt.forEach((ele) => {
-      const en_txt = ele.dataset.en;
-      ele.textContent = en_ar.get(en_txt);
-    });
-
-    searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
-    searchIcon.classList.add("ar");
-  } else {
-    ar = true;
-    lang_switch.classList.remove("on");
-    document.body.classList.remove("ar");
-    logo.classList.remove("ar");
-
-    all_txt.forEach((ele) => {
-      const en_txt = ele.dataset.en;
-      ele.textContent = en_txt;
-    });
-
-    searchBox_in.placeholder = searchBox_in.dataset.en;
-    searchIcon.classList.remove("ar");
-  }
-}
-
-function set_data(data) {
-  document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent = data[el.dataset.val] || "-";
-  });
-}
-
-// gold live data
-async function play_live() {
+// get & set live data
+(async () => {
   const color_effect = (ele, cls) => {
     ele.classList.add(cls);
     setTimeout(() => {
@@ -1228,7 +1178,7 @@ async function play_live() {
     const old_sagha_diff = +sagha_diff_el.textContent;
     const old_market_diff = +market_diff_el.textContent;
     const new_sagha_diff = +(
-      Live_data["usd_egp"] - prices["usd_gold"]
+      Live_data["usd_egp"] - Live_data["sagha_usd"]
     ).toPrecision(4);
     const new_market_diff = +(
       Live_data["usd_egp"] - Live_data["usd_egpp"]
@@ -1287,7 +1237,55 @@ async function play_live() {
       });
     }
   }
+})();
+
+//====================== initialization End =======================
+
+//========================= Functions Start =========================
+
+function set_lang() {
+  const all_txt = document.querySelectorAll("[data-en]");
+  const logo = document.querySelector(".logo > .txt");
+  const lang_switch = document.getElementById("langSwitch");
+  const searchBox_in = document.querySelector("#searchBox > input");
+  const searchIcon = document.querySelector("#searchIcon");
+
+  if (ar) {
+    ar = false;
+    lang_switch.classList.add("on");
+    document.body.classList.add("ar");
+    logo.classList.add("ar");
+
+    all_txt.forEach((ele) => {
+      const en_txt = ele.dataset.en;
+      ele.textContent = en_ar.get(en_txt);
+    });
+
+    searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
+    searchIcon.classList.add("ar");
+  } else {
+    ar = true;
+    lang_switch.classList.remove("on");
+    document.body.classList.remove("ar");
+    logo.classList.remove("ar");
+
+    all_txt.forEach((ele) => {
+      const en_txt = ele.dataset.en;
+      ele.textContent = en_txt;
+    });
+
+    searchBox_in.placeholder = searchBox_in.dataset.en;
+    searchIcon.classList.remove("ar");
+  }
 }
+
+function set_data(data) {
+  document.querySelectorAll("[data-val]").forEach((el) => {
+    el.textContent = data[el.dataset.val] || "-";
+  });
+}
+
+async function play_live() {}
 
 //========================= Functions End =========================
 
