@@ -81,7 +81,6 @@ const en_ar = new Map([
   ["Market Diff", "فرق السوق"],
   ["Silver Price", "سعر الفضة"],
   ["Global Ounce", "الأونصة العالمية"],
-  ["Egyptian Silver", "الفضة المصري"],
   ["(USD/OZ)", "(دولار/أونصة)"],
   ["(USD/EGP)", "(دولار/جنية)"],
 
