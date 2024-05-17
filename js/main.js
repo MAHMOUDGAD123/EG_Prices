@@ -456,6 +456,31 @@ const calc_selections = new Map([
         ["en", "AUD"],
         ["unit", "AUD"],
       ],
+      [
+        ["price", "jpy_egp_b"],
+        ["en", "JPY"],
+        ["unit", "JPY"],
+      ],
+      [
+        ["price", "chf_egp_b"],
+        ["en", "CHF"],
+        ["unit", "CHF"],
+      ],
+      [
+        ["price", "sek_egp_b"],
+        ["en", "SEK"],
+        ["unit", "SEK"],
+      ],
+      [
+        ["price", "nok_egp_b"],
+        ["en", "NOK"],
+        ["unit", "NOK"],
+      ],
+      [
+        ["price", "dkk_egp_b"],
+        ["en", "DKK"],
+        ["unit", "DKK"],
+      ],
     ],
   ],
 
@@ -537,6 +562,31 @@ const calc_selections = new Map([
         ["price", "aud_egp_bm_b"],
         ["en", "AUD"],
         ["unit", "AUD"],
+      ],
+      [
+        ["price", "jpy_egp_bm_b"],
+        ["en", "JPY"],
+        ["unit", "JPY"],
+      ],
+      [
+        ["price", "chf_egp_bm_b"],
+        ["en", "CHF"],
+        ["unit", "CHF"],
+      ],
+      [
+        ["price", "sek_egp_bm_b"],
+        ["en", "SEK"],
+        ["unit", "SEK"],
+      ],
+      [
+        ["price", "nok_egp_bm_b"],
+        ["en", "NOK"],
+        ["unit", "NOK"],
+      ],
+      [
+        ["price", "dkk_egp_bm_b"],
+        ["en", "DKK"],
+        ["unit", "DKK"],
       ],
     ],
   ],
@@ -940,6 +990,70 @@ const search_map = [
       img: "AUD",
       name: "AUD Market",
       price: "aud_egp_bm_b",
+    },
+  ],
+  [
+    ["jpy", "ين ياباني"],
+    {
+      img: "JPY",
+      name: "JPY Bank",
+      price: "jpy_egp_b",
+    },
+  ],
+  [
+    ["jpy", "ين ياباني"],
+    {
+      img: "JPY",
+      name: "JPY Market",
+      price: "jpy_egp_bm_b",
+    },
+  ],
+  [
+    ["CHF", "فرنك سويسري"],
+    {
+      img: "CHF",
+      name: "CHF Bank",
+      price: "chf_egp_b",
+    },
+  ],
+  [
+    ["CHF", "فرنك سويسري"],
+    {
+      img: "CHF",
+      name: "CHF Market",
+      price: "chf_egp_bm_b",
+    },
+  ],
+  [
+    ["NOK", "كرون نرويجي"],
+    {
+      img: "NOK",
+      name: "NOK Bank",
+      price: "nok_egp_b",
+    },
+  ],
+  [
+    ["NOK", "كرون نرويجي"],
+    {
+      img: "NOK",
+      name: "NOK Market",
+      price: "nok_egp_bm_b",
+    },
+  ],
+  [
+    ["DKK", "كرون دانماركي"],
+    {
+      img: "DKK",
+      name: "DKK Bank",
+      price: "dkk_egp_b",
+    },
+  ],
+  [
+    ["DKK", "كرون دانماركي"],
+    {
+      img: "DKK",
+      name: "DKK Market",
+      price: "dkk_egp_bm_b",
     },
   ],
   [
