@@ -1119,7 +1119,6 @@ const live_map = new Map([
   [
     "goldTv",
     {
-      forex: true,
       val: "xau_usd",
       delta_num: "xau_usd_delta",
       delta_pt: "xau_usd_delta_pt",
@@ -1128,7 +1127,6 @@ const live_map = new Map([
   [
     "USDEGPTv",
     {
-      forex: true,
       val: "usd_egp",
       delta_num: "usd_egp_delta",
       delta_pt: "usd_egp_delta_pt",
@@ -1137,7 +1135,6 @@ const live_map = new Map([
   [
     "USDEGPpTv",
     {
-      forex: false,
       val: "usd_egpp",
       delta_num: "usd_egpp_delta",
       delta_pt: "usd_egpp_delta_pt",
@@ -1344,10 +1341,8 @@ set_lang();
       }, live_api_interval);
     } else {
       // market is off at weekend (sat - sun)
-      live_map.forEach(({ forex }, TV_id) => {
-        if (forex) {
-          document.getElementById(TV_id).classList.add("off");
-        }
+      live_map.forEach((_, TV_id) => {
+        document.getElementById(TV_id).classList.add("off");
       });
     }
   }
@@ -1398,8 +1393,6 @@ function set_data(data) {
     el.textContent = data[el.dataset.val] || "-";
   });
 }
-
-async function play_live() {}
 
 //========================= Functions End =========================
 
