@@ -267,378 +267,6 @@ const currency_opt = new Map([
   ["marketInfo", "marketInfoOpt"],
 ]);
 
-// <select> id => [ array of options of [ array of data attributes ]+ ]+
-const calc_selections = new Map([
-  [
-    "goldKaratSel",
-    [
-      [
-        ["price", "gold24_egp_b"],
-        ["en", "24 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold22_egp_b"],
-        ["en", "22 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold21_egp_b"],
-        ["en", "21 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold18_egp_b"],
-        ["en", "18 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold14_egp_b"],
-        ["en", "14 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold12_egp_b"],
-        ["en", "12 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "gold9_egp_b"],
-        ["en", "9 Karat"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "goldO_egp_b"],
-        ["en", "Gold Ounce"],
-        ["unit", "ounce"],
-      ],
-      [
-        ["price", "goldP_egp_b"],
-        ["en", "Gold Pound"],
-        ["unit", "gold pound"],
-      ],
-    ],
-  ],
-
-  [
-    "silverKaratSel",
-    [
-      [
-        ["price", "sil999_egp_b"],
-        ["en", "Silver 999"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil960_egp_b"],
-        ["en", "Silver 960"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil958_egp_b"],
-        ["en", "Silver 958"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil950_egp_b"],
-        ["en", "Silver 950"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil947_egp_b"],
-        ["en", "Silver 947"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil925_egp_b"],
-        ["en", "Silver 925"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "sil800_egp_b"],
-        ["en", "Silver 800"],
-        ["unit", "gram"],
-      ],
-      [
-        ["price", "silOZ_egp_b"],
-        ["en", "Silver Ounce"],
-        ["unit", "ounce"],
-      ],
-    ],
-  ],
-
-  [
-    "saghaXSel",
-    [
-      [
-        ["price", "sagha_usd"],
-        ["en", "USD"],
-        ["unit", "USD"],
-      ],
-    ],
-  ],
-
-  [
-    "saghaSel",
-    [
-      [
-        ["price", ""],
-        ["en", " EGP "],
-        ["unit", " EGP "],
-      ],
-    ],
-  ],
-
-  [
-    "bankXSel",
-    [
-      [
-        ["price", "usd_egp_b"],
-        ["en", "USD"],
-        ["unit", "USD"],
-      ],
-      [
-        ["price", "sar_egp_b"],
-        ["en", "SAR"],
-        ["unit", "SAR"],
-      ],
-      [
-        ["price", "eur_egp_b"],
-        ["en", "EUR"],
-        ["unit", "EUR"],
-      ],
-      [
-        ["price", "aed_egp_b"],
-        ["en", "AED"],
-        ["unit", "AED"],
-      ],
-      [
-        ["price", "kwd_egp_b"],
-        ["en", "KWD"],
-        ["unit", "KWD"],
-      ],
-      [
-        ["price", "gbp_egp_b"],
-        ["en", "GBP"],
-        ["unit", "GBP"],
-      ],
-      [
-        ["price", "omr_egp_b"],
-        ["en", "OMR"],
-        ["unit", "OMR"],
-      ],
-      [
-        ["price", "qar_egp_b"],
-        ["en", "QAR"],
-        ["unit", "QAR"],
-      ],
-      [
-        ["price", "cny_egp_b"],
-        ["en", "CNY"],
-        ["unit", "CNY"],
-      ],
-      [
-        ["price", "bhd_egp_b"],
-        ["en", "BHD"],
-        ["unit", "BHD"],
-      ],
-      [
-        ["price", "jod_egp_b"],
-        ["en", "JOD"],
-        ["unit", "JOD"],
-      ],
-      [
-        ["price", "cad_egp_b"],
-        ["en", "CAD"],
-        ["unit", "CAD"],
-      ],
-      [
-        ["price", "aud_egp_b"],
-        ["en", "AUD"],
-        ["unit", "AUD"],
-      ],
-      [
-        ["price", "jpy_egp_b"],
-        ["en", "JPY"],
-        ["unit", "JPY"],
-      ],
-      [
-        ["price", "chf_egp_b"],
-        ["en", "CHF"],
-        ["unit", "CHF"],
-      ],
-      [
-        ["price", "sek_egp_b"],
-        ["en", "SEK"],
-        ["unit", "SEK"],
-      ],
-      [
-        ["price", "nok_egp_b"],
-        ["en", "NOK"],
-        ["unit", "NOK"],
-      ],
-      [
-        ["price", "dkk_egp_b"],
-        ["en", "DKK"],
-        ["unit", "DKK"],
-      ],
-    ],
-  ],
-
-  [
-    "bankSel",
-    [
-      [
-        ["price", ""],
-        ["en", " EGP "],
-        ["unit", " EGP "],
-      ],
-    ],
-  ],
-
-  [
-    "marketXSel",
-    [
-      [
-        ["price", "usd_egp_bm_b"],
-        ["en", "USD"],
-        ["unit", "USD"],
-      ],
-      [
-        ["price", "sar_egp_bm_b"],
-        ["en", "SAR"],
-        ["unit", "SAR"],
-      ],
-      [
-        ["price", "eur_egp_bm_b"],
-        ["en", "EUR"],
-        ["unit", "EUR"],
-      ],
-      [
-        ["price", "aed_egp_bm_b"],
-        ["en", "AED"],
-        ["unit", "AED"],
-      ],
-      [
-        ["price", "kwd_egp_bm_b"],
-        ["en", "KWD"],
-        ["unit", "KWD"],
-      ],
-      [
-        ["price", "gbp_egp_bm_b"],
-        ["en", "GBP"],
-        ["unit", "GBP"],
-      ],
-      [
-        ["price", "omr_egp_bm_b"],
-        ["en", "OMR"],
-        ["unit", "OMR"],
-      ],
-      [
-        ["price", "qar_egp_bm_b"],
-        ["en", "QAR"],
-        ["unit", "QAR"],
-      ],
-      [
-        ["price", "cny_egp_bm_b"],
-        ["en", "CNY"],
-        ["unit", "CNY"],
-      ],
-      [
-        ["price", "bhd_egp_bm_b"],
-        ["en", "BHD"],
-        ["unit", "BHD"],
-      ],
-      [
-        ["price", "jod_egp_bm_b"],
-        ["en", "JOD"],
-        ["unit", "JOD"],
-      ],
-      [
-        ["price", "cad_egp_bm_b"],
-        ["en", "CAD"],
-        ["unit", "CAD"],
-      ],
-      [
-        ["price", "aud_egp_bm_b"],
-        ["en", "AUD"],
-        ["unit", "AUD"],
-      ],
-      [
-        ["price", "jpy_egp_bm_b"],
-        ["en", "JPY"],
-        ["unit", "JPY"],
-      ],
-      [
-        ["price", "chf_egp_bm_b"],
-        ["en", "CHF"],
-        ["unit", "CHF"],
-      ],
-      [
-        ["price", "sek_egp_bm_b"],
-        ["en", "SEK"],
-        ["unit", "SEK"],
-      ],
-      [
-        ["price", "nok_egp_bm_b"],
-        ["en", "NOK"],
-        ["unit", "NOK"],
-      ],
-      [
-        ["price", "dkk_egp_bm_b"],
-        ["en", "DKK"],
-        ["unit", "DKK"],
-      ],
-    ],
-  ],
-
-  [
-    "marketSel",
-    [
-      [
-        ["price", ""],
-        ["en", " EGP "],
-        ["unit", " EGP "],
-      ],
-    ],
-  ],
-
-  [
-    "gasSel",
-    [
-      [
-        ["price", "gasoline95"],
-        ["en", "Gasoline 95"],
-        ["unit", "liter"],
-      ],
-      [
-        ["price", "gasoline92"],
-        ["en", "Gasoline 92"],
-        ["unit", "liter"],
-      ],
-      [
-        ["price", "gasoline80"],
-        ["en", "Gasoline 80"],
-        ["unit", "liter"],
-      ],
-      [
-        ["price", "kerosene"],
-        ["en", "Kerosene"],
-        ["unit", "liter"],
-      ],
-      [
-        ["price", "solar"],
-        ["en", "Solar"],
-        ["unit", "liter"],
-      ],
-      [
-        ["price", "gas_cyl"],
-        ["en", "Stove Cylinder"],
-        ["unit", "cylinder"],
-      ],
-    ],
-  ],
-]);
-
 const search_map = [
   [
     ["sagha usd", "دولار الصاغة"],
@@ -1114,34 +742,6 @@ const search_map = [
   ],
 ];
 
-// TV element id => data {}
-const live_map = new Map([
-  [
-    "goldTv",
-    {
-      val: "xau_usd",
-      delta_num: "xau_usd_delta",
-      delta_pt: "xau_usd_delta_pt",
-    },
-  ],
-  [
-    "USDEGPTv",
-    {
-      val: "usd_egp",
-      delta_num: "usd_egp_delta",
-      delta_pt: "usd_egp_delta_pt",
-    },
-  ],
-  [
-    "USDEGPpTv",
-    {
-      val: "usd_egpp",
-      delta_num: "usd_egpp_delta",
-      delta_pt: "usd_egpp_delta_pt",
-    },
-  ],
-]);
-
 // used for animate the page after loading
 const content = ["header", ".content", "nav"];
 
@@ -1198,6 +798,7 @@ set_lang();
           document.querySelector(sel).style.transform = "none";
         });
         set_culculators();
+        play_live();
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -1230,14 +831,80 @@ set_lang();
   }
 })();
 
+//====================== initialization End =======================
+
+//========================= Functions Start =========================
+
+function set_lang() {
+  const all_txt = document.querySelectorAll("[data-en]");
+  const logo = document.querySelector(".logo > .txt");
+  const lang_switch = document.getElementById("langSwitch");
+  const searchBox_in = document.querySelector("#searchBox > input");
+  const searchIcon = document.querySelector("#searchIcon");
+
+  if (ar) {
+    ar = false;
+    lang_switch.classList.add("on");
+    document.body.classList.add("ar");
+    logo.classList.add("ar");
+
+    all_txt.forEach((ele) => {
+      const en_txt = ele.dataset.en;
+      ele.textContent = en_ar.get(en_txt);
+    });
+
+    searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
+    searchIcon.classList.add("ar");
+  } else {
+    ar = true;
+    lang_switch.classList.remove("on");
+    document.body.classList.remove("ar");
+    logo.classList.remove("ar");
+
+    all_txt.forEach((ele) => {
+      const en_txt = ele.dataset.en;
+      ele.textContent = en_txt;
+    });
+
+    searchBox_in.placeholder = searchBox_in.dataset.en;
+    searchIcon.classList.remove("ar");
+  }
+}
+
+function set_data(data) {
+  document.querySelectorAll("[data-val]").forEach((el) => {
+    el.textContent = data[el.dataset.val] || "-";
+  });
+}
+
 // get & set live data
-(async () => {
+async function play_live() {
   const color_effect = (ele, cls) => {
     ele.classList.add(cls);
     setTimeout(() => {
       ele.classList.remove(cls);
     }, 3000);
   };
+
+  // TV element id => data {}
+  const live_map = new Map([
+    [
+      "goldTv",
+      {
+        val: "xau_usd",
+        delta_num: "xau_usd_delta",
+        delta_pt: "xau_usd_delta_pt",
+      },
+    ],
+    [
+      "USDEGPTv",
+      {
+        val: "usd_egp",
+        delta_num: "usd_egp_delta",
+        delta_pt: "usd_egp_delta_pt",
+      },
+    ],
+  ]);
 
   const set_data = (_prev, _new) => {
     live_map.forEach(({ val, delta_num, delta_pt }, TV_id) => {
@@ -1288,11 +955,11 @@ set_lang();
     // save old diffs
     const old_sagha_diff = +sagha_diff_el.textContent;
     const old_market_diff = +market_diff_el.textContent;
-    const new_sagha_diff = +(
-      Live_data["usd_egp"] - Live_data["sagha_usd"]
-    ).toPrecision(4);
+    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd).toPrecision(
+      4
+    );
     const new_market_diff = +(
-      Live_data["usd_egp"] - Live_data["usd_egpp"]
+      Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
     // print new data
     sagha_diff_el.textContent = new_sagha_diff;
@@ -1346,52 +1013,6 @@ set_lang();
       });
     }
   }
-})();
-
-//====================== initialization End =======================
-
-//========================= Functions Start =========================
-
-function set_lang() {
-  const all_txt = document.querySelectorAll("[data-en]");
-  const logo = document.querySelector(".logo > .txt");
-  const lang_switch = document.getElementById("langSwitch");
-  const searchBox_in = document.querySelector("#searchBox > input");
-  const searchIcon = document.querySelector("#searchIcon");
-
-  if (ar) {
-    ar = false;
-    lang_switch.classList.add("on");
-    document.body.classList.add("ar");
-    logo.classList.add("ar");
-
-    all_txt.forEach((ele) => {
-      const en_txt = ele.dataset.en;
-      ele.textContent = en_ar.get(en_txt);
-    });
-
-    searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
-    searchIcon.classList.add("ar");
-  } else {
-    ar = true;
-    lang_switch.classList.remove("on");
-    document.body.classList.remove("ar");
-    logo.classList.remove("ar");
-
-    all_txt.forEach((ele) => {
-      const en_txt = ele.dataset.en;
-      ele.textContent = en_txt;
-    });
-
-    searchBox_in.placeholder = searchBox_in.dataset.en;
-    searchIcon.classList.remove("ar");
-  }
-}
-
-function set_data(data) {
-  document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent = data[el.dataset.val] || "-";
-  });
 }
 
 //========================= Functions End =========================
@@ -1501,6 +1122,378 @@ settings_switches.forEach((action_fun, switch_id) => {
 
 // build calculators selections
 function build_calc_selections() {
+  // <select> id => [ array of options of [ array of data attributes ]+ ]+
+  const calc_selections = new Map([
+    [
+      "goldKaratSel",
+      [
+        [
+          ["price", "gold24_egp_b"],
+          ["en", "24 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold22_egp_b"],
+          ["en", "22 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold21_egp_b"],
+          ["en", "21 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold18_egp_b"],
+          ["en", "18 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold14_egp_b"],
+          ["en", "14 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold12_egp_b"],
+          ["en", "12 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "gold9_egp_b"],
+          ["en", "9 Karat"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "goldO_egp_b"],
+          ["en", "Gold Ounce"],
+          ["unit", "ounce"],
+        ],
+        [
+          ["price", "goldP_egp_b"],
+          ["en", "Gold Pound"],
+          ["unit", "gold pound"],
+        ],
+      ],
+    ],
+
+    [
+      "silverKaratSel",
+      [
+        [
+          ["price", "sil999_egp_b"],
+          ["en", "Silver 999"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil960_egp_b"],
+          ["en", "Silver 960"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil958_egp_b"],
+          ["en", "Silver 958"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil950_egp_b"],
+          ["en", "Silver 950"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil947_egp_b"],
+          ["en", "Silver 947"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil925_egp_b"],
+          ["en", "Silver 925"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil800_egp_b"],
+          ["en", "Silver 800"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "silOZ_egp_b"],
+          ["en", "Silver Ounce"],
+          ["unit", "ounce"],
+        ],
+      ],
+    ],
+
+    [
+      "saghaXSel",
+      [
+        [
+          ["price", "sagha_usd"],
+          ["en", "USD"],
+          ["unit", "USD"],
+        ],
+      ],
+    ],
+
+    [
+      "saghaSel",
+      [
+        [
+          ["price", ""],
+          ["en", " EGP "],
+          ["unit", " EGP "],
+        ],
+      ],
+    ],
+
+    [
+      "bankXSel",
+      [
+        [
+          ["price", "usd_egp_b"],
+          ["en", "USD"],
+          ["unit", "USD"],
+        ],
+        [
+          ["price", "sar_egp_b"],
+          ["en", "SAR"],
+          ["unit", "SAR"],
+        ],
+        [
+          ["price", "eur_egp_b"],
+          ["en", "EUR"],
+          ["unit", "EUR"],
+        ],
+        [
+          ["price", "aed_egp_b"],
+          ["en", "AED"],
+          ["unit", "AED"],
+        ],
+        [
+          ["price", "kwd_egp_b"],
+          ["en", "KWD"],
+          ["unit", "KWD"],
+        ],
+        [
+          ["price", "gbp_egp_b"],
+          ["en", "GBP"],
+          ["unit", "GBP"],
+        ],
+        [
+          ["price", "omr_egp_b"],
+          ["en", "OMR"],
+          ["unit", "OMR"],
+        ],
+        [
+          ["price", "qar_egp_b"],
+          ["en", "QAR"],
+          ["unit", "QAR"],
+        ],
+        [
+          ["price", "cny_egp_b"],
+          ["en", "CNY"],
+          ["unit", "CNY"],
+        ],
+        [
+          ["price", "bhd_egp_b"],
+          ["en", "BHD"],
+          ["unit", "BHD"],
+        ],
+        [
+          ["price", "jod_egp_b"],
+          ["en", "JOD"],
+          ["unit", "JOD"],
+        ],
+        [
+          ["price", "cad_egp_b"],
+          ["en", "CAD"],
+          ["unit", "CAD"],
+        ],
+        [
+          ["price", "aud_egp_b"],
+          ["en", "AUD"],
+          ["unit", "AUD"],
+        ],
+        [
+          ["price", "jpy_egp_b"],
+          ["en", "JPY"],
+          ["unit", "JPY"],
+        ],
+        [
+          ["price", "chf_egp_b"],
+          ["en", "CHF"],
+          ["unit", "CHF"],
+        ],
+        [
+          ["price", "sek_egp_b"],
+          ["en", "SEK"],
+          ["unit", "SEK"],
+        ],
+        [
+          ["price", "nok_egp_b"],
+          ["en", "NOK"],
+          ["unit", "NOK"],
+        ],
+        [
+          ["price", "dkk_egp_b"],
+          ["en", "DKK"],
+          ["unit", "DKK"],
+        ],
+      ],
+    ],
+
+    [
+      "bankSel",
+      [
+        [
+          ["price", ""],
+          ["en", " EGP "],
+          ["unit", " EGP "],
+        ],
+      ],
+    ],
+
+    [
+      "marketXSel",
+      [
+        [
+          ["price", "usd_egp_bm_b"],
+          ["en", "USD"],
+          ["unit", "USD"],
+        ],
+        [
+          ["price", "sar_egp_bm_b"],
+          ["en", "SAR"],
+          ["unit", "SAR"],
+        ],
+        [
+          ["price", "eur_egp_bm_b"],
+          ["en", "EUR"],
+          ["unit", "EUR"],
+        ],
+        [
+          ["price", "aed_egp_bm_b"],
+          ["en", "AED"],
+          ["unit", "AED"],
+        ],
+        [
+          ["price", "kwd_egp_bm_b"],
+          ["en", "KWD"],
+          ["unit", "KWD"],
+        ],
+        [
+          ["price", "gbp_egp_bm_b"],
+          ["en", "GBP"],
+          ["unit", "GBP"],
+        ],
+        [
+          ["price", "omr_egp_bm_b"],
+          ["en", "OMR"],
+          ["unit", "OMR"],
+        ],
+        [
+          ["price", "qar_egp_bm_b"],
+          ["en", "QAR"],
+          ["unit", "QAR"],
+        ],
+        [
+          ["price", "cny_egp_bm_b"],
+          ["en", "CNY"],
+          ["unit", "CNY"],
+        ],
+        [
+          ["price", "bhd_egp_bm_b"],
+          ["en", "BHD"],
+          ["unit", "BHD"],
+        ],
+        [
+          ["price", "jod_egp_bm_b"],
+          ["en", "JOD"],
+          ["unit", "JOD"],
+        ],
+        [
+          ["price", "cad_egp_bm_b"],
+          ["en", "CAD"],
+          ["unit", "CAD"],
+        ],
+        [
+          ["price", "aud_egp_bm_b"],
+          ["en", "AUD"],
+          ["unit", "AUD"],
+        ],
+        [
+          ["price", "jpy_egp_bm_b"],
+          ["en", "JPY"],
+          ["unit", "JPY"],
+        ],
+        [
+          ["price", "chf_egp_bm_b"],
+          ["en", "CHF"],
+          ["unit", "CHF"],
+        ],
+        [
+          ["price", "sek_egp_bm_b"],
+          ["en", "SEK"],
+          ["unit", "SEK"],
+        ],
+        [
+          ["price", "nok_egp_bm_b"],
+          ["en", "NOK"],
+          ["unit", "NOK"],
+        ],
+        [
+          ["price", "dkk_egp_bm_b"],
+          ["en", "DKK"],
+          ["unit", "DKK"],
+        ],
+      ],
+    ],
+
+    [
+      "marketSel",
+      [
+        [
+          ["price", ""],
+          ["en", " EGP "],
+          ["unit", " EGP "],
+        ],
+      ],
+    ],
+
+    [
+      "gasSel",
+      [
+        [
+          ["price", "gasoline95"],
+          ["en", "Gasoline 95"],
+          ["unit", "liter"],
+        ],
+        [
+          ["price", "gasoline92"],
+          ["en", "Gasoline 92"],
+          ["unit", "liter"],
+        ],
+        [
+          ["price", "gasoline80"],
+          ["en", "Gasoline 80"],
+          ["unit", "liter"],
+        ],
+        [
+          ["price", "kerosene"],
+          ["en", "Kerosene"],
+          ["unit", "liter"],
+        ],
+        [
+          ["price", "solar"],
+          ["en", "Solar"],
+          ["unit", "liter"],
+        ],
+        [
+          ["price", "gas_cyl"],
+          ["en", "Stove Cylinder"],
+          ["unit", "cylinder"],
+        ],
+      ],
+    ],
+  ]);
+
   calc_selections.forEach((options, sel_id) => {
     const sel_ele = document.getElementById(sel_id);
 
