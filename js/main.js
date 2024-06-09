@@ -873,7 +873,7 @@ function set_lang() {
 
 function set_data(data) {
   document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent = data[el.dataset.val] || "-";
+    el.textContent = new Intl.NumberFormat().format(data[el.dataset.val]) || "-";
   });
 }
 
@@ -918,7 +918,7 @@ async function play_live() {
       const diff = new_val - _prev[val];
       const new_delta_num_val = _new[delta_num];
       // print data
-      val_el.textContent = new_val;
+      val_el.textContent = new Intl.NumberFormat().format(new_val);
       delta_num_el.textContent = new_delta_num_val;
       delta_pt_el.textContent = _new[delta_pt];
 
@@ -955,9 +955,7 @@ async function play_live() {
     // save old diffs
     const old_sagha_diff = +sagha_diff_el.textContent;
     const old_market_diff = +market_diff_el.textContent;
-    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd).toPrecision(
-      4
-    );
+    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd).toPrecision(4);
     const new_market_diff = +(
       Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
@@ -1550,14 +1548,14 @@ const non_currnecy_calc = (calc) => {
   selections.addEventListener("input", (e) => {
     const sels = e.target;
     const price = sels.value;
-    output.textContent = price * input.value;
+    output.textContent = new Intl.NumberFormat().format(price * input.value);
 
     // update the input unit label
     set_label_unit(sels);
   });
   input.addEventListener("input", (e) => {
     const price = selections.value;
-    output.textContent = price * e.target.value;
+    output.textContent = new Intl.NumberFormat().format(price * e.target.value);
   });
 };
 
@@ -1610,7 +1608,8 @@ const currency_calc = (calc) => {
   // init the i/p - o/p
   const zero_fill = () => {
     in_from.value = in_to.value = 0;
-    out_from.textContent = out_to.textContent = 0;
+    out_from.textContent = 0;
+    out_to.textContent = 0;
   };
   // reverse the layout
   const toggle_all = () => {
@@ -1632,20 +1631,21 @@ const currency_calc = (calc) => {
     const out_from_el = calc.querySelector(".calc_out.from");
     const out_to_el = calc.querySelector(".calc_out.to");
 
+    const frmt = new Intl.NumberFormat(); // number formatter
+
     if (isFrom) {
       const input_val = in_from.value;
-      const price =
-        calc.querySelector(".calc_sel.from").selectedOptions[0].value;
+      const price = calc.querySelector(".calc_sel.from").selectedOptions[0].value;
 
       const total = (price * input_val).toFixed(precision);
       in_to.value = total;
 
       if (isSwapped) {
-        out_from_el.textContent = total;
-        out_to_el.textContent = input_val;
+        out_from_el.textContent = frmt.format(total);
+        out_to_el.textContent = frmt.format(input_val);
       } else {
-        out_from_el.textContent = input_val;
-        out_to_el.textContent = total;
+        out_from_el.textContent = frmt.format(input_val);
+        out_to_el.textContent = frmt.format(total);
       }
     } else {
       const input_val = in_to.value;
@@ -1655,11 +1655,11 @@ const currency_calc = (calc) => {
       in_from.value = total;
 
       if (isSwapped) {
-        out_from_el.textContent = input_val;
-        out_to_el.textContent = total;
+        out_from_el.textContent = frmt.format(input_val);
+        out_to_el.textContent = frmt.format(total);
       } else {
-        out_from_el.textContent = total;
-        out_to_el.textContent = input_val;
+        out_from_el.textContent = frmt.format(total);
+        out_to_el.textContent = frmt.format(input_val);
       }
     }
   };
@@ -1786,7 +1786,7 @@ const __search = (inp) => {
           <div class="info">
             <div class="name" data-en="${name}">${_name}</div>
             <div class="price">
-              <div class="val" data-val="${price}">${prices[price]}</div>
+              <div class="val" data-val="${price}">${new Intl.NumberFormat().format(prices[price])}</div>
               <div class="unit" data-en="EGP">${unit}</div>
             </div>
           </div>
