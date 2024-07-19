@@ -273,7 +273,7 @@ const search_map = [
     {
       img: "sagha-usd",
       name: "Sagha USD",
-      price: "sagha_usd",
+      price: "sagha_usd_b",
     },
   ],
   [
@@ -775,7 +775,7 @@ set_lang();
     try {
       const loadingPage = document.getElementById("loadingPage");
       // get data from api
-      const res = await fetch("https://eg-prices-api.vercel.app/");
+      const res = await fetch("https://eg-prices-api.vercel.app/prices");
 
       if (res.ok) {
         prices = await res.json();
@@ -955,7 +955,7 @@ async function play_live() {
     // save old diffs
     const old_sagha_diff = +sagha_diff_el.textContent;
     const old_market_diff = +market_diff_el.textContent;
-    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd).toPrecision(4);
+    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd_b).toPrecision(4);
     const new_market_diff = +(
       Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
@@ -1223,7 +1223,7 @@ function build_calc_selections() {
       "saghaXSel",
       [
         [
-          ["price", "sagha_usd"],
+          ["price", "sagha_usd_b"],
           ["en", "USD"],
           ["unit", "USD"],
         ],
