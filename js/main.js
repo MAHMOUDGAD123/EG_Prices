@@ -785,7 +785,7 @@ set_lang();
 
       const res1 = await p1, res2 = await p2;
 
-      if (res1.ok && res2.ok) {
+      if (res1.ok || res2.ok) {
         prices = Object.assign(Object.create(null), await res1.json(), await res2.json());
         set_data(prices);
         // remove loading page
