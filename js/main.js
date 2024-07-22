@@ -778,14 +778,14 @@ set_lang();
       // const gold = await fetch("https://eg-prices-api.vercel.app/gold");
       // const res = await fetch("https://eg-prices-api.vercel.app/prices");
 
-      const [p1, p2] = Promise.all([
+      const [p1, p2] = Promise.allSettled([
         fetch("https://eg-prices-api.vercel.app/gold"),
         fetch("https://eg-prices-api.vercel.app/prices")
       ]);
 
       const res1 = await p1, res2 = await p2;
 
-      if (res1.ok || res2.ok) {
+      if (res1.ok && res2.ok) {
         prices = Object.assign(Object.create(null), await res1.json(), await res2.json());
         set_data(prices);
         // remove loading page
