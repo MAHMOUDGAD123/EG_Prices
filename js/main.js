@@ -783,7 +783,7 @@ set_lang();
         fetch("https://eg-prices-api.vercel.app/prices")
       ]);
 
-      const res1 = await p1, res2 = await p2;
+      const res1 = await p1.value, res2 = await p2.value;
 
       if (res1.ok || res2.ok) {
         prices = Object.assign(Object.create(null), await res1.json(), await res2.json());
