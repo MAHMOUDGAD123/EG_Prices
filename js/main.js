@@ -2,7 +2,8 @@
 const testing = false; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
-let ar = true; // en: false | ar: true (app language)
+// en: false | ar: true (app language)
+let ar = window.localStorage.getItem("lang") === "ar" ? true : false;
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
 let curr_page = null; // holds the current page
 let curr_calc = null; // holds the current calculator
@@ -863,6 +864,7 @@ function set_lang() {
 
     searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
     searchIcon.classList.add("ar");
+    window.localStorage.setItem("lang", 'ar');
   } else {
     ar = true;
     lang_switch.classList.remove("on");
@@ -876,6 +878,7 @@ function set_lang() {
 
     searchBox_in.placeholder = searchBox_in.dataset.en;
     searchIcon.classList.remove("ar");
+    window.localStorage.setItem('lang', 'en');
   }
 }
 
@@ -1084,7 +1087,7 @@ settings_switches.forEach((action_fun, switch_id) => {
   });
 });
 
-// change page by silding effect events
+// change page by sliding effect events
 {
   const content = document.querySelector(".content");
 
@@ -1837,6 +1840,3 @@ const __search = (inp) => {
   });
 }
 //=========================== Search End ===========================
-
-// clear consloe
-// setInterval(console.clear, 60000);
