@@ -776,18 +776,18 @@ set_lang();
     try {
       const loadingPage = document.getElementById("loadingPage");
       // get data from api
-      // const gold = await fetch("https://eg-prices-api.vercel.app/gold");
-      // const res = await fetch("https://eg-prices-api.vercel.app/prices");
-
       const all = await Promise.allSettled([
         fetch("https://eg-prices-api.vercel.app/gold"),
+        fetch("https://eg-prices-api.vercel.app/silver"),
         fetch("https://eg-prices-api.vercel.app/prices")
       ]);
 
-      const res1 = await all[0].value, res2 = await all[1].value;
+      const res1 = await all[0].value,
+            res2 = await all[1].value,
+            res3 = await all[2].value;
 
-      if (res1.ok || res2.ok) {
-        prices = Object.assign(Object.create(null), await res1.json(), await res2.json());
+      if (res1.ok || res2.ok || res3.ok) {
+        prices = Object.assign(Object.create(null), await res1.json(), await res2.json(), await res3.json());
         set_data(prices);
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
