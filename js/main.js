@@ -1039,7 +1039,7 @@ async function play_live() {
 
   const notify = (gold_last, gold_new) => {
     // show notification
-    if (Notification.prototype?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
+    if (Notification?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
       const up = gold_new > gold_last;
       const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
       new Notification(title, { 
@@ -1048,10 +1048,9 @@ async function play_live() {
       });
     } else {
       // disable notification
-      const notify_switch = document.getElementById("notifySwitch");
-      notify_switch.style.display = 'none';
       notifyMe = false;
-      notify_switch.classList.remove("on");
+      document.getElementById("notifySwitch").classList.remove("on");
+      document.querySelector('.notification').style.display = 'none';
       window.localStorage.setItem("notif", 'off');
     }
   };
