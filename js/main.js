@@ -775,6 +775,7 @@ const bad_internet = () => {
 
 build_calc_selections();
 set_lang();
+set_notification();
 
 // get & set data
 (async () => {
