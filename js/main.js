@@ -12,7 +12,7 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-let live_api_interval = 10000; // time interval for live data api fetching
+let live_api_interval = 60000; // time interval for live data api fetching
 let Live_data = null; // holds the current live data object
 // notifications on - off
 let notifyMe = window.localStorage.getItem("notif") === "on" ? true : false;
