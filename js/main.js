@@ -1039,7 +1039,7 @@ async function play_live() {
 
   const notify = (gold_last, gold_new) => {
     // show notification
-    if (Notification?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
+    if (Notification.prototype?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
       const up = gold_new > gold_last;
       const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
       new Notification(title, { 
