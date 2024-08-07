@@ -752,7 +752,7 @@ const content = ["header", ".content", "nav"];
 // settings_switch_id => action_function
 const settings_switches = new Map([
   ["langSwitch", set_lang],
-  ["notifySwitch", set_notification],
+  ["notifySwitch", toggle_notification],
 ]);
 
 const pick = (target, map) => {
@@ -900,13 +900,25 @@ function set_notification() {
   const notify_switch = document.getElementById("notifySwitch");
 
   if (notifyMe) {
-    notifyMe = false;
     notify_switch.classList.add("on");
     window.localStorage.setItem('notif', 'on');
   } else {
-    notifyMe = true;
     notify_switch.classList.remove("on");
     window.localStorage.setItem("notif", 'off');
+  }
+}
+
+function toggle_notification() {
+  const notify_switch = document.getElementById("notifySwitch");
+
+  if (notifyMe) {
+    notifyMe = false;
+    notify_switch.classList.remove("on");
+    window.localStorage.setItem("notif", 'off');
+  } else {
+    notifyMe = true;
+    notify_switch.classList.add("on");
+    window.localStorage.setItem('notif', 'on');
   }
 }
 
