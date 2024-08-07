@@ -1039,13 +1039,20 @@ async function play_live() {
 
   const notify = (gold_last, gold_new) => {
     // show notification
-    if (notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
+    if (Notification?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
       const up = gold_new > gold_last;
       const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
       new Notification(title, { 
         tag: 'Gold',
         icon: '../files/imgs/logo.png'
       });
+    } else {
+      // disable notification
+      const notify_switch = document.getElementById("notifySwitch");
+      notify_switch.style.display = 'none';
+      notifyMe = false;
+      notify_switch.classList.remove("on");
+      window.localStorage.setItem("notif", 'off');
     }
   };
 
