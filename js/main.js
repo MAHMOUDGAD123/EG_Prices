@@ -14,8 +14,6 @@ const initial_curr = 1;
 let prices = null; // object hold all prices
 let live_api_interval = 60000; // time interval for live data api fetching
 let Live_data = null; // holds the current live data object
-// notifications on - off
-let notifyMe = window.localStorage.getItem("notif") === "on" ? true : false;
 
 const en_ar = new Map([
   // weekdays
@@ -752,7 +750,6 @@ const content = ["header", ".content", "nav"];
 // settings_switch_id => action_function
 const settings_switches = new Map([
   ["langSwitch", set_lang],
-  ["notifySwitch", toggle_notification],
 ]);
 
 const pick = (target, map) => {
@@ -775,7 +772,6 @@ const bad_internet = () => {
 
 build_calc_selections();
 set_lang();
-set_notification();
 
 // get & set data
 (async () => {
@@ -815,21 +811,6 @@ set_notification();
         });
         set_culculators();
         play_live();
-
-        // notification request
-        if (Notification.prototype?.constructor) {
-          document.addEventListener('click', (e) => {
-            if (Notification.permission !== 'granted') {
-              Notification.requestPermission();
-            }
-          }, { once: true });
-        } else {
-          // disable notification
-          notifyMe = false;
-          document.getElementById("notifySwitch").classList.remove("on");
-          document.querySelector('.notification').style.display = 'none';
-          window.localStorage.setItem("notif", 'off');
-        }
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -901,32 +882,6 @@ function set_lang() {
     searchBox_in.placeholder = searchBox_in.dataset.en;
     searchIcon.classList.remove("ar");
     window.localStorage.setItem('lang', 'en');
-  }
-}
-
-function set_notification() {
-  const notify_switch = document.getElementById("notifySwitch");
-
-  if (notifyMe) {
-    notify_switch.classList.add("on");
-    window.localStorage.setItem('notif', 'on');
-  } else {
-    notify_switch.classList.remove("on");
-    window.localStorage.setItem("notif", 'off');
-  }
-}
-
-function toggle_notification() {
-  const notify_switch = document.getElementById("notifySwitch");
-
-  if (notifyMe) {
-    notifyMe = false;
-    notify_switch.classList.remove("on");
-    window.localStorage.setItem("notif", 'off');
-  } else {
-    notifyMe = true;
-    notify_switch.classList.add("on");
-    window.localStorage.setItem('notif', 'on');
   }
 }
 
@@ -1045,18 +1000,6 @@ async function play_live() {
     }
   };
 
-  const notify = (gold_last, gold_new) => {
-    // show notification
-    if (notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
-      const up = gold_new > gold_last;
-      const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
-      new Notification(title, { 
-        tag: 'Gold',
-        icon: '../files/imgs/logo.png'
-      });
-    }
-  };
-
   // init
   const res = await fetch("https://eg-prices-api.vercel.app/live");
 
@@ -1072,7 +1015,6 @@ async function play_live() {
         const res = await fetch("https://eg-prices-api.vercel.app/live");
         if (res.ok) {
           const new_data = await res.json();
-          notify(+Live_data.xau_usd, +new_data.xau_usd);
           set_data(Live_data, new_data);
           set_differences();
         }
