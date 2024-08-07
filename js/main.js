@@ -901,12 +901,12 @@ function set_notification() {
 
   if (notifyMe) {
     notifyMe = false;
-    notify_switch.classList.remove("on");
-    window.localStorage.setItem("notif", 'off');
-  } else {
-    notifyMe = true;
     notify_switch.classList.add("on");
     window.localStorage.setItem('notif', 'on');
+  } else {
+    notifyMe = true;
+    notify_switch.classList.remove("on");
+    window.localStorage.setItem("notif", 'off');
   }
 }
 
