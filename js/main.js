@@ -817,7 +817,7 @@ set_notification();
         play_live();
 
         // notification request
-        if (Notification?.constructor) {
+        if (Notification.prototype?.constructor) {
           document.addEventListener('click', (e) => {
             if (Notification.permission !== 'granted') {
               Notification.requestPermission();
