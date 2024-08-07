@@ -186,7 +186,7 @@ label {
     position: absolute;
     top: 50%;
     left: 50%;
-    translate: -120% -50%;
+    translate: -120% -53%;
     width: calc(var(--w) * 0.3);
     aspect-ratio: 1;
     border-radius: 100%;

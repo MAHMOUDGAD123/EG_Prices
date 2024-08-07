@@ -12,8 +12,10 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-let live_api_interval = 30000; // time interval for live data api fetching
+let live_api_interval = 10000; // time interval for live data api fetching
 let Live_data = null; // holds the current live data object
+// notifications on - off
+let notifyMe = window.localStorage.getItem("notif") === "on" ? true : false;
 
 const en_ar = new Map([
   // weekdays
@@ -52,6 +54,7 @@ const en_ar = new Map([
   ["Language", "اللغة"],
   ["English", "إنجليزي"],
   ["Arabic", "عربي"],
+  ["Notifications", "الإشعارات"],
 
   // others
   ["MG", "إم جي"],
@@ -747,7 +750,10 @@ const search_map = [
 const content = ["header", ".content", "nav"];
 
 // settings_switch_id => action_function
-const settings_switches = new Map([["langSwitch", set_lang]]);
+const settings_switches = new Map([
+  ["langSwitch", set_lang],
+  ["notifySwitch", set_notification],
+]);
 
 const pick = (target, map) => {
   target.classList.add("picked");
@@ -808,6 +814,13 @@ set_lang();
         });
         set_culculators();
         play_live();
+
+        // notification request
+        document.addEventListener('click', (e) => {
+          if (Notification.permission !== 'granted') {
+            Notification.requestPermission();
+          }
+        }, { once: true });
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -879,6 +892,20 @@ function set_lang() {
     searchBox_in.placeholder = searchBox_in.dataset.en;
     searchIcon.classList.remove("ar");
     window.localStorage.setItem('lang', 'en');
+  }
+}
+
+function set_notification() {
+  const notify_switch = document.getElementById("notifySwitch");
+
+  if (notifyMe) {
+    notifyMe = false;
+    notify_switch.classList.remove("on");
+    window.localStorage.setItem("notif", 'off');
+  } else {
+    notifyMe = true;
+    notify_switch.classList.add("on");
+    window.localStorage.setItem('notif', 'on');
   }
 }
 
@@ -997,6 +1024,18 @@ async function play_live() {
     }
   };
 
+  const notify = (gold_last, gold_new) => {
+    // show notification
+    if (notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
+      const up = gold_new > gold_last;
+      const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
+      new Notification(title, { 
+        tag: 'Gold',
+        icon: '../files/imgs/logo.png'
+      });
+    }
+  };
+
   // init
   const res = await fetch("https://eg-prices-api.vercel.app/live");
 
@@ -1011,7 +1050,9 @@ async function play_live() {
       setInterval(async () => {
         const res = await fetch("https://eg-prices-api.vercel.app/live");
         if (res.ok) {
-          set_data(Live_data, await res.json());
+          const new_data = await res.json();
+          notify(+Live_data.xau_usd, +new_data.xau_usd);
+          set_data(Live_data, new_data);
           set_differences();
         }
       }, live_api_interval);
