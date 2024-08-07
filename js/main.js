@@ -817,11 +817,19 @@ set_notification();
         play_live();
 
         // notification request
-        document.addEventListener('click', (e) => {
-          if (Notification.permission !== 'granted') {
-            Notification.requestPermission();
-          }
-        }, { once: true });
+        if (Notification?.constructor) {
+          document.addEventListener('click', (e) => {
+            if (Notification.permission !== 'granted') {
+              Notification.requestPermission();
+            }
+          }, { once: true });
+        } else {
+          // disable notification
+          notifyMe = false;
+          document.getElementById("notifySwitch").classList.remove("on");
+          document.querySelector('.notification').style.display = 'none';
+          window.localStorage.setItem("notif", 'off');
+        }
       } else {
         // remove loading page
         loadingPage.style.transform = "translateY(-150%)";
@@ -1039,19 +1047,13 @@ async function play_live() {
 
   const notify = (gold_last, gold_new) => {
     // show notification
-    if (Notification?.constructor && notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
+    if (notifyMe && Notification.permission === 'granted' && gold_new !== gold_last) {
       const up = gold_new > gold_last;
       const title = (ar ? 'Gold --- ' : 'الذهب --- ') + '( ' +  gold_new + ' $ )' + (up ? ' 💹' : ' 📉');
       new Notification(title, { 
         tag: 'Gold',
         icon: '../files/imgs/logo.png'
       });
-    } else {
-      // disable notification
-      notifyMe = false;
-      document.getElementById("notifySwitch").classList.remove("on");
-      document.querySelector('.notification').style.display = 'none';
-      window.localStorage.setItem("notif", 'off');
     }
   };
 
