@@ -748,9 +748,7 @@ const search_map = [
 const content = ["header", ".content", "nav"];
 
 // settings_switch_id => action_function
-const settings_switches = new Map([
-  ["langSwitch", set_lang],
-]);
+const settings_switches = new Map([["langSwitch", set_lang]]);
 
 const pick = (target, map) => {
   target.classList.add("picked");
@@ -782,18 +780,27 @@ set_lang();
       const all = await Promise.allSettled([
         fetch("https://eg-prices-api.vercel.app/gold"),
         fetch("https://eg-prices-api.vercel.app/silver"),
-        fetch("https://eg-prices-api.vercel.app/prices")
+        fetch("https://eg-prices-api.vercel.app/prices"),
       ]);
 
       const res1 = await all[0].value,
-            res2 = await all[1].value,
-            res3 = await all[2].value;
+        res2 = await all[1].value,
+        res3 = await all[2].value;
 
       if (res1.ok || res2.ok || res3.ok) {
-        prices = Object.assign(Object.create(null), await res1.json(), await res2.json(), await res3.json());
+        prices = Object.assign(
+          Object.create(null),
+          await res1.json(),
+          await res2.json(),
+          await res3.json()
+        );
         set_data(prices);
-        // remove loading page
+        // remove loading page & bad internet page
         loadingPage.style.transform = "translateY(-150%)";
+        setTimeout(() => {
+          loadingPage.remove();
+          document.getElementById("badNetPage").remove();
+        }, 1500);
         // set the initial page
         curr_page = document.querySelector(`.page[data-num="${initial_page}"]`);
         pick(curr_page, page_btn);
@@ -867,7 +874,7 @@ function set_lang() {
 
     searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
     searchIcon.classList.add("ar");
-    window.localStorage.setItem("lang", 'ar');
+    window.localStorage.setItem("lang", "ar");
   } else {
     ar = true;
     lang_switch.classList.remove("on");
@@ -881,13 +888,14 @@ function set_lang() {
 
     searchBox_in.placeholder = searchBox_in.dataset.en;
     searchIcon.classList.remove("ar");
-    window.localStorage.setItem('lang', 'en');
+    window.localStorage.setItem("lang", "en");
   }
 }
 
 function set_data(data) {
   document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent = new Intl.NumberFormat().format(data[el.dataset.val]) || "-";
+    el.textContent =
+      new Intl.NumberFormat().format(data[el.dataset.val]) || "-";
   });
 }
 
@@ -969,7 +977,9 @@ async function play_live() {
     // save old diffs
     const old_sagha_diff = +sagha_diff_el.textContent;
     const old_market_diff = +market_diff_el.textContent;
-    const new_sagha_diff = +(Live_data.usd_egp - prices.sagha_usd_b).toPrecision(4);
+    const new_sagha_diff = +(
+      Live_data.usd_egp - prices.sagha_usd_b
+    ).toPrecision(4);
     const new_market_diff = +(
       Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
@@ -1650,7 +1660,8 @@ const currency_calc = (calc) => {
 
     if (isFrom) {
       const input_val = in_from.value;
-      const price = calc.querySelector(".calc_sel.from").selectedOptions[0].value;
+      const price =
+        calc.querySelector(".calc_sel.from").selectedOptions[0].value;
 
       const total = (price * input_val).toFixed(precision);
       in_to.value = total;
@@ -1801,7 +1812,9 @@ const __search = (inp) => {
           <div class="info">
             <div class="name" data-en="${name}">${_name}</div>
             <div class="price">
-              <div class="val" data-val="${price}">${new Intl.NumberFormat().format(prices[price])}</div>
+              <div class="val" data-val="${price}">${new Intl.NumberFormat().format(
+        prices[price]
+      )}</div>
               <div class="unit" data-en="EGP">${unit}</div>
             </div>
           </div>
