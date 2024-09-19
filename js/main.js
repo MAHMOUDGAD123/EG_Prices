@@ -1010,8 +1010,10 @@ async function play_live() {
     }
   };
 
+  const url = "https://eg-prices-api.vercel.app/live";
+
   // init
-  const res = await fetch("https://eg-prices-api.vercel.app/live");
+  const res = await fetch(url);
 
   if (res.ok) {
     Live_data = await res.json();
@@ -1022,7 +1024,7 @@ async function play_live() {
 
     if (today !== 0 && today !== 6) {
       setInterval(async () => {
-        const res = await fetch("https://eg-prices-api.vercel.app/live");
+        const res = await fetch(url);
         if (res.ok) {
           const new_data = await res.json();
           set_data(Live_data, new_data);
