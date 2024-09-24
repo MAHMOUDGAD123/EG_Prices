@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-const testing = false; // used for testing
+const testing = true; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
@@ -797,7 +797,7 @@ set_lang();
         set_data(prices);
         // remove loading page & bad internet page
         loadingPage.style.transform = "translateY(-150%)";
-        setTimeout(() => {
+        setTimeout(async () => {
           loadingPage.remove();
           document.getElementById("badNetPage").remove();
         }, 1500);
@@ -901,9 +901,9 @@ function set_data(data) {
 
 // get & set live data
 async function play_live() {
-  const color_effect = (ele, cls) => {
+  const color_effect = async (ele, cls) => {
     ele.classList.add(cls);
-    setTimeout(() => {
+    setTimeout(async () => {
       ele.classList.remove(cls);
     }, 3000);
   };
@@ -1521,6 +1521,7 @@ function build_calc_selections() {
 
   calc_selections.forEach((options, sel_id) => {
     const sel_ele = document.getElementById(sel_id);
+    const frag = new DocumentFragment();
 
     options.forEach((option) => {
       const opt_ele = document.createElement("option");
@@ -1529,8 +1530,9 @@ function build_calc_selections() {
         opt_ele.dataset[prop] = val;
       });
 
-      sel_ele.appendChild(opt_ele);
+      frag.appendChild(opt_ele);
     });
+    sel_ele.appendChild(frag);
     // select the 1st option
     sel_ele.firstChild.selected = true;
 
