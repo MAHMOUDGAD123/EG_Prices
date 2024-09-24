@@ -1,5 +1,5 @@
 //==================== Data & tools Start =====================
-const testing = true; // used for testing
+const testing = false; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
@@ -1532,6 +1532,7 @@ function build_calc_selections() {
 
       frag.appendChild(opt_ele);
     });
+
     sel_ele.appendChild(frag);
     // select the 1st option
     sel_ele.firstChild.selected = true;
