@@ -1116,10 +1116,10 @@ main {
             aspect-ratio: 1;
             color: var(--gold1);
             transition: transform 1s;
-            transform: translateX(50%);
+            transform: translateX(50%) translateY(0);
 
             &.ar {
-              transform: translateX(-50%);
+              transform: translateX(-50%) translateY(0);
             }
           }
         }
