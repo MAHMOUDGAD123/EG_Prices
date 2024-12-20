@@ -1707,20 +1707,29 @@ main {
 }
 
 @keyframes grow {
+  from {
+    transform: scale3D(0,0,0);
+  }
   to {
-    scale: 1.075;
+    transform: scale3D(1.075,1.075,0);
   }
 }
 
 @keyframes spin {
+  from {
+    transform: rotateZ(0deg);
+  }
   to {
-    rotate: z 360deg;
+    transform: rotateZ(360deg);
   }
 }
 
 @keyframes r-spin {
+  from {
+    transform: rotateZ(0);
+  }
   to {
-    rotate: z -360deg;
+    transform: rotateZ(-360deg);
   }
 }
 
