@@ -1115,11 +1115,11 @@ main {
             height: 100%;
             aspect-ratio: 1;
             color: var(--gold1);
-            transition: transform 1s;
-            transform: translateX(50%) translateY(0);
+            transition: translate 1s;
+            translate: 50% 0;
 
             &.ar {
-              transform: translateX(-50%) translateY(0);
+              translate: -50% 0;
             }
           }
         }
