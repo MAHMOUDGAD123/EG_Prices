@@ -190,12 +190,12 @@ label {
     position: absolute;
     top: 50%;
     left: 50%;
-    translate: -120% -53%;
+    transform: translateX(-120%) translateY(-53%);
     width: calc(var(--w) * 0.3);
     aspect-ratio: 1;
     border-radius: 100%;
     background-color: var(--gold1);
-    transition-property: translate, background-color;
+    transition-property: transform, background-color;
     transition-duration: inherit;
   }
 
@@ -203,7 +203,7 @@ label {
     background-color: var(--gold1);
 
     &::before {
-      translate: 20% -50%;
+      transform: translateX(20%) translateY(-50%);
       background-color: var(--red2);
     }
   }
@@ -252,7 +252,7 @@ i.icon {
 
 i.action {
   cursor: pointer;
-  transition-property: color, scale;
+  transition-property: color, transform;
   transition-duration: var(--transition);
   outline: none;
   border: none;
@@ -260,7 +260,7 @@ i.action {
 
   &:is(:hover, :focus-visible) {
     color: var(--red1);
-    scale: 1.2;
+    transform: scale3d(1.2, 1.2, 1);
   }
 }
 
@@ -1115,11 +1115,11 @@ main {
             height: 100%;
             aspect-ratio: 1;
             color: var(--gold1);
-            transition: translate 1s;
-            translate: 50% 0;
+            transition: transform 1s;
+            transform: translateX(50%);
 
             &.ar {
-              translate: -50% 0;
+              transform: translateX(-50%);
             }
           }
         }
