@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import htmlPlugin from "@chialab/esbuild-plugin-html";
 import cssImportPlugin from "@chialab/esbuild-plugin-css-import";
 import fs from "fs";
+import { copy } from "esbuild-plugin-copy";
 
 // Add a custom plugin to handle font files
 const fontPlugin = {
@@ -16,11 +17,14 @@ const fontPlugin = {
   },
 };
 
-try {
-  await esbuild.build({
+console.time("T");
+
+await esbuild
+  .build({
     entryPoints: ["src/index.html"],
     bundle: true,
     minify: true,
+    format: "esm",
     outdir: "./",
     loader: {
       ".woff": "file",
@@ -29,6 +33,8 @@ try {
       ".eot": "file",
       ".otf": "file",
       ".png": "file",
+      ".svg": "file",
+      ".ico": "file",
     },
     assetNames: "assets/[name]-[hash]",
     plugins: [
@@ -37,8 +43,6 @@ try {
         minifyOptions: {
           collapseWhitespace: true,
           removeComments: true,
-          removeEmptyAttributes: true,
-          removeRedundantAttributes: true,
           sortAttributes: true,
           removeEmptyElements: false,
           collapseBooleanAttributes: true,
@@ -81,10 +85,24 @@ try {
         },
       }),
       fontPlugin,
+      copy({
+        // Copy assets directory including SVGs
+        assets: [
+          {
+            from: ["src/assets/**/*"],
+            to: ["./assets"],
+            keepStructure: true,
+          },
+        ],
+      }),
     ],
     metafile: true,
+  })
+  .then(() => {
+    console.timeEnd("T");
+    console.log("Built Successfully 🚀");
+  })
+  .catch((err) => {
+    console.error("ESBuild Error:", err);
+    process.exit(1);
   });
-} catch (err) {
-  console.error(err);
-  process.exit(1);
-}

@@ -9,4 +9,4 @@ var P=e=>e?Math.floor(Math.log10(e))?e:"0"+e:"00";{let e=document.querySelector(
             </div>
           </div>
         </div>
-    `}})};{let e=document.getElementById("searchBox"),a=document.getElementById("searchIcon"),r=document.getElementById("searchIn");e.addEventListener("click",t=>{t.currentTarget.querySelector("input[type='text']").focus()}),e.addEventListener("focusin",t=>{b||a.classList.remove("ar")}),e.addEventListener("focusout",t=>{b||a.classList.add("ar")}),r.addEventListener("input",t=>{let o=t.target.value;o?te(o):document.getElementById("searchResults").innerHTML=""})}
+    `}})};{let e=document.getElementById("searchBox"),a=document.getElementById("searchIcon"),r=document.getElementById("searchIn");e.addEventListener("click",t=>{e.querySelector("input[type='text']").focus()}),e.addEventListener("focusin",t=>{b||a.classList.remove("ar")}),e.addEventListener("focusout",t=>{b||a.classList.add("ar")}),r.addEventListener("input",t=>{let o=t.target.value;o?te(o):document.getElementById("searchResults").innerHTML=""})}

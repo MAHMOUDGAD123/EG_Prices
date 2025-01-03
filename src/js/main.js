@@ -1836,7 +1836,7 @@ const __search = (inp) => {
   const searchIn = document.getElementById("searchIn");
 
   searchBox.addEventListener("click", (e) => {
-    e.currentTarget.querySelector("input[type='text']").focus();
+    searchBox.querySelector("input[type='text']").focus();
   });
 
   searchBox.addEventListener("focusin", (e) => {
