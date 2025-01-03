@@ -339,9 +339,10 @@ main {
     top: 50%;
     transition: transform 1s;
     transform: translateY(150%);
+    gap: 25px;
 
     & > i {
-      font-size: 90px;
+      font-size: 100px;
       color: var(--gold1);
       animation: blink 1s linear infinite alternate;
     }
