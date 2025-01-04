@@ -17,6 +17,21 @@ const fontPlugin = {
   },
 };
 
+// Add removeConsolePlugin
+const removeConsolePlugin = {
+  name: "remove-console",
+  setup(build) {
+    build.onLoad({ filter: /\.js$/ }, async (args) => {
+      const source = await fs.promises.readFile(args.path, "utf8");
+      const contents = source.replace(
+        /console\.(log|debug|info|warn|error)\((.*?)\);?/g,
+        ""
+      );
+      return { contents, loader: "js" };
+    });
+  },
+};
+
 console.time("T");
 
 await esbuild
@@ -24,8 +39,9 @@ await esbuild
     entryPoints: ["src/index.html"],
     bundle: true,
     minify: true,
+    metafile: true,
     format: "esm",
-    outdir: "./",
+    outdir: "dist",
     loader: {
       ".woff": "file",
       ".woff2": "file",
@@ -85,6 +101,7 @@ await esbuild
         },
       }),
       fontPlugin,
+      removeConsolePlugin,
       copy({
         // Copy assets directory including SVGs
         assets: [
@@ -96,7 +113,6 @@ await esbuild
         ],
       }),
     ],
-    metafile: true,
   })
   .then(() => {
     console.timeEnd("T");
