@@ -866,40 +866,50 @@ main {
       }
 
       & > #settingsPage {
-        border-radius: var(--border-rad);
-        padding: 20px;
-        top: 50%;
-        left: 50%;
-        translate: -50% -50%;
         align-items: center;
         justify-content: center;
-        background-color: var(--red2);
-        width: 75%;
-        height: fit-content;
+        overflow: auto;
+        height: 100%;
+        width: 100%;
 
-        & > .option {
+        & > :only-child {
+          border-radius: var(--border-rad);
+          background-color: var(--red2);
+          padding: 20px;
+          width: 75%;
+          max-width: 300px;
+          height: fit-content;
           display: flex;
-          align-items: center;
-          gap: 10px;
-          direction: ltr;
-        }
-
-        & > .copy {
-          display: flex;
-          gap: 5px;
           align-items: center;
           justify-content: center;
-          white-space: nowrap;
-          margin-top: 10px;
+          flex-direction: column;
+          gap: 20px;
 
-          & > span:nth-child(1) {
-            color: var(--gold1);
+          & > .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            direction: ltr;
           }
-          & > span:nth-child(2) {
-            color: var(--white1);
-          }
-          & > span:nth-child(3) {
-            color: var(--gold1);
+
+          & > .copy {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            width: 100%;
+
+            & > span:nth-child(1) {
+              color: var(--gold1);
+            }
+            & > span:nth-child(2) {
+              color: var(--white1);
+            }
+            & > span:nth-child(3) {
+              white-space: nowrap;
+              color: var(--gold1);
+            }
           }
         }
       }
