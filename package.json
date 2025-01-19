@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MAHMOUDGAD123/PrayerTimes.git"
+    "url": "git+https://github.com/MAHMOUDGAD123/EG_Prices.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MAHMOUDGAD123/PrayerTimes/issues"
+    "url": "https://github.com/MAHMOUDGAD123/EG_Prices/issues"
   },
-  "homepage": "https://github.com/MAHMOUDGAD123/PrayerTimes#readme",
+  "homepage": "https://github.com/MAHMOUDGAD123/EG_Prices#readme",
   "description": "",
   "devDependencies": {
     "@chialab/esbuild-plugin-css-import": "^0.18.0",
