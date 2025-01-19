@@ -13,7 +13,7 @@ const initial_page = 3;
 const initial_calc = 1;
 const initial_curr = 1;
 let prices = null; // object hold all prices
-let live_api_interval = 60000; // time interval for live data api fetching
+let live_api_interval = 60000; // ms time interval for live data api fetching
 let Live_data = null; // holds the current live data object
 
 const en_ar = new Map([
@@ -779,9 +779,9 @@ set_lang();
       const loadingPage = document.getElementById("loadingPage");
       // get data from api
       const all = await Promise.allSettled([
-        fetch("https://eg-prices-api.vercel.app/gold"),
-        fetch("https://eg-prices-api.vercel.app/silver"),
-        fetch("https://eg-prices-api.vercel.app/prices"),
+        fetch("https://eg-prices-api.vercel.app/api/gold"),
+        fetch("https://eg-prices-api.vercel.app/api/silver"),
+        fetch("https://eg-prices-api.vercel.app/api/prices"),
       ]);
 
       const res1 = await all[0].value,
@@ -1011,7 +1011,7 @@ async function play_live() {
     }
   };
 
-  const url = "https://eg-prices-api.vercel.app/live";
+  const url = "https://eg-prices-api.vercel.app/api/live";
 
   // init
   const res = await fetch(url);
