@@ -824,10 +824,10 @@ set_lang();
         loadingPage.style.transform = "translateY(-150%)";
         bad_internet();
       }
-    } catch (er) {
+    } catch (err) {
       // remove loading page
       loadingPage.style.transform = "translateY(-150%)";
-      console.error("Error ❌:", er.message);
+      console.error("Error ❌:", err.message);
       bad_internet();
     }
   } else {
@@ -1011,33 +1011,43 @@ async function play_live() {
     }
   };
 
+  const stop_on_weekend = () => {
+    // market is off at weekend (sat - sun)
+    live_map.forEach((_, TV_id) => {
+      document.getElementById(TV_id).classList.add("off");
+    });
+  };
+
   const url = "https://eg-prices-api.vercel.app/api/live";
 
-  // init
-  const res = await fetch(url);
+  try {
+    // init
+    const res = await fetch(url);
 
-  if (res.ok) {
-    Live_data = await res.json();
-    set_data(Live_data, Live_data);
-    set_differences();
+    if (res.ok) {
+      Live_data = await res.json();
+      set_data(Live_data, Live_data);
+      set_differences();
 
-    const today = new Date().getUTCDay();
+      const today = new Date().getUTCDay();
 
-    if (today !== 0 && today !== 6) {
-      setInterval(async () => {
-        const res = await fetch(url);
-        if (res.ok) {
-          const new_data = await res.json();
-          set_data(Live_data, new_data);
-          set_differences();
-        }
-      }, live_api_interval);
+      if (today !== 0 && today !== 6) {
+        setInterval(async () => {
+          const res = await fetch(url);
+          if (res.ok) {
+            const new_data = await res.json();
+            set_data(Live_data, new_data);
+            set_differences();
+          }
+        }, live_api_interval);
+      } else {
+        stop_on_weekend();
+      }
     } else {
-      // market is off at weekend (sat - sun)
-      live_map.forEach((_, TV_id) => {
-        document.getElementById(TV_id).classList.add("off");
-      });
+      stop_on_weekend();
     }
+  } catch (err) {
+    console.error(err.message);
   }
 }
 
