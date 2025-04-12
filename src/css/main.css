@@ -1547,7 +1547,7 @@ main {
     }
   }
 }
-@media (width < 345px) {
+@media (width < 360px) {
   main > .content > .page-wrapper .page {
     &#mainPage > .holder > .details > .TV > .info {
       & > .name {
