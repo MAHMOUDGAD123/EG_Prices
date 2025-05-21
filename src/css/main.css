@@ -370,6 +370,10 @@ main {
     top: 35%;
     transition: transform 1s;
 
+    &.remove {
+      transform: translateY(-150%);
+    }
+
     & > .logo {
       width: 50dvw;
       max-width: 350px;

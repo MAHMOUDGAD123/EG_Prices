@@ -809,8 +809,8 @@ set_lang();
         );
         set_data(prices);
         // remove loading page & bad internet page
-        loadingPage.style.transform = "translateY(-150%)";
-        setTimeout(async () => {
+        loadingPage.classList.add("remove");
+        setTimeout(() => {
           loadingPage.remove();
           document.getElementById("badNetPage").remove();
         }, 1500);
@@ -833,7 +833,7 @@ set_lang();
         play_live();
       } else {
         // remove loading page
-        loadingPage.style.transform = "translateY(-150%)";
+        loadingPage.classList.add("remove");
         bad_internet();
       }
     } catch (err) {
@@ -853,7 +853,7 @@ set_lang();
     pick(curr_calc, calc_opt);
     pick(curr_curr, currency_opt);
     const loadingPage = document.getElementById("loadingPage");
-    loadingPage.style.transform = "translateY(-150%)";
+    loadingPage.classList.add("remove");
     content.forEach((sel) => {
       document.querySelector(sel).style.transform = "none";
     });
@@ -1007,15 +1007,22 @@ async function play_live() {
     /* get & set the usd differences */
     const sagha_diff_el = document.getElementById("sagha_usd_diff");
     const market_diff_el = document.getElementById("market_usd_diff");
-    // save old diffs
-    const old_sagha_diff = +sagha_diff_el.textContent;
-    const old_market_diff = +market_diff_el.textContent;
-    const new_sagha_diff = +(
-      Live_data.usd_egp - prices.sagha_usd_b
-    ).toPrecision(4);
-    const new_market_diff = +(
+
+    // save old values for diff
+    const old_sagha_diff = +sagha_diff_el.dataset.value;
+    // const old_market_diff = +market_diff_el.dataset.value;
+
+    const new_sagha_diff = (Live_data.usd_egp - prices.sagha_usd_b).toPrecision(
+      4
+    );
+    const new_market_diff = (
       Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
+
+    // save the new value
+    sagha_diff_el.dataset.value = new_sagha_diff;
+    market_diff_el.dataset.value = new_market_diff;
+
     // print new data
     sagha_diff_el.textContent = format_number(new_sagha_diff);
     market_diff_el.textContent = format_number(new_market_diff);
@@ -1023,24 +1030,27 @@ async function play_live() {
     if (new_sagha_diff > old_sagha_diff) {
       // increased
       color_effect(sagha_diff_el, "up");
+      color_effect(market_diff_el, "up");
     } else if (new_sagha_diff < old_sagha_diff) {
       // decreased
       color_effect(sagha_diff_el, "down");
-    } else {
-      // no change
-      color_effect(sagha_diff_el, "no-chng");
-    }
-
-    if (new_market_diff > old_market_diff) {
-      // increased
-      color_effect(market_diff_el, "up");
-    } else if (new_market_diff < old_market_diff) {
-      // decreased
       color_effect(market_diff_el, "down");
     } else {
       // no change
+      color_effect(sagha_diff_el, "no-chng");
       color_effect(market_diff_el, "no-chng");
     }
+
+    // if (new_market_diff > old_market_diff) {
+    //   // increased
+    //   color_effect(market_diff_el, "up");
+    // } else if (new_market_diff < old_market_diff) {
+    //   // decreased
+    //   color_effect(market_diff_el, "down");
+    // } else {
+    //   // no change
+    //   color_effect(market_diff_el, "no-chng");
+    // }
   };
 
   const stop_on_weekend = () => {
@@ -1059,6 +1069,7 @@ async function play_live() {
     if (res.ok) {
       Live_data = await res.json();
       set_data(Live_data, Live_data);
+      // initiate_diffs_values();
       set_differences();
 
       const today = new Date().getUTCDay();
