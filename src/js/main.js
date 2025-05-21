@@ -1,6 +1,8 @@
-import "./time.js";
+"use strict";
+import { setTimeAndDate, updateTime, updateDate } from "./time.js";
+
 //==================== Data & tools Start =====================
-const testing = false; // used for testing
+const testing = true; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
@@ -15,6 +17,8 @@ const initial_curr = 1;
 let prices = null; // object hold all prices
 let live_api_interval = 60000; // ms time interval for live data api fetching
 let Live_data = null; // holds the current live data object
+/**@type {Intl.NumberFormat} */
+let globalIntlNumberFormatter;
 
 const en_ar = new Map([
   // weekdays
@@ -104,20 +108,20 @@ const en_ar = new Map([
   ["Gold Ounce", "أونصة الذهب"],
   ["Gold Pound", "جنية الذهب"],
   ["Sagha", "الصاغة"],
-  ["Gold 24-Karat", "ذهب عيار 24"],
-  ["24 Karat", "عيار 24"],
-  ["Gold 22-Karat", "ذهب عيار 22"],
-  ["22 Karat", "عيار 22"],
-  ["Gold 21-Karat", "ذهب عيار 21"],
-  ["21 Karat", "عيار 21"],
-  ["Gold 18-Karat", "ذهب عيار 18"],
-  ["18 Karat", "عيار 18"],
-  ["Gold 14-Karat", "ذهب عيار 14"],
-  ["14 Karat", "عيار 14"],
-  ["Gold 12-Karat", "ذهب عيار 12"],
-  ["12 Karat", "عيار 12"],
-  ["Gold 9-Karat", "ذهب عيار 9"],
-  ["9 Karat", "عيار 9"],
+  ["Gold 24-Karat", "ذهب عيار ۲٤"],
+  ["24 Karat", "عيار ۲٤"],
+  ["Gold 22-Karat", "ذهب عيار ۲۲"],
+  ["22 Karat", "عيار ۲۲"],
+  ["Gold 21-Karat", "ذهب عيار ۲۱"],
+  ["21 Karat", "عيار ۲۱"],
+  ["Gold 18-Karat", "ذهب عيار ۱۸"],
+  ["18 Karat", "عيار ۱۸"],
+  ["Gold 14-Karat", "ذهب عيار ۱٤"],
+  ["14 Karat", "عيار ۱٤"],
+  ["Gold 12-Karat", "ذهب عيار ۱۲"],
+  ["12 Karat", "عيار ۱۲"],
+  ["Gold 9-Karat", "ذهب عيار ۹"],
+  ["9 Karat", "عيار ۹"],
   ["Gold Calculator", "حاسبة الذهب"],
   ["Sagha Calculator", "حاسبة الصاغة"],
   ["Silver Calculator", "حاسبة الفضة"],
@@ -126,13 +130,13 @@ const en_ar = new Map([
   ["Gasoline Calculator", "حاسبة الوقود"],
 
   // Silver
-  ["Silver 999", "فضة 999"],
-  ["Silver 960", "فضة 960"],
-  ["Silver 958", "فضة 958"],
-  ["Silver 950", "فضة 950"],
-  ["Silver 947", "فضة 947"],
-  ["Silver 925", "فضة 925"],
-  ["Silver 800", "فضة 800"],
+  ["Silver 999", "فضة ۹۹۹"],
+  ["Silver 960", "فضة ۹٦۰"],
+  ["Silver 958", "فضة ۹٥۸"],
+  ["Silver 950", "فضة ۹٥۰"],
+  ["Silver 947", "فضة ۹٤۷"],
+  ["Silver 925", "فضة ۹۲٥"],
+  ["Silver 800", "فضة ۸۰۰"],
   ["Silver Ounce", "أونصة الفضة"],
 
   // currency
@@ -234,9 +238,9 @@ const en_ar = new Map([
   ["DKK Market", "كرون دانماركي السوق"],
 
   // Gasoline
-  ["Gasoline 95", "بنزين 95"],
-  ["Gasoline 92", "بنزين 92"],
-  ["Gasoline 80", "بنزين 80"],
+  ["Gasoline 95", "بنزين ۹٥"],
+  ["Gasoline 92", "بنزين ۹۰"],
+  ["Gasoline 80", "بنزين ۸۰"],
   ["Kerosene", "الكيروسين"],
   ["Solar", "السولار"],
   ["Stove Cylinder", "إسطوانة البوتاجاز"],
@@ -765,11 +769,19 @@ const bad_internet = () => {
   document.getElementById("badNetPage").style.transform = "none";
 };
 
+/**
+ * @param {number | string} value
+ */
+const format_number = (value) => {
+  return globalIntlNumberFormatter.format(value).replace("٫", ".");
+};
+
 //===================== Data & tools End ======================
 
 //===================== initialization Start ======================
 
 build_calc_selections();
+setTimeAndDate();
 set_lang();
 
 // get & set data
@@ -847,7 +859,7 @@ set_lang();
     });
     set_culculators();
     live_api_interval = 300000;
-    play_live();
+    // play_live();
   }
 })();
 
@@ -857,6 +869,7 @@ set_lang();
 
 function set_lang() {
   const all_txt = document.querySelectorAll("[data-en]");
+  const all_values = document.querySelectorAll("[data-value]");
   const logo = document.querySelector(".logo > .txt");
   const lang_switch = document.getElementById("langSwitch");
   const searchBox_in = document.querySelector("#searchBox > input");
@@ -867,10 +880,12 @@ function set_lang() {
     lang_switch.classList.add("on");
     document.body.classList.add("ar");
     logo.classList.add("ar");
+    globalIntlNumberFormatter = new Intl.NumberFormat("AR-EG");
 
     all_txt.forEach((ele) => {
       const en_txt = ele.dataset.en;
-      ele.textContent = en_ar.get(en_txt);
+      const ar_txt = en_ar.get(en_txt);
+      ele.textContent = ar_txt;
     });
 
     searchBox_in.placeholder = en_ar.get(searchBox_in.dataset.en);
@@ -881,6 +896,7 @@ function set_lang() {
     lang_switch.classList.remove("on");
     document.body.classList.remove("ar");
     logo.classList.remove("ar");
+    globalIntlNumberFormatter = new Intl.NumberFormat("EG-US");
 
     all_txt.forEach((ele) => {
       const en_txt = ele.dataset.en;
@@ -891,12 +907,21 @@ function set_lang() {
     searchIcon.classList.remove("ar");
     window.localStorage.setItem("lang", "en");
   }
+
+  // update all value
+  all_values.forEach((ele) => {
+    ele.textContent = format_number(ele.dataset.value);
+  });
+
+  updateDate();
+  updateTime();
 }
 
 function set_data(data) {
-  document.querySelectorAll("[data-val]").forEach((el) => {
-    el.textContent =
-      new Intl.NumberFormat().format(data[el.dataset.val]) || "-";
+  document.querySelectorAll("[data-val]").forEach((ele) => {
+    const value = data[ele.dataset.val];
+    ele.dataset.value = value;
+    ele.textContent = format_number(value) || "-";
   });
 }
 
@@ -936,14 +961,21 @@ async function play_live() {
       const delta_el = TV_el.querySelector(".delta");
       const delta_num_el = TV_el.querySelector(".delta-num");
       const delta_pt_el = TV_el.querySelector(".delta-pt");
-      // get difference
+      // values
       const new_val = _new[val];
       const diff = new_val - _prev[val];
       const new_delta_num_val = _new[delta_num];
+      const new_delta_num_percent = _new[delta_pt];
+
+      // save values
+      val_el.dataset.value = new_val;
+      delta_num_el.dataset.value = new_delta_num_val;
+      delta_pt_el.dataset.value = new_delta_num_percent;
+
       // print data
-      val_el.textContent = new Intl.NumberFormat().format(new_val);
-      delta_num_el.textContent = new_delta_num_val;
-      delta_pt_el.textContent = _new[delta_pt];
+      val_el.textContent = format_number(new_val);
+      delta_num_el.textContent = format_number(new_delta_num_val);
+      delta_pt_el.textContent = format_number(new_delta_num_percent);
 
       if (diff > 0) {
         // increased
@@ -985,8 +1017,8 @@ async function play_live() {
       Live_data.usd_egp - prices.usd_egp_bm_b
     ).toPrecision(4);
     // print new data
-    sagha_diff_el.textContent = new_sagha_diff;
-    market_diff_el.textContent = new_market_diff;
+    sagha_diff_el.textContent = format_number(new_sagha_diff);
+    market_diff_el.textContent = format_number(new_market_diff);
 
     if (new_sagha_diff > old_sagha_diff) {
       // increased
@@ -1557,7 +1589,10 @@ function build_calc_selections() {
   });
 }
 
-// used with gold & silver & gas
+/**
+ * used with gold & silver & gas
+ * @param {HTMLDivElement} calc
+ */
 const non_currnecy_calc = (calc) => {
   const input = calc.querySelector(".calc_in");
   const input_unit = calc.querySelector(".input > label > .unit");
@@ -1567,7 +1602,8 @@ const non_currnecy_calc = (calc) => {
   // init the input
   input.value = 0;
   // init the output
-  output.textContent = 0;
+  output.textContent = format_number(0);
+  output.dataset.value = 0;
 
   const set_label_unit = (sels) => {
     const unit_en = sels.selectedOptions[0].dataset.unit;
@@ -1586,21 +1622,28 @@ const non_currnecy_calc = (calc) => {
   });
 
   // calculate at input events
-  selections.addEventListener("input", (e) => {
+  selections.addEventListener("change", (e) => {
     const sels = e.target;
     const price = sels.value;
-    output.textContent = new Intl.NumberFormat().format(price * input.value);
-
+    const finalValue = price * input.value;
+    output.dataset.value = finalValue;
+    output.textContent = format_number(finalValue);
     // update the input unit label
     set_label_unit(sels);
   });
+
   input.addEventListener("input", (e) => {
     const price = selections.value;
-    output.textContent = new Intl.NumberFormat().format(price * e.target.value);
+    const finalValue = price * e.target.value;
+    output.dataset.value = finalValue;
+    output.textContent = format_number(finalValue);
   });
 };
 
-// used with currency
+/**
+ * used with currency
+ * @param {HTMLDivElement} calc
+ */
 const currency_calc = (calc) => {
   // elements for initialization
   const xEGP_sel = calc.querySelector(".calc_sel.xEGP");
@@ -1648,9 +1691,12 @@ const currency_calc = (calc) => {
   };
   // init the i/p - o/p
   const zero_fill = () => {
+    const zero = format_number(0);
     in_from.value = in_to.value = 0;
-    out_from.textContent = 0;
-    out_to.textContent = 0;
+    out_from.textContent = zero;
+    out_to.textContent = zero;
+    out_from.dataset.value = 0;
+    out_to.dataset.value = 0;
   };
   // reverse the layout
   const toggle_all = () => {
@@ -1672,8 +1718,6 @@ const currency_calc = (calc) => {
     const out_from_el = calc.querySelector(".calc_out.from");
     const out_to_el = calc.querySelector(".calc_out.to");
 
-    const frmt = new Intl.NumberFormat(); // number formatter
-
     if (isFrom) {
       const input_val = in_from.value;
       const price =
@@ -1683,11 +1727,15 @@ const currency_calc = (calc) => {
       in_to.value = total;
 
       if (isSwapped) {
-        out_from_el.textContent = frmt.format(total);
-        out_to_el.textContent = frmt.format(input_val);
+        out_from_el.textContent = format_number(total);
+        out_to_el.textContent = format_number(input_val);
+        out_from_el.dataset.value = total;
+        out_to_el.dataset.value = input_val;
       } else {
-        out_from_el.textContent = frmt.format(input_val);
-        out_to_el.textContent = frmt.format(total);
+        out_from_el.textContent = format_number(input_val);
+        out_to_el.textContent = format_number(total);
+        out_from_el.dataset.value = input_val;
+        out_to_el.dataset.value = total;
       }
     } else {
       const input_val = in_to.value;
@@ -1697,11 +1745,15 @@ const currency_calc = (calc) => {
       in_from.value = total;
 
       if (isSwapped) {
-        out_from_el.textContent = frmt.format(input_val);
-        out_to_el.textContent = frmt.format(total);
+        out_from_el.textContent = format_number(input_val);
+        out_to_el.textContent = format_number(total);
+        out_from_el.dataset.value = input_val;
+        out_to_el.dataset.value = total;
       } else {
-        out_from_el.textContent = frmt.format(total);
-        out_to_el.textContent = frmt.format(input_val);
+        out_from_el.textContent = format_number(total);
+        out_to_el.textContent = format_number(input_val);
+        out_from_el.dataset.value = total;
+        out_to_el.dataset.value = input_val;
       }
     }
   };
@@ -1807,40 +1859,40 @@ function set_culculators() {
 //========================== Calculator End ==========================
 
 //========================== Search Start ==========================
+{
+  const __search = (inp) => {
+    const results = document.getElementById("searchResults");
+    results.innerHTML = "";
 
-const __search = (inp) => {
-  const results = document.getElementById("searchResults");
-  results.innerHTML = "";
+    search_map.forEach(([[en_key, ar_key], { img, name, price }]) => {
+      const match = ar
+        ? inp.split("").every((ch, i) => ch.toLowerCase() === en_key[i])
+        : inp.split("").every((ch, i) => ch === ar_key[i]);
 
-  search_map.forEach(([[en_key, ar_key], { img, name, price }]) => {
-    const match = ar
-      ? inp.split("").every((ch, i) => ch.toLowerCase() === en_key[i])
-      : inp.split("").every((ch, i) => ch === ar_key[i]);
+      if (match) {
+        const [_name, unit] = ar
+          ? [name, "EGP"]
+          : [en_ar.get(name), en_ar.get("EGP")];
 
-    if (match) {
-      const [_name, unit] = ar
-        ? [name, "EGP"]
-        : [en_ar.get(name), en_ar.get("EGP")];
-
-      results.innerHTML += `
-        <div class="info-card" tabindex="0">
-          <img src="./assets/imgs/${img}.svg" />
-          <div class="info">
-            <div class="name" data-en="${name}">${_name}</div>
-            <div class="price">
-              <div class="val" data-val="${price}">${new Intl.NumberFormat().format(
-        prices[price]
-      )}</div>
-              <div class="unit" data-en="EGP">${unit}</div>
+        const value = prices[price];
+        results.innerHTML += `
+          <div class="info-card" tabindex="0">
+            <img src="./assets/imgs/${img}.svg" />
+            <div class="info">
+              <div class="name" data-en="${name}">${_name}</div>
+              <div class="price">
+                <div class="val" data-val="${price}" data-value="${value}">${format_number(
+          value
+        )}</div>
+                <div class="unit" data-en="EGP">${unit}</div>
+              </div>
             </div>
           </div>
-        </div>
-    `;
-    }
-  });
-};
+      `;
+      }
+    });
+  };
 
-{
   const searchBox = document.getElementById("searchBox");
   const searchIcon = document.getElementById("searchIcon");
   const searchIn = document.getElementById("searchIn");
