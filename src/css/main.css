@@ -1403,6 +1403,10 @@ main {
 }
 @media (height < 400px) {
   main {
+    & > .content > .page-wrapper .page > .top-list {
+      display: none;
+    }
+
     & > nav {
       & > .btn {
         --w: 45px;
@@ -1575,22 +1579,44 @@ main {
 }
 @media (width < 360px) {
   main > .content > .page-wrapper .page {
-    &#mainPage > .holder > .details > .TV > .info {
-      & > .name {
-        font-size: 1.1rem;
+    &#mainPage {
+      & > .top-list {
+        & > .item {
+          min-height: 100px;
 
-        & > .unit {
-          font-size: 0.7rem;
+          & > .asset {
+            font-size: 0.8rem;
+          }
+          & > .buy {
+            font-size: 1.3rem;
+          }
+          & > .sell {
+            font-size: 0.65rem;
+            border-radius: 10px;
+            gap: 3px;
+            left: 50%;
+            translate: -50% 0;
+          }
         }
       }
 
-      & > .price > .delta > .delta-pt {
-        display: none;
+      & > .holder > .details > .TV > .info {
+        & > .name {
+          font-size: 1.1rem;
+
+          & > .unit {
+            font-size: 0.7rem;
+          }
+        }
+
+        & > .price > .delta > .delta-pt {
+          display: none;
+        }
       }
     }
   }
 }
-@media (width < 290px) {
+@media (width < 300px) {
   main {
     & > .content {
       & > .page-wrapper {

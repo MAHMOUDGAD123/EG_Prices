@@ -17,6 +17,11 @@ const initial_curr = 1;
 let prices = null; // object hold all prices
 let live_api_interval = 60000; // ms time interval for live data api fetching
 let Live_data = null; // holds the current live data object
+/* numbers formatters */
+/**@type {Intl.NumberFormat} */
+const englishIntlNumberFormatter = new Intl.NumberFormat("EG-US");
+/**@type {Intl.NumberFormat} */
+const arabicIntlNumberFormatter = new Intl.NumberFormat("AR-EG");
 /**@type {Intl.NumberFormat} */
 let globalIntlNumberFormatter;
 
@@ -880,7 +885,7 @@ function set_lang() {
     lang_switch.classList.add("on");
     document.body.classList.add("ar");
     logo.classList.add("ar");
-    globalIntlNumberFormatter = new Intl.NumberFormat("AR-EG");
+    globalIntlNumberFormatter = arabicIntlNumberFormatter;
 
     all_txt.forEach((ele) => {
       const en_txt = ele.dataset.en;
@@ -896,7 +901,7 @@ function set_lang() {
     lang_switch.classList.remove("on");
     document.body.classList.remove("ar");
     logo.classList.remove("ar");
-    globalIntlNumberFormatter = new Intl.NumberFormat("EG-US");
+    globalIntlNumberFormatter = englishIntlNumberFormatter;
 
     all_txt.forEach((ele) => {
       const en_txt = ele.dataset.en;
