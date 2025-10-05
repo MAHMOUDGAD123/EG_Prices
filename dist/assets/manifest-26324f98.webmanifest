@@ -19,5 +19,8 @@
       "type": "image/webp",
       "sizes": "192x192"
     }
-  ]
+  ],
+  "start_url": "/",
+  "orientation": "any",
+  "lang": "en"
 }

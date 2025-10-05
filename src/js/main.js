@@ -1,19 +1,26 @@
-"use strict";
+import { _Storage } from "./storage.js";
 import { setTimeAndDate, updateTime, updateDate } from "./time.js";
 
 //==================== Data & tools Start =====================
+const mockData = false; // used for testing
 const testing = false; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
 let ar = window.localStorage.getItem("lang") === "ar" ? true : false;
 let pointer_x = 0; // holds the pointerdown event x coordinate (pageX) - used for scrolling through pages
+/**@type {HTMLDivElement}*/
 let curr_page = null; // holds the current page
+/**@type {HTMLDivElement}*/
 let curr_calc = null; // holds the current calculator
+/**@type {HTMLDivElement}*/
 let curr_curr = null; // holds the current currency info
-const initial_page = 3;
-const initial_calc = 1;
-const initial_curr = 1;
+const page_storage_key = "__egprices_page__";
+const calc_storage_key = "__egprices_calc__";
+const curr_storage_key = "__egprices_curr__";
+const initial_page = _Storage.read(page_storage_key, "localStorage") ?? 3;
+const initial_calc = _Storage.read(calc_storage_key, "localStorage") ?? 1;
+const initial_curr = _Storage.read(curr_storage_key, "localStorage") ?? 1;
 let prices = null; // object hold all prices
 let live_api_interval = 60000; // ms time interval for live data api fetching
 let Live_data = null; // holds the current live data object
@@ -141,6 +148,8 @@ const en_ar = new Map([
   ["Silver 950", "فضة ۹٥۰"],
   ["Silver 947", "فضة ۹٤۷"],
   ["Silver 925", "فضة ۹۲٥"],
+  ["Silver 900", "فضة ۹۰۰"],
+  ["Silver 835", "فضة ۸۳۵"],
   ["Silver 800", "فضة ۸۰۰"],
   ["Silver Ounce", "أونصة الفضة"],
 
@@ -201,6 +210,11 @@ const en_ar = new Map([
   ["bhd", "دينار بحريني"],
   ["BHD Bank", "دينار بحريني البنك"],
   ["BHD Market", "دينار بحريني السوق"],
+  ["Libyan Dinar", "دينار ليبي"],
+  ["LYD", "دينار ليبي"],
+  ["lyd", "دينار ليبي"],
+  ["LYD Bank", "دينار ليبي البنك"],
+  ["LYD Market", "دينار ليبي السوق"],
   ["Jordanian Dinar", "دينار أردني"],
   ["JOD", "دينار أردني"],
   ["jod", "دينار أردني"],
@@ -280,6 +294,7 @@ const currency_opt = new Map([
 ]);
 
 const search_map = [
+  // gold
   [
     ["sagha usd", "دولار الصاغة"],
     {
@@ -360,6 +375,7 @@ const search_map = [
       price: "gold9_egp_b",
     },
   ],
+  // silver
   [
     ["silver ounce", "اونصة الفضة"],
     {
@@ -377,35 +393,11 @@ const search_map = [
     },
   ],
   [
-    ["silver 960", "فضة 960"],
-    {
-      img: "960k",
-      name: "Silver 960",
-      price: "sil960_egp_b",
-    },
-  ],
-  [
     ["silver 958", "فضة 958"],
     {
       img: "958k",
       name: "Silver 958",
       price: "sil958_egp_b",
-    },
-  ],
-  [
-    ["silver 950", "فضة 950"],
-    {
-      img: "950k",
-      name: "Silver 950",
-      price: "sil950_egp_b",
-    },
-  ],
-  [
-    ["silver 947", "فضة 947"],
-    {
-      img: "947k",
-      name: "Silver 947",
-      price: "sil947_egp_b",
     },
   ],
   [
@@ -417,6 +409,22 @@ const search_map = [
     },
   ],
   [
+    ["silver 900", "فضة 900"],
+    {
+      img: "900k",
+      name: "Silver 900",
+      price: "sil900_egp_b",
+    },
+  ],
+  [
+    ["silver 835", "فضة 835"],
+    {
+      img: "835k",
+      name: "Silver 835",
+      price: "sil835_egp_b",
+    },
+  ],
+  [
     ["silver 800", "فضة 800"],
     {
       img: "800k",
@@ -424,6 +432,7 @@ const search_map = [
       price: "sil800_egp_b",
     },
   ],
+  // currencies
   [
     ["usd", "دولار امريكي"],
     {
@@ -545,14 +554,6 @@ const search_map = [
     },
   ],
   [
-    ["qar", "ريال قطري"],
-    {
-      img: "QAR",
-      name: "QAR Market",
-      price: "qar_egp_bm_b",
-    },
-  ],
-  [
     ["cny", "يوان صيني"],
     {
       img: "CNY",
@@ -577,14 +578,6 @@ const search_map = [
     },
   ],
   [
-    ["bhd", "دينار بحريني"],
-    {
-      img: "BHD",
-      name: "BHD Market",
-      price: "bhd_egp_bm_b",
-    },
-  ],
-  [
     ["jod", "دينار أردني"],
     {
       img: "JOD",
@@ -593,11 +586,11 @@ const search_map = [
     },
   ],
   [
-    ["jod", "دينار أردني"],
+    ["lyd", "دينار ليبي"],
     {
-      img: "JOD",
-      name: "JOD Market",
-      price: "jod_egp_bm_b",
+      img: "LYD",
+      name: "LYD Bank",
+      price: "lyd_egp_b",
     },
   ],
   [
@@ -606,14 +599,6 @@ const search_map = [
       img: "CAD",
       name: "CAD Bank",
       price: "cad_egp_b",
-    },
-  ],
-  [
-    ["cad", "دولار كندي"],
-    {
-      img: "CAD",
-      name: "CAD Market",
-      price: "cad_egp_bm_b",
     },
   ],
   [
@@ -641,27 +626,11 @@ const search_map = [
     },
   ],
   [
-    ["jpy", "ين ياباني"],
-    {
-      img: "JPY",
-      name: "JPY Market",
-      price: "jpy_egp_bm_b",
-    },
-  ],
-  [
     ["CHF", "فرنك سويسري"],
     {
       img: "CHF",
       name: "CHF Bank",
       price: "chf_egp_b",
-    },
-  ],
-  [
-    ["CHF", "فرنك سويسري"],
-    {
-      img: "CHF",
-      name: "CHF Market",
-      price: "chf_egp_bm_b",
     },
   ],
   [
@@ -673,14 +642,6 @@ const search_map = [
     },
   ],
   [
-    ["NOK", "كرون نرويجي"],
-    {
-      img: "NOK",
-      name: "NOK Market",
-      price: "nok_egp_bm_b",
-    },
-  ],
-  [
     ["DKK", "كرون دانماركي"],
     {
       img: "DKK",
@@ -689,11 +650,11 @@ const search_map = [
     },
   ],
   [
-    ["DKK", "كرون دانماركي"],
+    ["SEK", "كرون سويدي"],
     {
-      img: "DKK",
-      name: "DKK Market",
-      price: "dkk_egp_bm_b",
+      img: "SEK",
+      name: "SEK Bank",
+      price: "sek_egp_b",
     },
   ],
   [
@@ -791,14 +752,27 @@ set_lang();
 
 // get & set data
 (async () => {
-  if (!testing) {
+  if (!mockData) {
+    const loadingPage = document.getElementById("loadingPage");
+
     try {
-      const loadingPage = document.getElementById("loadingPage");
       // get data from api
       const all = await Promise.allSettled([
-        fetch("https://eg-prices-api.vercel.app/api/gold"),
-        fetch("https://eg-prices-api.vercel.app/api/silver"),
-        fetch("https://eg-prices-api.vercel.app/api/prices"),
+        fetch(
+          testing
+            ? "http://localhost:3000/api/gold"
+            : "https://eg-prices-api.vercel.app/api/gold"
+        ),
+        fetch(
+          testing
+            ? "http://localhost:3000/api/silver"
+            : "https://eg-prices-api.vercel.app/api/silver"
+        ),
+        fetch(
+          testing
+            ? "http://localhost:3000/api/prices"
+            : "https://eg-prices-api.vercel.app/api/prices"
+        ),
       ]);
 
       const res1 = await all[0].value,
@@ -843,7 +817,7 @@ set_lang();
       }
     } catch (err) {
       // remove loading page
-      loadingPage.style.transform = "translateY(-150%)";
+      loadingPage.classList.add("remove");
       console.error("Error ❌:", err.message);
       bad_internet();
     }
@@ -859,6 +833,10 @@ set_lang();
     pick(curr_curr, currency_opt);
     const loadingPage = document.getElementById("loadingPage");
     loadingPage.classList.add("remove");
+    setTimeout(() => {
+      loadingPage.remove();
+      document.getElementById("badNetPage").remove();
+    }, 1500);
     content.forEach((sel) => {
       document.querySelector(sel).style.transform = "none";
     });
@@ -1113,6 +1091,7 @@ currency_opt.forEach((opt_id, info_id, ref) => {
       unpick(curr_curr, ref);
       pick(info, ref);
       curr_curr = info;
+      _Storage.save(curr_storage_key, curr_curr.dataset.num, "localStorage");
     }
   };
 
@@ -1135,6 +1114,7 @@ page_btn.forEach((btn_id, page_id, ref) => {
       unpick(curr_page, ref);
       pick(page, ref);
       curr_page = page;
+      _Storage.save(page_storage_key, curr_page.dataset.num, "localStorage");
     }
   };
 
@@ -1181,6 +1161,7 @@ settings_switches.forEach((action_fun, switch_id) => {
       unpick(curr_page, page_btn);
       pick(page, page_btn);
       curr_page = page;
+      _Storage.save(page_storage_key, curr_page.dataset.num, "localStorage");
     }
   };
 
@@ -1208,6 +1189,7 @@ settings_switches.forEach((action_fun, switch_id) => {
 function build_calc_selections() {
   // <select> id => [ array of options of [ array of data attributes ]+ ]+
   const calc_selections = new Map([
+    // gold
     [
       "goldKaratSel",
       [
@@ -1268,28 +1250,23 @@ function build_calc_selections() {
           ["unit", "gram"],
         ],
         [
-          ["price", "sil960_egp_b"],
-          ["en", "Silver 960"],
-          ["unit", "gram"],
-        ],
-        [
           ["price", "sil958_egp_b"],
           ["en", "Silver 958"],
           ["unit", "gram"],
         ],
         [
-          ["price", "sil950_egp_b"],
-          ["en", "Silver 950"],
-          ["unit", "gram"],
-        ],
-        [
-          ["price", "sil947_egp_b"],
-          ["en", "Silver 947"],
-          ["unit", "gram"],
-        ],
-        [
           ["price", "sil925_egp_b"],
           ["en", "Silver 925"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil900_egp_b"],
+          ["en", "Silver 900"],
+          ["unit", "gram"],
+        ],
+        [
+          ["price", "sil835_egp_b"],
+          ["en", "Silver 835"],
           ["unit", "gram"],
         ],
         [
@@ -1473,59 +1450,14 @@ function build_calc_selections() {
           ["unit", "OMR"],
         ],
         [
-          ["price", "qar_egp_bm_b"],
-          ["en", "QAR"],
-          ["unit", "QAR"],
-        ],
-        [
           ["price", "cny_egp_bm_b"],
           ["en", "CNY"],
           ["unit", "CNY"],
         ],
         [
-          ["price", "bhd_egp_bm_b"],
-          ["en", "BHD"],
-          ["unit", "BHD"],
-        ],
-        [
-          ["price", "jod_egp_bm_b"],
-          ["en", "JOD"],
-          ["unit", "JOD"],
-        ],
-        [
-          ["price", "cad_egp_bm_b"],
-          ["en", "CAD"],
-          ["unit", "CAD"],
-        ],
-        [
           ["price", "aud_egp_bm_b"],
           ["en", "AUD"],
           ["unit", "AUD"],
-        ],
-        [
-          ["price", "jpy_egp_bm_b"],
-          ["en", "JPY"],
-          ["unit", "JPY"],
-        ],
-        [
-          ["price", "chf_egp_bm_b"],
-          ["en", "CHF"],
-          ["unit", "CHF"],
-        ],
-        [
-          ["price", "sek_egp_bm_b"],
-          ["en", "SEK"],
-          ["unit", "SEK"],
-        ],
-        [
-          ["price", "nok_egp_bm_b"],
-          ["en", "NOK"],
-          ["unit", "NOK"],
-        ],
-        [
-          ["price", "dkk_egp_bm_b"],
-          ["en", "DKK"],
-          ["unit", "DKK"],
         ],
       ],
     ],
@@ -1842,6 +1774,7 @@ function set_culculators() {
         unpick(curr_calc, ref);
         pick(calc, ref);
         curr_calc = calc;
+        _Storage.save(calc_storage_key, curr_calc.dataset.num, "localStorage");
       }
     };
 
@@ -1876,6 +1809,10 @@ function set_culculators() {
 
 //========================== Search Start ==========================
 {
+  /**
+   *
+   * @param {string} inp search string
+   */
   const __search = (inp) => {
     const results = document.getElementById("searchResults");
     results.innerHTML = "";
