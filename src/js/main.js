@@ -2,7 +2,6 @@ import { _Storage } from "./storage.js";
 import { setTimeAndDate, updateTime, updateDate } from "./time.js";
 
 //==================== Data & tools Start =====================
-const mockData = false; // used for testing
 const testing = false; // used for testing
 const precision = 2;
 const page_count = 5; // main pages count
@@ -752,27 +751,15 @@ set_lang();
 
 // get & set data
 (async () => {
-  if (!mockData) {
+  if (!testing) {
     const loadingPage = document.getElementById("loadingPage");
 
     try {
       // get data from api
       const all = await Promise.allSettled([
-        fetch(
-          testing
-            ? "http://localhost:3000/api/gold"
-            : "https://eg-prices-api.vercel.app/api/gold"
-        ),
-        fetch(
-          testing
-            ? "http://localhost:3000/api/silver"
-            : "https://eg-prices-api.vercel.app/api/silver"
-        ),
-        fetch(
-          testing
-            ? "http://localhost:3000/api/prices"
-            : "https://eg-prices-api.vercel.app/api/prices"
-        ),
+        fetch("https://eg-prices-api.vercel.app/api/gold"),
+        fetch("https://eg-prices-api.vercel.app/api/silver"),
+        fetch("https://eg-prices-api.vercel.app/api/prices"),
       ]);
 
       const res1 = await all[0].value,
