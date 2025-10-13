@@ -4,28 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-
     <link
       rel="icon"
-      href="./assets/imgs/logo.webp"
+      href="assets/imgs/logo.webp"
       type="image/x-icon"
       sizes="any"
     />
-    <link
-      rel="apple-touch-icon"
-      href="./assets/imgs/logo.webp"
-      type="image/png"
-      sizes="180x180"
-    />
-    <link
-      rel="manifest"
-      href="../manifest.webmanifest"
-      crossorigin="use-credentials"
-    />
-
-    <link rel="stylesheet" href="./assets/fa/css/all.min.css" />
-    <link rel="stylesheet" href="./css/main.css" />
-    <script src="./js/main.js" type="module" defer></script>
+    <link rel="manifest" href="assets/manifest.webmanifest" />
+    <link rel="stylesheet" href="assets/fa/css/all.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/main.js" type="module" defer></script>
+    <script src="service-worker.js" type="module" defer></script>
     <title>EGPrices</title>
   </head>
   <body>
@@ -84,15 +73,15 @@
 
       <div id="loadingPage">
         <img
-          src="./assets/imgs/logo.webp"
+          src="assets/imgs/logo.webp"
           loading="eager"
           fetchpriority="high"
           class="logo"
           alt="logo"
         />
-        <div id="loading">
-          <div></div>
-        </div>
+        <svg class="loader-spinner" viewBox="0 0 100 100">
+          <circle />
+        </svg>
       </div>
 
       <div class="content">

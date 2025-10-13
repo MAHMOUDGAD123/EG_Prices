@@ -3,21 +3,25 @@
   "short_name": "EGPrices",
   "display": "standalone",
   "background_color": "#222222",
+  "orientation ": "natural",
   "icons": [
     {
-      "src": "/assets/imgs/logo.webp",
+      "src": "./imgs/logo.webp",
       "type": "image/webp",
       "sizes": "512x512"
     },
     {
-      "src": "/assets/imgs/logo.webp",
+      "src": "./imgs/logo.webp",
       "type": "image/webp",
       "sizes": "196x196"
     },
     {
-      "src": "/assets/imgs/logo.webp",
+      "src": "./imgs/logo.webp",
       "type": "image/webp",
       "sizes": "192x192"
     }
-  ]
+  ],
+  "start_url": "/",
+  "orientation": "any",
+  "lang": "en"
 }

@@ -3,8 +3,7 @@
 /* en */
 @font-face {
   font-family: "en_font";
-  src: url("../assets/fonts/Madimi_One/MadimiOne-Regular.woff2") format("woff2"),
-    url("../assets/fonts/Madimi_One/MadimiOne-Regular.woff") format("woff");
+  src: url("../assets/fonts/Madimi_One/MadimiOne-Regular.woff2") format("woff2");
   font-weight: 100 1000;
   font-display: swap;
 }
@@ -12,9 +11,7 @@
 @font-face {
   font-family: "ar_font";
   src: url("../assets/fonts/ElMessiri/ElMessiri-VariableFont_wght.woff2")
-      format("woff2"),
-    url("../assets/fonts/ElMessiri/ElMessiri-VariableFont_wght.woff")
-      format("woff");
+    format("woff2");
   font-weight: 100 1000;
   font-display: swap;
 }
@@ -22,9 +19,7 @@
 @font-face {
   font-family: "cairo";
   src: url("../assets/fonts/Cairo/Cairo-VariableFont_slnt_wght.woff2")
-      format("woff2"),
-    url("../assets/fonts/Cairo/Cairo-VariableFont_slnt_wght.woff")
-      format("woff");
+    format("woff2");
   font-weight: 100 1000;
   font-display: swap;
 }
@@ -369,6 +364,8 @@ main {
   & > #loadingPage {
     top: 35%;
     transition: transform 1s;
+    z-index: 9999;
+    background-color: #222;
 
     &.remove {
       transform: translateY(-150%);
@@ -378,48 +375,6 @@ main {
       width: 50dvw;
       max-width: 350px;
       min-width: 150px;
-    }
-
-    & > #loading {
-      --w: 8px;
-      width: calc(15px + 1vw);
-      aspect-ratio: 1;
-      position: relative;
-      animation: r-spin infinite 1s linear;
-      border-radius: 100%;
-
-      & > :only-child {
-        background-color: #222;
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        translate: -50% -50%;
-      }
-
-      &::before,
-      &::after {
-        content: "";
-        aspect-ratio: 1;
-        border-radius: 100%;
-        position: absolute;
-        left: 50%;
-        translate: -50% -50%;
-      }
-
-      &::before {
-        width: calc(100% + var(--w) * 2);
-        background-image: conic-gradient(var(--red1), transparent);
-        top: 50%;
-      }
-
-      &::after {
-        width: var(--w);
-        background-color: var(--red1);
-        transform: translateY(-50%);
-      }
     }
   }
 
@@ -1795,5 +1750,63 @@ main {
   }
   to {
     color: var(--col-to);
+  }
+}
+
+/* Spinner styles & animations */
+
+.loader-spinner {
+  box-sizing: border-box;
+  overflow: visible;
+  aspect-ratio: 1;
+  width: 40px;
+
+  & > circle {
+    fill: none;
+    stroke: var(--gold1);
+    cx: 50%;
+    cy: 50%;
+    r: 50%;
+    stroke-width: 12px;
+    stroke-linecap: round;
+    transform-origin: center;
+    animation: spinner-rotate 2s linear infinite,
+      spinner-dash 2s ease-in-out infinite,
+      change-stroke-color 2s linear infinite;
+    transform-origin: center;
+    will-change: transform, stroke-dasharray, stroke-dashoffset;
+  }
+}
+
+@keyframes spinner-rotate {
+  0% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(810deg);
+  }
+}
+
+@keyframes change-stroke-color {
+  0% {
+    stroke: var(--gold1);
+  }
+  100% {
+    stroke: var(--red1);
+  }
+}
+
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 0 314.159;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 157.08 157.08;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 0 314.159;
+    stroke-dashoffset: -157.08;
   }
 }

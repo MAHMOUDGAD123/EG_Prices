@@ -3,6 +3,7 @@ import { setTimeAndDate, updateTime, updateDate } from "./time.js";
 
 //==================== Data & tools Start =====================
 const testing = false; // used for testing
+const local_api = true;
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
@@ -756,22 +757,37 @@ set_lang();
 
     try {
       // get data from api
+      /**
+       * @type {Promise<PromiseFulfilledResult<Record<string, string | number>>[]>}
+       */
       const all = await Promise.allSettled([
-        fetch("https://eg-prices-api.vercel.app/api/gold"),
-        fetch("https://eg-prices-api.vercel.app/api/silver"),
-        fetch("https://eg-prices-api.vercel.app/api/prices"),
+        fetch(
+          local_api
+            ? "http://localhost:3000/api/gold"
+            : "https://eg-prices-api.vercel.app/api/gold"
+        ),
+        fetch(
+          local_api
+            ? "http://localhost:3000/api/silver"
+            : "https://eg-prices-api.vercel.app/api/silver"
+        ),
+        fetch(
+          local_api
+            ? "http://localhost:3000/api/prices"
+            : "https://eg-prices-api.vercel.app/api/prices"
+        ),
       ]);
 
-      const res1 = await all[0].value,
-        res2 = await all[1].value,
-        res3 = await all[2].value;
+      const goldData = await all[0].value,
+        silverData = await all[1].value,
+        pricesData = await all[2].value;
 
-      if (res1.ok || res2.ok || res3.ok) {
+      if (goldData?.ok || silverData?.ok || pricesData?.ok) {
         prices = Object.assign(
           Object.create(null),
-          await res1.json(),
-          await res2.json(),
-          await res3.json()
+          await goldData.json(),
+          await silverData.json(),
+          await pricesData.json()
         );
         set_data(prices);
         // remove loading page & bad internet page
@@ -1030,7 +1046,9 @@ async function play_live() {
     });
   };
 
-  const url = "https://eg-prices-api.vercel.app/api/live";
+  const url = local_api
+    ? "http://localhost:3000/api/live"
+    : "https://eg-prices-api.vercel.app/api/live";
 
   try {
     // init
@@ -1865,3 +1883,18 @@ function set_culculators() {
   });
 }
 //=========================== Search End ===========================
+
+// Register the service worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    const swUrl = new URL("service-worker.js", self.location.href).href;
+    navigator.serviceWorker
+      .register(swUrl, { type: "module" })
+      .then(() => {
+        console.log("Service Worker Registered");
+      })
+      .catch((err) => {
+        console.error("SW registration failed:", err.message);
+      });
+  });
+}
