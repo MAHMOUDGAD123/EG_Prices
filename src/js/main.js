@@ -3,7 +3,7 @@ import { setTimeAndDate, updateTime, updateDate } from "./time.js";
 
 //==================== Data & tools Start =====================
 const testing = false; // used for testing
-const local_api = false;
+const local_api = true;
 const precision = 2;
 const page_count = 5; // main pages count
 // en: false | ar: true (app language)
@@ -905,9 +905,9 @@ function set_lang() {
 
 function set_data(data) {
   document.querySelectorAll("[data-val]").forEach((ele) => {
-    const value = data[ele.dataset.val];
+    const value = data[ele.dataset.val] || '0';
     ele.dataset.value = value;
-    ele.textContent = format_number(value) || "-";
+    ele.textContent = format_number(value) || "--";
   });
 }
 
